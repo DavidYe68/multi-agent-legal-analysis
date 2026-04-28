@@ -4,3 +4,4 @@ __pycache__/
 outputs/
 multi_agent_logs/
 *.pyc
+.DS_Store
