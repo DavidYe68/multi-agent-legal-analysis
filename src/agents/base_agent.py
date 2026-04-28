@@ -16,7 +16,9 @@ class BaseAgent:
             all_prompts = json.load(f)
         prompt = all_prompts[self.prompt_key]
 
+        print(f"[{self.name}] 开始调用 LLM...")
         result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+        print(f"[{self.name}] 完成")
 
         state[self.output_field] = result
         logger.log(self.name, context, result)
