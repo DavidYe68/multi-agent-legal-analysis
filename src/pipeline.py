@@ -11,6 +11,8 @@ from src.agents.judge import JudgeAgent
 from src.agents.reviewer import ReviewerAgent
 from src.agents.foreperson import ForepersonAgent
 from src.agents.writer import WriterAgent
+import json
+from src.llm_client import call_llm
 
 def run_pipeline(case_id, raw_case_text):
 
@@ -40,6 +42,30 @@ def run_pipeline(case_id, raw_case_text):
     for reviewer in reviewers:
         state = reviewer.run(state, logger)
         reviewer_outputs.append(state["reviewer_output"])
+
+    # Round 2
+    with open("prompts/round2_prompt.txt", "r", encoding="utf-8") as f:
+        round2_prompt = f.read()
+
+    round2_outputs = []
+    for i, reviewer in enumerate(reviewers):
+        my_review = reviewer_outputs[i]
+        other_reviews = [r for j, r in enumerate(reviewer_outputs) if j != i]
+
+        round2_input = json.dumps({
+            "judge_summary": state["judge_summary"],
+            "my_round1_review": my_review,
+            "other_round1_reviews": other_reviews
+        }, ensure_ascii=False)    
+
+        print(f"[{reviewer.name}_round2] 开始调用 LLM...")
+        result = call_llm(round2_prompt, round2_input)
+        print(f"[{reviewer.name}_round2] 完成")
+
+        round2_outputs.append(result)
+        logger.log(f"{reviewer.name}_round2", {"round": 2}, result)
+
+    state["round2_outputs"] = round2_outputs
 
     state["reviewer_outputs"] = reviewer_outputs
 

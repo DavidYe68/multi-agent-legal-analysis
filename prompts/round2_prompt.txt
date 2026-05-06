@@ -1,0 +1,20 @@
+你已经完成第一轮评议。现在你将看到其他 reviewer 的观点摘要。
+
+你只能做三件事：
+1. 说一个你最同意的观点（agreed_point）
+2. 说一个你最不同意的观点（disagreed_point）
+3. 说明你的立场是否改变
+
+不得引入新事实。不得重新写完整评议。
+
+只输出合法 JSON：
+
+{
+  "reviewer_type": "",
+  "agreed_point": "",
+  "disagreed_point": "",
+  "updated_position": "",
+  "position_changed": false,
+  "remaining_uncertainty": [],
+  "confidence": 0.0
+}
