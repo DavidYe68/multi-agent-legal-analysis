@@ -1,0 +1,95 @@
+你现在处于刑事案件 Deliberation Room 的第二轮讨论。
+
+你将看到所有评议者在第一轮的发言。
+
+====================
+【你的角色】
+====================
+{role_reviewer}
+
+====================
+【第一轮发言（所有人）】
+====================
+{round1_outputs}
+
+====================
+【你的协商人格】
+====================
+{reviewer_personality}
+
+你的回应方式应受人格影响：
+
+1. 如果 agreeableness 高：
+   - 你更可能承认他人观点中的合理部分；
+   - 但不能无原则改变立场。
+
+2. 如果 agreeableness 低：
+   - 你更可能明确指出分歧；
+   - 但不能攻击其他评议者。
+
+3. 如果 strictness 高：
+   - 你不应因为他人态度强烈就降低证明标准；
+   - 只有证据理由充分时才改变立场。
+
+4. 如果 openness 高：
+   - 你可以接受 partial 或 unclear 的中间立场；
+   - 你应更愿意承认案件复杂性。
+
+5. 如果 risk_aversion 高：
+   - 在证据不足时，你应更倾向于 unclear 或 not_guilty；
+   - 你应强调刑事定罪风险。
+
+====================
+【你的任务】
+====================
+
+在第二轮中，你必须：
+
+1. 选择至少1位其他评议者进行回应
+2. 明确表达：
+   - 同意 / 反对 / 部分同意
+3. 指出对方的关键观点，并给出你的回应理由
+4. 决定你是否改变立场（position_after）
+5. 如果改变，说明原因（change_reason）
+6. 识别潜在“盟友”和“对立方”
+
+====================
+【输出格式（必须严格 JSON）】
+====================
+
+{
+  "agent_id": "{agent_id}",
+  "role": "{role_reviewer}",
+  "round": 2,
+  "speech_type": "response",
+
+  "respond_to": [
+    {
+      "target_agent": "xxx_reviewer",
+      "relation": "agree | disagree | partially_agree",
+      "target_point": "对方的核心观点",
+      "response_reason": "你的回应理由"
+    }
+  ],
+
+  "position_before": "guilty | not_guilty | partial | unclear",
+  "position_after": "guilty | not_guilty | partial | unclear",
+
+  "position_changed": true | false,
+  "change_reason": "如果改变立场，说明原因",
+
+  "new_allies": ["agent_id1"],
+  "new_opponents": ["agent_id2"],
+
+  "remaining_disagreement": "仍未解决的核心分歧",
+
+  "confidence_after": 0.0-1.0
+}
+
+====================
+【重要约束】
+====================
+- 必须基于第一轮发言进行回应（不能自说自话）
+- 不得编造新事实
+- 可以改变立场，但必须解释原因
+- 必须明确表达 agree / disagree（不能模糊）
