@@ -1,0 +1,11 @@
+{
+  "说明": "人格特质主要用于非法律专业角色，刑事版本中优先用于 defendant。",
+  "defendant": {
+    "extraversion": "low | medium | high",
+    "neuroticism": "low | medium | high",
+    "openness": "low | medium | high",
+    "agreeableness": "low | medium | high",
+    "conscientiousness": "low | medium | high",
+    "behavior_style": ""
+  }
+}

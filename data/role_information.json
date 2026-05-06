@@ -1,0 +1,8 @@
+{
+  "说明": "该文件用于你手动准备信息分化差异性供给。不同 Agent 只能读取对应字段。",
+  "judge_info": {},
+  "prosecutor_info": {},
+  "defense_lawyer_info": {},
+  "defendant_info": {},
+  "public_info": {}
+}

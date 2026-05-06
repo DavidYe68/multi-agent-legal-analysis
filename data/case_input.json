@@ -1,0 +1,149 @@
+{
+  "case_id": "criminal_001",
+  "user_mode": "teaching",
+  "domain_hint": "criminal_trial",
+  "raw_case_text": "示例：被告人甲被指控涉嫌帮助信息网络犯罪活动。公诉机关认为，甲明知他人利用信息网络实施犯罪，仍出租本人银行卡并提供验证码，涉案流水较大。甲辩称其只是帮朋友收款，不知道资金来源违法，也没有实际获利。辩护人认为，现有证据不足以证明甲具有犯罪明知。",
+  "role_information": {
+    "public_info": {
+      "case_background": "被告人甲涉嫌帮助信息网络犯罪活动案件。",
+      "basic_facts": [
+        "甲将本人银行卡提供给他人使用。",
+        "涉案账户存在多笔异常资金流水。",
+        "甲辩称不知道资金来源违法。"
+      ]
+    },
+    "judge_info": {
+      "court_procedure": [
+        "开庭审理阶段",
+        "法庭调查阶段",
+        "法庭辩论阶段",
+        "法庭宣判阶段"
+      ],
+      "defendant_basic_info": {
+        "name": "甲",
+        "gender": "男",
+        "occupation": "无固定职业"
+      },
+      "basic_facts": [
+        "甲提供本人银行卡给他人使用。",
+        "涉案账户流水较大。",
+        "甲否认犯罪明知。"
+      ],
+      "available_evidence_list": [
+        "银行流水记录",
+        "聊天记录",
+        "甲的供述与辩解",
+        "同案人员陈述"
+      ]
+    },
+    "prosecutor_info": {
+      "defendant_info": {
+        "name": "甲",
+        "gender": "男"
+      },
+      "accusation": "甲涉嫌帮助信息网络犯罪活动罪。",
+      "prosecutor_opinion": "甲明知他人利用信息网络实施犯罪，仍提供银行卡帮助资金流转，应认定构成犯罪。",
+      "evidences": [
+        "银行流水记录显示涉案账户短期内存在多笔异常转入转出。",
+        "聊天记录显示甲曾与他人讨论收款和验证码。",
+        "同案人员陈述称甲知道银行卡用于异常资金流转。"
+      ]
+    },
+    "defense_lawyer_info": {
+      "client_info": {
+        "name": "甲",
+        "gender": "男"
+      },
+      "defense_opinion": "现有证据不足以证明甲具有犯罪明知，甲只是受朋友请求帮忙收款，不清楚资金来源。",
+      "refutation_points": [
+        "银行流水只能证明资金经过账户，不能直接证明甲明知资金来源违法。",
+        "聊天记录内容存在解释空间，未明确出现犯罪关键词。",
+        "同案人员陈述可能存在推卸责任的动机。"
+      ],
+      "available_evidence": [
+        "甲的辩解",
+        "聊天记录全文",
+        "甲未实际获利的说明"
+      ]
+    },
+    "defendant_info": {
+      "basic_info": {
+        "name": "甲",
+        "gender": "男",
+        "occupation": "无固定职业"
+      },
+      "attitude": "不认罪，认为自己不知道对方在犯罪。",
+      "personal_statement": "我是帮朋友收一下钱，他说只是临时周转。我没有想那么多，也不知道这是违法的钱。"
+    }
+  },
+  "reviewer_personality_profiles": {
+    "legal_reviewer": {
+      "strictness": "high",
+      "agreeableness": "low",
+      "risk_aversion": "high",
+      "openness": "medium",
+      "style": "严格、谨慎，强调证明标准和证据链完整性，不轻易让步。"
+    },
+    "social_reviewer": {
+      "strictness": "medium",
+      "agreeableness": "high",
+      "risk_aversion": "high",
+      "openness": "high",
+      "style": "关注弱势处境和权利保护，愿意吸收他人意见，但对冤假错案风险敏感。"
+    },
+    "expert_reviewer": {
+      "strictness": "high",
+      "agreeableness": "medium",
+      "risk_aversion": "medium",
+      "openness": "medium",
+      "style": "重视司法实践和制度后果，倾向于折中判断。"
+    },
+    "public_reviewer": {
+      "strictness": "low",
+      "agreeableness": "medium",
+      "risk_aversion": "medium",
+      "openness": "low",
+      "style": "依据常识和公平直觉判断，容易受直观印象影响。"
+    }
+  },
+  "personality_profiles": {
+    "defendant": {
+      "extraversion": "low",
+      "neuroticism": "high",
+      "openness": "medium",
+      "agreeableness": "medium",
+      "conscientiousness": "low",
+      "behavior_style": "紧张、防御性较强，回答较短，倾向于反复强调自己不知情。"
+    }
+  },
+  "reviewer_personality_profiles": {
+    "legal_reviewer": {
+      "strictness": "high",
+      "agreeableness": "low",
+      "risk_aversion": "high",
+      "openness": "medium",
+      "style": "严格、谨慎，强调证明标准和证据链完整性，不轻易让步。"
+    },
+    "social_reviewer": {
+      "strictness": "medium",
+      "agreeableness": "high",
+      "risk_aversion": "high",
+      "openness": "high",
+      "style": "关注弱势处境和权利保护，愿意吸收他人意见，但对冤假错案风险敏感。"
+    },
+    "expert_reviewer": {
+      "strictness": "high",
+      "agreeableness": "medium",
+      "risk_aversion": "medium",
+      "openness": "medium",
+      "style": "重视司法实践和制度后果，倾向于折中判断。"
+    },
+    "public_reviewer": {
+      "strictness": "low",
+      "agreeableness": "medium",
+      "risk_aversion": "medium",
+      "openness": "low",
+      "style": "依据常识和公平直觉判断，容易受直观印象影响。"
+    }
+  }
+}

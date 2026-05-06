@@ -1,0 +1,117 @@
+{
+  "case_id": "criminal_004",
+  "user_mode": "teaching",
+  "domain_hint": "traffic_accident_negligence",
+  "raw_case_text": "被告人戊驾驶小型汽车通过路口时与骑电动车的被害人己发生碰撞，己经抢救无效死亡。交通事故认定书认定戊承担主要责任，己承担次要责任。公诉机关认为戊违反交通运输管理法规，造成一人死亡并负事故主要责任，构成交通肇事罪。戊辩称当时己突然变道且未佩戴头盔，自己已经采取制动措施。辩护人认为，事故责任比例和戊的注意义务违反程度仍需审查。",
+  "role_information": {
+    "public_info": {
+      "case_background": "戊涉嫌交通肇事罪。",
+      "basic_facts": [
+        "戊驾驶汽车与电动车发生碰撞。",
+        "被害人己死亡。",
+        "事故认定戊承担主要责任，己承担次要责任。"
+      ]
+    },
+    "judge_info": {
+      "defendant_basic_info": {
+        "name": "戊",
+        "gender": "男",
+        "occupation": "司机"
+      },
+      "basic_facts": [
+        "事故发生在路口。",
+        "己驾驶电动车死亡。",
+        "交通事故认定书认定戊负主要责任。"
+      ],
+      "available_evidence_list": [
+        "交通事故认定书",
+        "道路监控视频",
+        "车辆制动痕迹鉴定",
+        "现场勘验笔录",
+        "戊的供述与辩解"
+      ]
+    },
+    "prosecutor_info": {
+      "defendant_info": {
+        "name": "戊",
+        "gender": "男"
+      },
+      "accusation": "戊涉嫌交通肇事罪。",
+      "prosecutor_opinion": "戊违反交通运输管理法规，造成一人死亡并负事故主要责任，应认定构成交通肇事罪。",
+      "evidences": [
+        "交通事故认定书认定戊承担主要责任。",
+        "道路监控视频显示戊通过路口时未充分减速观察。",
+        "现场勘验笔录显示事故发生位置位于路口人车混行区域。",
+        "车辆制动痕迹鉴定显示戊发现危险后制动距离较短。"
+      ]
+    },
+    "defense_lawyer_info": {
+      "client_info": {
+        "name": "戊",
+        "gender": "男"
+      },
+      "defense_opinion": "戊虽有一定过失，但被害人突然变道、未佩戴头盔等因素明显影响事故发生和损害后果，戊是否应承担刑事责任仍需审慎判断。",
+      "refutation_points": [
+        "事故认定书虽认定主要责任，但仍需审查其依据是否充分。",
+        "被害人突然变道可能是事故发生的重要原因。",
+        "未佩戴头盔可能扩大死亡结果。",
+        "戊已经采取制动措施，主观过失程度可能较轻。"
+      ],
+      "available_evidence": [
+        "戊的辩解",
+        "道路监控视频",
+        "被害人行驶路线说明",
+        "制动痕迹鉴定"
+      ]
+    },
+    "defendant_info": {
+      "basic_info": {
+        "name": "戊",
+        "gender": "男",
+        "occupation": "司机"
+      },
+      "attitude": "认事故发生，但认为自己不应承担刑事责任。",
+      "personal_statement": "我当时正常开车，看到他变道后已经踩刹车了。我也很后悔，但我不是故意的。"
+    }
+  },
+  "reviewer_personality_profiles": {
+    "legal_reviewer": {
+      "strictness": "high",
+      "agreeableness": "low",
+      "risk_aversion": "high",
+      "openness": "medium",
+      "style": "严格、谨慎，强调证明标准和证据链完整性，不轻易让步。"
+    },
+    "social_reviewer": {
+      "strictness": "medium",
+      "agreeableness": "high",
+      "risk_aversion": "high",
+      "openness": "high",
+      "style": "关注弱势处境和权利保护，愿意吸收他人意见，但对冤假错案风险敏感。"
+    },
+    "expert_reviewer": {
+      "strictness": "high",
+      "agreeableness": "medium",
+      "risk_aversion": "medium",
+      "openness": "medium",
+      "style": "重视司法实践和制度后果，倾向于折中判断。"
+    },
+    "public_reviewer": {
+      "strictness": "low",
+      "agreeableness": "medium",
+      "risk_aversion": "medium",
+      "openness": "low",
+      "style": "依据常识和公平直觉判断，容易受直观印象影响。"
+    }
+  },
+  "personality_profiles": {
+    "defendant": {
+      "extraversion": "medium",
+      "neuroticism": "high",
+      "openness": "medium",
+      "agreeableness": "high",
+      "conscientiousness": "high",
+      "behavior_style": "较配合，情绪内疚紧张，愿意说明细节，但会反复强调自己已经采取制动措施。"
+    }
+  }
+}
