@@ -45,8 +45,12 @@ def call_llm(system_prompt, user_message):
             result = json.loads(clean_text)
             return result
         
+        except json.JSONDecodeError as e:
+            print(f"[LLM]第{attempt + 1}次尝试失败 JSON 解析错误: {e}")
+            print(f"[LLM]原始返回: {raw_text!r}")
+            time.sleep(1)
         except Exception as e:
-            print(f"[LLM]第{attempt + 1}次尝试失败")
+            print(f"[LLM]第{attempt + 1}次尝试失败: {type(e).__name__}: {e}")
             time.sleep(1)
 
     raise RuntimeError("LLM call failed after all retries") # claude 提示

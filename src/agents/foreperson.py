@@ -4,8 +4,6 @@ class ForepersonAgent(BaseAgent):
     def __init__(self):
         super().__init__(
             name="foreperson",
-            prompt_file="prompts/reviewer_prompts.json",
-            prompt_key="foreperson",
             input_fields=["judge_summary", "reviewer_outputs"],
             output_field="foreperson_summary"
         )

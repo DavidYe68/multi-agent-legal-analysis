@@ -4,8 +4,6 @@ class JudgeAgent(BaseAgent):
     def __init__(self):
         super().__init__(
             name="judge",
-            prompt_file="prompts/core_agent_prompts.json",
-            prompt_key="judge",
-            input_fields=["issues", "plaintiff_analysis", "defendant_analysis"] ,
+            input_fields=["issues", "prosecutor_analysis", "defense_analysis", "defendant_statement"] ,
             output_field="judge_summary"
         )

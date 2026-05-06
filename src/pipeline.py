@@ -4,7 +4,8 @@ from src.logger import Logger
 
 from src.agents.clerk import ClerkAgent
 from src.agents.issue_spotter import IssueSpotterAgent
-from src.agents.plaintiff import PlaintiffAgent
+from src.agents.prosecutor import ProsecutorAgent
+from src.agents.defense_lawyer import DefenseLawyerAgent
 from src.agents.defendant import DefendantAgent
 from src.agents.judge import JudgeAgent
 from src.agents.reviewer import ReviewerAgent
@@ -16,7 +17,8 @@ def run_pipeline(case_id, raw_case_text):
     linear_agents = [
         ClerkAgent(),
         IssueSpotterAgent(),
-        PlaintiffAgent(),
+        ProsecutorAgent(),
+        DefenseLawyerAgent(),
         DefendantAgent(),
         JudgeAgent()
     ]

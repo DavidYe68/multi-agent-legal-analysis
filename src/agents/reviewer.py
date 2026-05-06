@@ -1,11 +1,10 @@
 from src.agents.base_agent import BaseAgent
 
 class ReviewerAgent(BaseAgent):
-    def __init__(self, name, prompt_key):
+    def __init__(self, role, name):
         super().__init__(
             name=name,
-            prompt_file="prompts/reviewer_prompts.json",
-            prompt_key=prompt_key,
-            input_fields=["judge_summary"],
+            input_fields=["case_structured", "issues", "prosecutor_analysis", "defense_analysis", "judge_summary"],
             output_field="reviewer_output"
         )
+        self.prompt_file = f"prompts/{role}_prompt.txt"
