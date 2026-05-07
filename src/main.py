@@ -27,7 +27,8 @@ def run_all_cases():
             case_data = json.load(f)
         case_id = case_data["case_id"]
         raw_case_text = case_data["raw_case_text"]
-        state = run_pipeline(case_id, raw_case_text)
+        user_mode = case_data.get("user_mode", "teaching")
+        state = run_pipeline(case_id, raw_case_text, user_mode)
         save_outputs(state, case_id)
 
 
@@ -43,7 +44,8 @@ if __name__ == "__main__":
 
         case_id = case_data["case_id"]
         raw_case_text = case_data["raw_case_text"]
-        state = run_pipeline(case_id, raw_case_text)
+        user_mode = case_data.get("user_mode", "teaching")
+        state = run_pipeline(case_id, raw_case_text, user_mode)
         save_outputs(state, case_id)
 
         print(f"完成：{case_id}")

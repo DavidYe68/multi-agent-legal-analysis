@@ -1,10 +1,11 @@
 import json
 import os
 
-def create_state(case_id, raw_case_text):
+def create_state(case_id, raw_case_text, user_mode="teaching"):
     return {
         "case_id": case_id,
-        "raw_case_text": raw_case_text
+        "raw_case_text": raw_case_text,
+        "user_mode": user_mode
     }
 
 def save_state(state, filepath):
