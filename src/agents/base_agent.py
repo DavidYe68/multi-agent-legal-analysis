@@ -1,5 +1,6 @@
 import json
 from src.llm_client import call_llm
+from src.role_view import get_role_view
 
 class BaseAgent:
     def __init__(self, name, input_fields, output_field):
@@ -9,7 +10,7 @@ class BaseAgent:
         self.output_field = output_field
 
     def run(self, state, logger):
-        context = {field: state[field] for field in self.input_fields}
+        context = get_role_view(state, self.name)
         with open(self.prompt_file, "r", encoding="utf-8") as f:
             prompt = f.read()
 
