@@ -69,6 +69,32 @@ def run_pipeline(case_data):
 
     state["reviewer_outputs"] = reviewer_outputs
 
+    # 投票统计
+    vote_count = {}
+    for r in reviewer_outputs:
+        tendency = r.get("preferred_side_or_tendency", "unclear")
+        vote_count[tendency] = vote_count.get(tendency, 0) + 1
+
+    # 联盟图
+    alliance_map = {}
+    for r in round2_outputs:
+        reviewer_type = r.get("reviewer_type", "")
+        agreed = r.get("agreed_point", "")
+        alliance_map[reviewer_type] = agreed
+
+    # 分歧图
+    disagreement_map = {}
+    for r in round2_outputs:
+        reviewer_type = r.get("reviewer_type", "")
+        disagreed = r.get("disagreed_point", "")
+        disagreement_map[reviewer_type] = disagreed
+
+    state["deliberation_room"] = {
+        "vote_count": vote_count,
+        "alliance_map": alliance_map,
+        "disagreement_map": disagreement_map
+    }
+
     state = ForepersonAgent().run(state, logger)
     state = WriterAgent().run(state, logger)
 
