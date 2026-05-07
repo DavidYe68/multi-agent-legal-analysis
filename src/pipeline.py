@@ -1,5 +1,5 @@
 
-from src.state_manager import create_state, save_state
+from src.state_manager import create_state
 from src.logger import Logger
 
 from src.agents.clerk import ClerkAgent
@@ -72,6 +72,5 @@ def run_pipeline(case_id, raw_case_text, user_mode):
     state = ForepersonAgent().run(state, logger)
     state = WriterAgent().run(state, logger)
 
-    save_state(state, f"outputs/{case_id}/state_final.json")
     logger.save(f"multi_agent_logs/{case_id}_log.json")
     return state
