@@ -15,8 +15,25 @@ class BaseAgent:
 
         print(f"[{self.name}] 开始调用 LLM...")
         result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+
+        # 校验输出字段
+        missing = self.validate(result)
+        if missing:
+            print(f"[{self.name}] 输出缺少字段: {missing}，重试中...")
+            result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+
         print(f"[{self.name}] 完成")
 
         state[self.output_field] = result
         logger.log(self.name, context, result)
         return state
+    
+    def validate(self, result):
+        try:
+            with open("data/schemas/agent_output_schemas.json", "r", encoding="utf-8") as f:
+                schemas = json.load(f)
+            required = schemas.get(self.name, [])
+            missing = [field for field in required if field not in result]
+            return missing
+        except FileNotFoundError:
+            return []
