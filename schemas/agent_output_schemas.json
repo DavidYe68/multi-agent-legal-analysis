@@ -14,22 +14,19 @@
     "issue_notes"
   ],
   "prosecutor": [
-    "accusation",
-    "prosecutor_opinion",
-    "claims",
-    "evidence_issue_map",
+    "accusation_claims",
+    "supporting_facts",
+    "supporting_evidence",
     "arguments_by_issue",
-    "overall_weak_points",
+    "weak_points",
     "confidence"
   ],
   "defense_lawyer": [
-    "defense_opinion",
-    "claims",
+    "defense_claims",
     "rebuttals_to_accusation",
-    "evidence_challenges",
     "arguments_by_issue",
-    "alternative_explanations",
-    "overall_weak_points",
+    "evidence_challenges",
+    "weak_points",
     "confidence"
   ],
   "defendant": [
@@ -37,72 +34,32 @@
     "attitude_to_accusation",
     "personal_statement",
     "response_style",
-    "personality_effect",
     "uncertain_or_avoided_points"
   ],
   "judge": [
-    "procedure_completed",
-    "procedure_missing",
     "final_main_issues",
-    "issue_response_table",
-    "attacked_prosecution_evidence",
     "resolved_points",
     "unresolved_points",
     "evidence_gaps",
     "judge_observations",
-    "discussion_focus",
-    "uncertainty_reasons",
-    "preliminary_judgment_tendency"
+    "discussion_focus"
   ],
-  "deliberation_opening_statement": [
-    "agent_id",
-    "role",
-    "round",
-    "speech_type",
-    "position",
-    "core_claim",
-    "supporting_reasons",
-    "main_concern",
-    "issue_response_focus",
-    "attacked_evidence_focus",
-    "evidence_gap_focus",
-    "uncertainty_focus",
-    "confidence"
-  ],
-  "deliberation_response": [
-    "agent_id",
-    "role",
-    "round",
-    "speech_type",
-    "respond_to",
-    "position_before",
-    "position_after",
-    "position_changed",
-    "change_reason",
-    "new_allies",
-    "new_opponents",
-    "remaining_disagreement",
-    "confidence_after"
-  ],
-  "vote_result": [
-    "votes",
-    "vote_count",
-    "majority_position",
-    "is_consensus_reached",
-    "is_split"
-  ],
-  "chair_result": [
-    "meeting_process_summary",
-    "initial_position_map",
-    "final_position_map",
-    "position_changes",
-    "alliances",
+  "foreperson": [
     "majority_view",
     "minority_view",
-    "unresolved_disagreements",
-    "reserved_points",
+    "vote_summary",
+    "consensus_points",
+    "disagreement_points",
     "evidence_gap_summary",
-    "final_result_type",
-    "recommended_writer_strategy"
+    "final_deliberation_note"
+  ],
+  "writer": [
+    "case_summary",
+    "core_issues",
+    "prosecutor_view",
+    "defense_view",
+    "judge_summary",
+    "evidence_gaps",
+    "mode_hint"
   ]
 }
