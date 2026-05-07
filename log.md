@@ -29,19 +29,18 @@
 ### 5.Prompt 文件
 - 替换为 coworker 提供的刑事版 .txt prompt
 - reviewer prompt 从 reviewer_prompts.json 拆分为 legal/social/expert/public 四个独立 .txt
+- 修复 writer_prompt 和 foreperson_prompt 缺 JSON schema 的问题
 
 ### 6.数据
 - data/raw_cases/ 替换为 data/cases/（刑事案例 5 个）
 - 新增 case_input.json、role_information.json、personality_profiles.json
 
+### 7.round2设计
+- Round 2 deliberation 加入 pipeline.py（Round 1 独立发言 + Round 2 有限回应）
+- foreperson 改为读取两轮输出（reviewer_outputs + round2_outputs）
+- main.py 升级：支持 --all 批量跑、JSON + Markdown 双输出
+- 加入 report_utils.py（Markdown 报告生成）
 
-- 合并 coworker 刑事版本，待办：
-  - 角色改动：plaintiff→prosecutor，defendant→defense_lawyer，新建 defendant，改 judge 和 pipeline
-  - Layer 3 架构改动：旧版 reviewer×4 + foreperson 改为 deliberation_room 统一处理（Round 1 独立发言 + Round 2 有限回应 + 投票 + Chair 汇总）
-  - prompt 替换：换成 coworker 提供的刑事版 JSON（含 Round 2 prompt）
-  - Writer 双模式：teaching / practice 两套输出
-  - report_utils：Markdown 报告生成
-  - 评估脚本：6 项指标
-  - 消融实验：至少 3 组（旧版 reviewer+foreperson 保留作为 ablation 对照）
-  - 可选：role_view 信息分化、personality_utils 被告人人格、protocol 庭审流程约束
+- 待办：批量跑全部案例、评估脚本、消融实验、Writer 双模式
+
 
