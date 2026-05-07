@@ -1,11 +1,18 @@
 import json
 import os
 
-def create_state(case_id, raw_case_text, user_mode="teaching"):
+def create_state(case_data):
     return {
-        "case_id": case_id,
-        "raw_case_text": raw_case_text,
-        "user_mode": user_mode
+        #基础信息
+        "case_id": case_data.get("case_id"),
+        "user_mode": case_data.get("user_mode", "teaching"),
+        "raw_case_text": case_data.get("raw_case_text", ""),
+        "domain_hint": case_data.get("domain_hint", ""),
+
+        #角色信息与人格
+        "role_information": case_data.get("role_information", {}),
+        "personality_profiles": case_data.get("personality_profiles", {}),
+        "reviewer_personality_profiles": case_data.get("reviewer_personality_profiles", {}),
     }
 
 def save_state(state, filepath):

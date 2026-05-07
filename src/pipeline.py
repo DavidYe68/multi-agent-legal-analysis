@@ -14,7 +14,7 @@ from src.agents.writer import WriterAgent
 import json
 from src.llm_client import call_llm
 
-def run_pipeline(case_id, raw_case_text, user_mode):
+def run_pipeline(case_data):
 
     linear_agents = [
         ClerkAgent(),
@@ -25,7 +25,7 @@ def run_pipeline(case_id, raw_case_text, user_mode):
         JudgeAgent()
     ]
 
-    state = create_state(case_id, raw_case_text, user_mode)
+    state = create_state(case_data)
     logger = Logger()
 
     for agent in linear_agents:
@@ -72,5 +72,6 @@ def run_pipeline(case_id, raw_case_text, user_mode):
     state = ForepersonAgent().run(state, logger)
     state = WriterAgent().run(state, logger)
 
+    case_id = state.get("case_id")
     logger.save(f"multi_agent_logs/{case_id}_log.json")
     return state
