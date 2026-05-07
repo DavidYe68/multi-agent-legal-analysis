@@ -31,7 +31,7 @@ class BaseAgent:
     
     def validate(self, result):
         try:
-            with open("data/schemas/agent_output_schemas.json", "r", encoding="utf-8") as f:
+            with open("schemas/agent_output_schemas.json", "r", encoding="utf-8") as f:
                 schemas = json.load(f)
             required = schemas.get(self.name, [])
             missing = [field for field in required if field not in result]
