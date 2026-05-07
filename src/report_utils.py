@@ -56,6 +56,8 @@ def render_markdown_report(state: dict) -> str:
 def format_list(items: list) -> list:
     if not items:
         return ["- 无"]
+    if isinstance(items, str):
+        return [f"- {items}"]
     lines = []
     for item in items:
         if isinstance(item, dict):
