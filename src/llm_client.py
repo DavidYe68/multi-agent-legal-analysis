@@ -37,7 +37,8 @@ def call_llm(system_prompt, user_message):
                 model=MODEL,
                 messages=messages,
                 temperature=TEMPERATURE,
-                max_tokens=MAX_TOKENS
+                max_tokens=MAX_TOKENS,
+                response_format={"type": "json_object"}
             )
 
             raw_text = response.choices[0].message.content
