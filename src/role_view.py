@@ -64,7 +64,8 @@ def get_role_view(state: dict, role: str) -> dict:
         return {
             "judge_summary": state.get("judge_summary", {}),
             "reviewer_outputs": state.get("reviewer_outputs", []),
-            "round2_outputs": state.get("round2_outputs", [])
+            "round2_outputs": state.get("round2_outputs", []),
+            "deliberation_room": state.get("deliberation_room", {})
         }
 
     if role == "writer":
