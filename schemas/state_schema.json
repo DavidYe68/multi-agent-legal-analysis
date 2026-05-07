@@ -1,0 +1,21 @@
+{
+  "required_top_level_keys": [
+    "case_id",
+    "user_mode",
+    "raw_case_text",
+    "domain_hint",
+    "role_information",
+    "personality_profiles",
+    "reviewer_personality_profiles",
+    "case_structured",
+    "issues",
+    "prosecutor_analysis",
+    "defense_analysis",
+    "defendant_statement",
+    "judge_summary",
+    "deliberation_room",
+    "final_report",
+    "protocol",
+    "logs"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "teaching": [
+    "mode_hint",
+    "case_summary",
+    "timeline_summary",
+    "core_issues",
+    "sub_issues",
+    "prosecution_view",
+    "defense_view",
+    "defendant_statement",
+    "judge_summary",
+    "deliberation_room",
+    "majority_minority",
+    "evidence_gaps",
+    "discussion_questions"
+  ],
+  "practice": [
+    "mode_hint",
+    "case_summary",
+    "core_issues",
+    "possible_arguments_for_prosecution",
+    "possible_arguments_for_defense",
+    "judge_summary",
+    "deliberation_result",
+    "evidence_gaps",
+    "risk_flags",
+    "next_step_suggestions"
+  ]
+}
