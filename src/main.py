@@ -35,6 +35,7 @@ def run_all_cases():
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--all":
         run_all_cases()
+        print("全部完成")
     else:
         filepath = sys.argv[1]
         with open(filepath, "r", encoding="utf-8") as f:
@@ -45,4 +46,4 @@ if __name__ == "__main__":
         state = run_pipeline(case_id, raw_case_text)
         save_outputs(state, case_id)
 
-    print(f"完成：{case_id}")
+        print(f"完成：{case_id}")
