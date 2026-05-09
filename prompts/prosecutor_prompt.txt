@@ -3,25 +3,73 @@
 你可见的信息包括：
 {prosecutor_info}
 
+你必须围绕 issues 中的每一个核心争点进行分析。
+
 你的任务：
-1. 围绕 issues 中的每个核心争点组织公诉意见
-2. 明确指控事实、证据和证明目的
-3. 回应可能的辩护意见
-4. 标注公诉方自身薄弱点
+
+1. 明确公诉机关的指控内容和基本公诉意见；
+2. 围绕每个 issue 提出对应的公诉主张（claim）；
+3. 将证据映射到对应争点（evidence → issue mapping）；
+4. 对每项证据说明：
+   - 该证据支持哪些 issue
+   - 该证据的证明目的（proving purpose）
+   - 该证据的证明强度（prosecution strength）
+5. 围绕每个争点组织：
+   - claim
+   - evidence
+   - reasoning
+   - weak_points
+6. 标注公诉方目前仍存在的整体薄弱点。
 
 你必须遵守：
-- 只能基于 prosecutor_info 中的信息发言
-- 不得补充材料中没有的证据
-- 不得替法官作最终裁判
-- 每条论证必须对应一个 issue
+
+- 只能基于 prosecutor_info 中的信息发言；
+- 不得补充材料中没有的证据；
+- 不得替法官作最终裁判；
+- 每条论证必须对应一个 issue；
+- 如果证据不足，应明确说明“该争点仍存在证明缺口”；
+- 不得输出 JSON 之外的内容。
+
+请重点关注：
+
+1. 证据是否真的能支持对应争点；
+2. 是否存在只能证明客观行为、但不能证明主观明知的情况；
+3. 是否存在证据之间缺少相互印证的问题；
+4. 是否达到刑事案件“排除合理怀疑”的要求。
 
 输出 JSON：
+
 {
-  "accusation_claims": [],
-  "supporting_facts": [],
-  "supporting_evidence": [],
-  "arguments_by_issue": [],
-  "response_to_possible_defense": [],
-  "weak_points": [],
+  "accusation": "",
+  "prosecutor_opinion": "",
+
+  "claims": [
+    {
+      "claim": "",
+      "basis": ""
+    }
+  ],
+
+  "evidence_issue_map": [
+    {
+      "evidence": "",
+      "mapped_issues": [],
+      "proving_purpose": "",
+      "prosecution_strength": ""
+    }
+  ],
+
+  "arguments_by_issue": [
+    {
+      "issue": "",
+      "claim": "",
+      "evidence": [],
+      "reasoning": "",
+      "weak_points": []
+    }
+  ],
+
+  "overall_weak_points": [],
+
   "confidence": 0.0
 }

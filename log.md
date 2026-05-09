@@ -47,3 +47,32 @@
 - 完成Writer 双模式
 - 增加角色信息读取和信息分化
 
+## 四、5.9
+- 升级 agent_output_schemas.json
+  - prosecutor / defense_lawyer / judge 字段改为争点-证据-推理结构
+  - 新增 reviewer_round1 / reviewer_round2 / deliberation_room
+  - 保留 foreperson 兼容旧 pipeline
+- 升级 prosecutor_prompt 和 defense_lawyer_prompt
+  - prosecutor 增加 evidence_issue_map、proving purpose、prosecution strength
+  - defense_lawyer 增加逐证据攻击：真实性、关联性、证明力
+- 升级 Deliberation Room prompt
+  - opening 增加 issue_proof_status
+  - response 增加 open_proof_gap、issue_status_after_response、issue_status_updates
+- 升级 pipeline.py 的 deliberation_room state
+  - 增加 participants、rounds、vote_history、alliance_map、disagreement_map
+  - 增加 state_changes、issue_status_timeline、final_meeting_result
+  - final_meeting_result 增加 final_issue_status
+- 升级 report_utils.py
+  - Markdown 报告新增“Deliberation Room：争点证明状态总表”
+- 新增 EVALUATION.md
+  - 增加 5 个刑事案例的人工评估说明和评分表
+- 新增 README.md
+  - 改成课程项目展示首页
+  - 补充 Project Overview、Key Features、System Architecture、运行方式和输出文件说明
+- 新增 dataset statistics
+  - 新建 scripts/compute_dataset_stats.py
+  - 统计 data/cases/ 下 5 个刑事案例的案件数量、证据数量、reviewer 数量和人格维度
+  - 输出 outputs/dataset_statistics.json 和 outputs/dataset_statistics.md
+- 批量运行 5 个案例
+  - 生成 outputs/criminal_001 到 outputs/criminal_005 的 state_final.json 和 final_report.md
+  - Markdown 报告中已包含 Deliberation Room 争点证明状态总表

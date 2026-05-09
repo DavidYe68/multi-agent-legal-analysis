@@ -14,19 +14,22 @@
     "issue_notes"
   ],
   "prosecutor": [
-    "accusation_claims",
-    "supporting_facts",
-    "supporting_evidence",
+    "accusation",
+    "prosecutor_opinion",
+    "claims",
+    "evidence_issue_map",
     "arguments_by_issue",
-    "weak_points",
+    "overall_weak_points",
     "confidence"
   ],
   "defense_lawyer": [
-    "defense_claims",
+    "defense_opinion",
+    "claims",
     "rebuttals_to_accusation",
-    "arguments_by_issue",
     "evidence_challenges",
-    "weak_points",
+    "arguments_by_issue",
+    "alternative_explanations",
+    "overall_weak_points",
     "confidence"
   ],
   "defendant": [
@@ -38,11 +41,49 @@
   ],
   "judge": [
     "final_main_issues",
+    "issue_response_table",
+    "attacked_prosecution_evidence",
     "resolved_points",
     "unresolved_points",
     "evidence_gaps",
     "judge_observations",
-    "discussion_focus"
+    "discussion_focus",
+    "uncertainty_reasons",
+    "preliminary_judgment_tendency"
+  ],
+  "reviewer_round1": [
+    "agent_id",
+    "role",
+    "position",
+    "core_claim",
+    "supporting_reasons",
+    "main_concern",
+    "evidence_gap_focus",
+    "confidence"
+  ],
+  "reviewer_round2": [
+    "agent_id",
+    "role",
+    "respond_to",
+    "position_before",
+    "position_after",
+    "position_changed",
+    "change_reason",
+    "new_allies",
+    "new_opponents",
+    "remaining_disagreement",
+    "open_proof_gap",
+    "issue_status_after_response",
+    "confidence_after"
+  ],
+  "deliberation_room": [
+    "participants",
+    "rounds",
+    "vote_history",
+    "alliance_map",
+    "disagreement_map",
+    "state_changes",
+    "final_meeting_result"
   ],
   "foreperson": [
     "majority_view",
@@ -59,6 +100,7 @@
     "prosecutor_view",
     "defense_view",
     "judge_summary",
+    "deliberation_room",
     "evidence_gaps",
     "mode_hint"
   ]

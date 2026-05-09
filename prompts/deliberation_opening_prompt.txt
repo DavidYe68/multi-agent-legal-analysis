@@ -37,6 +37,19 @@
 2. 提出你的核心判断逻辑（core_claim）
 3. 指出你最关注的问题或风险
 4. 明确你的当前立场（position）和置信度（confidence）
+5. 对每个核心争点（issue）判断当前证明状态：
+   - open：仍存在关键证明缺口
+   - partly_closed：已有一定支持，但证据链尚未完全闭合
+   - closed：目前已形成相对完整的证明支持
+
+====================
+【重点判断】
+====================
+
+7. 当前每个 issue 的证明状态更接近：
+   - open
+   - partly_closed
+   - closed
 
 ====================
 【不同角色的思考方式】
@@ -85,6 +98,14 @@
 
   "evidence_gap_focus": [
     "你认为最关键的证据缺口"
+  ],
+
+  "issue_proof_status": [
+    {
+      "issue": "",
+      "status": "open | partly_closed | closed",
+      "reason": ""
+    }
   ],
 
   "confidence": 0.0-1.0

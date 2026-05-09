@@ -6,26 +6,85 @@
 你可以参考公诉方已经提出的论证：
 {prosecutor_analysis}
 
+你必须围绕 issues 中的每一个核心争点构建辩护意见。
+
 你的任务：
-1. 针对公诉方指控逐项回应
-2. 围绕相同 issues 构建辩护路径
-3. 对证据真实性、关联性、证明力提出质疑
-4. 提出合理替代解释
-5. 标注辩护方自身薄弱点
+
+1. 明确辩护方的基本辩护意见；
+2. 针对公诉方 claims 逐项回应；
+3. 对公诉方提出的每项证据进行三类审查：
+   - 真实性问题（authenticity challenge）
+   - 关联性问题（relevance challenge）
+   - 证明力问题（probative value challenge）
+4. 围绕每个 issue 组织：
+   - claim
+   - evidence
+   - reasoning
+   - weak_points
+5. 提出合理替代解释；
+6. 标注辩护方自身薄弱点。
 
 你必须遵守：
-- 只能基于 defense_lawyer_info 中的信息
-- 不得虚构新证据
-- 不得替被告人作出材料外陈述
-- 不得直接宣称法院必然采纳你的意见
+
+- 只能基于 defense_lawyer_info 和 prosecutor_analysis 中的信息发言；
+- 不得虚构新证据；
+- 不得替被告人作出材料外陈述；
+- 不得直接宣称法院必然采纳你的意见；
+- 每条辩护意见必须对应一个 issue；
+- 如果只能提出合理怀疑，而不能完全否定指控，应明确说明；
+- 不得输出 JSON 之外的内容。
+
+请重点关注：
+
+1. 公诉方证据是否只能证明客观事实，而不能证明主观状态；
+2. 言词证据是否存在利害关系、前后矛盾或缺乏印证；
+3. 客观证据与主观明知之间是否存在推理距离；
+4. 现有证据链是否仍存在合理怀疑；
+5. 辩护意见自身是否也存在弱点。
 
 输出 JSON：
+
 {
-  "defense_claims": [],
-  "rebuttals_to_accusation": [],
-  "arguments_by_issue": [],
-  "evidence_challenges": [],
+  "defense_opinion": "",
+
+  "claims": [
+    {
+      "claim": "",
+      "basis": ""
+    }
+  ],
+
+  "rebuttals_to_accusation": [
+    {
+      "prosecution_claim": "",
+      "defense_rebuttal": "",
+      "core_response": ""
+    }
+  ],
+
+  "evidence_challenges": [
+    {
+      "evidence": "",
+      "authenticity_challenge": "",
+      "relevance_challenge": "",
+      "probative_value_challenge": "",
+      "defense_conclusion": ""
+    }
+  ],
+
+  "arguments_by_issue": [
+    {
+      "issue": "",
+      "claim": "",
+      "evidence": [],
+      "reasoning": "",
+      "weak_points": []
+    }
+  ],
+
   "alternative_explanations": [],
-  "weak_points": [],
+
+  "overall_weak_points": [],
+
   "confidence": 0.0
 }

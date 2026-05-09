@@ -23,6 +23,14 @@ def render_markdown_report(state: dict) -> str:
     lines.extend(["", "## 法官归纳"])
     lines.extend(format_list(report.get("judge_summary", [])))
 
+    final_issue_status = (
+        state.get("deliberation_room", {})
+        .get("final_meeting_result", {})
+        .get("final_issue_status", [])
+    )
+    lines.extend(["", "## Deliberation Room：争点证明状态总表"])
+    lines.extend(format_final_issue_status(final_issue_status))
+
     lines.extend(["", "## 多视角评议结果"])
     reviewer = report.get("reviewer_summary", {})
     lines.append(f"- 多数意见: {reviewer.get('majority_view', '')}")
@@ -65,3 +73,29 @@ def format_list(items: list) -> list:
         else:
             lines.append(f"- {item}")
     return lines
+
+
+def format_final_issue_status(items: list) -> list:
+    if not items:
+        return ["暂无争点证明状态更新。"]
+
+    lines = [
+        "| 争点 | 最终证明状态 | 理由 | 剩余缺口 |",
+        "|---|---|---|---|"
+    ]
+    for item in items:
+        lines.append(
+            "| {issue} | {status} | {reason} | {gap} |".format(
+                issue=escape_table_cell(item.get("issue", "")),
+                status=escape_table_cell(item.get("final_status", "")),
+                reason=escape_table_cell(item.get("supporting_reason", "")),
+                gap=escape_table_cell(item.get("remaining_gap", ""))
+            )
+        )
+
+    return lines
+
+
+def escape_table_cell(value) -> str:
+    text = str(value) if value is not None else ""
+    return text.replace("\n", "<br>").replace("|", "\\|")
