@@ -66,6 +66,16 @@ def format_list(items: list) -> list:
         return ["- 无"]
     if isinstance(items, str):
         return [f"- {items}"]
+    if isinstance(items, dict):
+        lines = []
+        for k, v in items.items():
+            if isinstance(v, list):
+                for item in v:
+                    lines.append(f"- {item}")
+            elif v:
+                lines.append(f"- {v}")
+        return lines or ["- 无"]
+
     lines = []
     for item in items:
         if isinstance(item, dict):
