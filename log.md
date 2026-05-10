@@ -91,3 +91,4 @@
 - role_view.py给round1的4个reviewer和round2增加reviewer_personality参数。4个reviewer prompt也加上"根据 reviewer_personality调整判断风格"的说明
 - 删除prosecutor/defense_lawyer/defendant prompt里的{xxx}占位符（数据通过user message其实已经传入了，LLM 能对上）
 - main.py里单分支的raw_case_text和user_mode两个参数已经用不到了，可见5.7第3条修改。删除
+- 完成中期报告，项目骨架![alt text](docx/image/midterm_files_structure.png)
