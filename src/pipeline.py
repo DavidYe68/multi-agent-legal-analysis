@@ -52,10 +52,14 @@ def run_pipeline(case_data):
         my_review = reviewer_outputs[i]
         other_reviews = [r for j, r in enumerate(reviewer_outputs) if j != i]
 
+        role_key = ["legal", "social", "expert", "public"][i]
+        personality = state.get("reviewer_personality_profiles", {}).get(f"{role_key}_reviewer", {})
+
         round2_input = json.dumps({
             "judge_summary": state["judge_summary"],
             "my_round1_review": my_review,
-            "other_round1_reviews": other_reviews
+            "other_round1_reviews": other_reviews,
+            "reviewer_personality": personality
         }, ensure_ascii=False)    
 
         print(f"[{reviewer.name}_round2] 开始调用 LLM...")

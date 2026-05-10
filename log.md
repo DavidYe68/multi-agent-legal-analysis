@@ -46,6 +46,14 @@
 ## 三、5.7
 - 完成Writer 双模式
 - 增加角色信息读取和信息分化
+- state_manager.py把create_state改成接收case_data
+- state字段对齐schema17个key
+- 接入role_view，把base_agent从input_fields改成get_role_view
+- 修reviewer name模糊匹配
+- 启用DeepSeek的JSON mode
+- 修report_utils.py拆字bug
+- 加schema校验在base_agent.run()
+- 修main.py --all模式末尾case_id未定义
 
 ## 四、5.9
 - 升级 agent_output_schemas.json
@@ -76,3 +84,10 @@
 - 批量运行 5 个案例
   - 生成 outputs/criminal_001 到 outputs/criminal_005 的 state_final.json 和 final_report.md
   - Markdown 报告中已包含 Deliberation Room 争点证明状态总表
+
+## 五、5.10
+- deliberation_opening_prompt.txt和deliberation_response_prompt.txt没接进pipeline，将两个文件拆分进reviewer的四个prompts中，
+- Round 1/2 prompt 输出 schema 跟 pipeline 期望对不上，导致 final_issue_status 全空。更新round1和2的5个（4+1）prompts
+- role_view.py给round1的4个reviewer和round2增加reviewer_personality参数。4个reviewer prompt也加上"根据 reviewer_personality调整判断风格"的说明
+- 删除prosecutor/defense_lawyer/defendant prompt里的{xxx}占位符（数据通过user message其实已经传入了，LLM 能对上）
+- main.py里单分支的raw_case_text和user_mode两个参数已经用不到了，可见5.7第3条修改。删除

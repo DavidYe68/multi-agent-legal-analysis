@@ -53,12 +53,20 @@ def get_role_view(state: dict, role: str) -> dict:
         }
 
     if any(r in role for r in ["legal", "social", "expert", "public"]):
+        for r in ["legal", "social", "expert", "public"]:
+            if r in role:
+                reviewer_type = r
+                break
+
+        profiles = state.get("reviewer_personality_profiles", {})
+        personality = profiles.get(f"{reviewer_type}_reviewer", {})
         return {
             "case_structured": state.get("case_structured", {}),
             "issues": state.get("issues", {}),
             "prosecutor_analysis": state.get("prosecutor_analysis", {}),
             "defense_analysis": state.get("defense_analysis", {}),
-            "judge_summary": state.get("judge_summary", {})
+            "judge_summary": state.get("judge_summary", {}),
+            "reviewer_personality": personality
         }
     if role == "foreperson":
         return {
