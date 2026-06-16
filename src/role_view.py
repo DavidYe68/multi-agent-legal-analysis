@@ -1,90 +1,113 @@
-def get_role_view(state: dict, role: str) -> dict:
-    """
-    根据 role 返回该 Agent 允许读取的 state 子集。
-    目的：防止所有 Agent 都直接读取完整 state。
-    """
+def pick_by_ids(index, ids):
+    result = []
+    for item_id in ids:
+        result.append(index[item_id])
+    return result
 
-    role_information = state.get("role_information", {})
-    personality_profiles = state.get("personality_profiles", {})
+def get_role_view(state, role):
+    reviewer_roles = ["legal_reviewer_round1", "social_reviewer_round1", "expert_reviewer_round1", "public_reviewer_round1"]
+    if "reviewer" in role:
+        role_name = "reviewers"
+    else:
+        role_name = role
+
+    rule = state["role_views"][role_name]
+
+    facts = pick_by_ids(state["fact_index"], rule["fact_ids"])
+    claims = pick_by_ids(state["claim_index"], rule["claim_ids"])
+    evidence = pick_by_ids(state["evidence_index"], rule["evidence_ids"])
+
+    procedure = {}
+    if rule["procedure_access"]:
+        procedure = state["procedure"]
+
+    case_structured = {
+        "case_narrative": state["case_narrative"],
+        "participants": state["participants"],
+        "facts": facts,
+        "claims": claims,
+        "evidence": evidence,
+        "procedure": procedure
+    }
+
+    view = {
+        "case_id": state["case_id"],
+        "task_mode": state["task_mode"],
+        "domain": state["domain"],
+        "case_narrative": state["case_narrative"],
+        "participants": state["participants"],
+        "facts": facts,
+        "claims": claims,
+        "evidence": evidence,
+        "procedure": procedure,
+        "role_view_notes": rule["notes"],
+        "case_structured": case_structured
+    }
 
     if role == "clerk":
-        return {
-            "raw_case_text": state.get("raw_case_text"),
-            "public_info": role_information.get("public_info", {})
-        }
+        return view
 
     if role == "issue_spotter":
-        return {
-            "case_id": state.get("case_id"),
-            "domain_hint": state.get("domain_hint"),
-            "case_structured": state.get("case_structured", {})
-        }
+        return view
 
     if role == "prosecutor":
-        return {
-            "case_structured": state.get("case_structured", {}),
-            "issues": state.get("issues", {}),
-            "prosecutor_info": role_information.get("prosecutor_info", {})
-        }
+        view["issues"] = state.get("issues", {})
+        return view
 
     if role == "defense_lawyer":
-        return {
-            "case_structured": state.get("case_structured", {}),
-            "issues": state.get("issues", {}),
-            "prosecutor_analysis": state.get("prosecutor_analysis", {}),
-            "defense_lawyer_info": role_information.get("defense_lawyer_info", {})
-        }
+        view["issues"] = state.get("issues", {})
+        view["prosecutor_analysis"] = state.get("prosecutor_analysis", {})
+        return view
 
     if role == "defendant":
-        return {
-            "case_structured": state.get("case_structured", {}),
-            "defendant_info": role_information.get("defendant_info", {}),
-            "personality_profile": personality_profiles.get("defendant", {})
-        }
+        view["personality_profile"] = {}
+        return view
 
     if role == "judge":
-        return {
-            "case_id": state.get("case_id"),
-            "issues": state.get("issues", {}),
-            "prosecutor_analysis": state.get("prosecutor_analysis", {}),
-            "defense_analysis": state.get("defense_analysis", {}),
-            "defendant_statement": state.get("defendant_statement", {}),
-            "protocol": state.get("protocol", {})
-        }
+        view["issues"] = state.get("issues", {})
+        view["prosecutor_analysis"] = state.get("prosecutor_analysis", {})
+        view["defense_analysis"] = state.get("defense_analysis", {})
+        view["defendant_statement"] = state.get("defendant_statement", {})
+        view["protocol"] = state["procedure"]
+        return view
 
-    if any(r in role for r in ["legal", "social", "expert", "public"]):
-        for r in ["legal", "social", "expert", "public"]:
-            if r in role:
-                reviewer_type = r
-                break
+    if role_name == "reviewers":
+        reviewer_type = ""
+        if "legal" in role:
+            reviewer_type = "legal"
+        elif "social" in role:
+            reviewer_type = "social"
+        elif "expert" in role:
+            reviewer_type = "expert"
+        elif "public" in role:
+            reviewer_type = "public"
 
-        profiles = state.get("reviewer_personality_profiles", {})
-        personality = profiles.get(f"{reviewer_type}_reviewer", {})
-        return {
-            "case_structured": state.get("case_structured", {}),
-            "issues": state.get("issues", {}),
-            "prosecutor_analysis": state.get("prosecutor_analysis", {}),
-            "defense_analysis": state.get("defense_analysis", {}),
-            "judge_summary": state.get("judge_summary", {}),
-            "reviewer_personality": personality
-        }
+        view["reviewer_type"] = reviewer_type
+        view["issues"] = state.get("issues", {})
+        view["prosecutor_analysis"] = state.get("prosecutor_analysis", {})
+        view["defense_analysis"] = state.get("defense_analysis", {})
+        view["defendant_statement"] = state.get("defendant_statement", {})
+        view["judge_summary"] = state.get("judge_summary", {})
+        view["reviewer_personality"] = {}
+        return view
+
     if role == "foreperson":
-        return {
-            "judge_summary": state.get("judge_summary", {}),
-            "reviewer_outputs": state.get("reviewer_outputs", []),
-            "round2_outputs": state.get("round2_outputs", []),
-            "deliberation_room": state.get("deliberation_room", {})
-        }
+        view["judge_summary"] = state.get("judge_summary", {})
+        view["reviewer_outputs"] = state.get("reviewer_outputs", [])
+        view["round2_outputs"] = state.get("round2_outputs", [])
+        view["deliberation_room"] = state.get("deliberation_room", {})
+        return view
 
     if role == "writer":
-        return {
-            "case_structured": state.get("case_structured", {}),
-            "issues": state.get("issues", {}),
-            "judge_summary": state.get("judge_summary", {}),
-            "foreperson_summary": state.get("foreperson_summary", {}),
-            "user_mode": state.get("user_mode", "teaching")
-        }
+        view["issues"] = state.get("issues", {})
+        view["prosecutor_analysis"] = state.get("prosecutor_analysis", {})
+        view["defense_analysis"] = state.get("defense_analysis", {})
+        view["defendant_statement"] = state.get("defendant_statement", {})
+        view["judge_summary"] = state.get("judge_summary", {})
+        view["foreperson_summary"] = state.get("foreperson_summary", {})
+        view["deliberation_room"] = state.get("deliberation_room", {})
+        return view
 
     return {
-        "case_id": state.get("case_id")
+        "case_id": state["case_id"]
     }
