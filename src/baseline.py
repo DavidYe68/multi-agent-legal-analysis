@@ -9,10 +9,13 @@ def run_baseline(case_data):
         prompt = f.read()
      
     baseline_input = json.dumps({
-        "raw_case_text": state["raw_case_text"],
-        "domain_hint": state["domain_hint"],
-        "role_information": state["role_information"],
-        "user_mode": state["user_mode"]
+        "case_narrative": state["case_narrative"],
+        "facts": state["facts"],
+        "claims": state["claims"],
+        "evidence": state["evidence"],
+        "procedure": state["procedure"],
+        "domain": state["domain"],
+        "task_mode": state["task_mode"]
     }, ensure_ascii=False)
 
     print("开始调用Baseline LLM")
