@@ -1,0 +1,193 @@
+{
+  "case_id": "criminal_001b",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F5",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "甲是否明知他人利用信息网络实施犯罪",
+      "importance": "core",
+      "issue_type": "mens_rea",
+      "related_fact_ids": [
+        "F2",
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "gold_status": "closed",
+      "rationale": "明确聊天、持续配合和报酬记录形成相互印证。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "甲提供银行卡和验证码的客观帮助行为是否充分证明",
+      "importance": "secondary",
+      "issue_type": "actus_reus",
+      "related_fact_ids": [
+        "F1",
+        "F2",
+        "F4"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "gold_status": "closed",
+      "rationale": "行为内容和持续性已有完整记录。"
+    },
+    {
+      "issue_id": "I3",
+      "issue_text": "关键电子数据是否可靠",
+      "importance": "secondary",
+      "issue_type": "evidence_reliability",
+      "related_fact_ids": [
+        "F3",
+        "F4"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E5"
+      ],
+      "gold_status": "closed",
+      "rationale": "提取程序、身份和上下文完整。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "聊天直接显示甲知道违法用途并继续配合。",
+      "limitations": "仍需结合整体语境，但核心语义明确。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E5",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "sufficient",
+      "reason": "报酬记录与聊天约定对应。",
+      "limitations": "报酬本身不能单独证明明知，但可形成印证。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E4",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "sufficient",
+      "reason": "同案人员陈述与客观材料一致。",
+      "limitations": "仍需一般性审查陈述动机。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E3",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "weak",
+      "reason": "甲否认准确理解违法性质。",
+      "limitations": "与完整聊天内容明显冲突。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I1",
+      "missing_information": "甲对上游具体犯罪类型的认识程度",
+      "importance": "minor",
+      "resolvable_by": [
+        "进一步讯问",
+        "其他聊天记录"
+      ],
+      "impact_if_unresolved": "不影响对其知道资金用于违法活动的基本判断。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "supports_prosecution",
+    "acceptable_positions": [
+      "现有证据能够较强支持甲具有犯罪明知",
+      "客观帮助行为和主观认识均有相互印证"
+    ],
+    "unacceptable_assertions": [
+      "只因甲口头否认就忽视完整电子数据",
+      "仅依报酬记录而不分析聊天内容"
+    ],
+    "confidence": 0.92,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "是否具有犯罪明知",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_001a",
+    "manipulated_variable": "相较A案，明确聊天和报酬记录应使主观明知争点由开放转为基本关闭。",
+    "expected_direction_of_change": "相较A案，明确聊天和报酬记录应使主观明知争点由开放转为基本关闭。",
+    "invariants": [
+      "银行卡交付事实",
+      "异常流水规模",
+      "参与人员关系",
+      "其他程序信息"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}

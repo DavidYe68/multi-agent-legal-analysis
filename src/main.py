@@ -21,7 +21,7 @@ def save_outputs(state, case_id):
     print(f"报告: {md_path}")
 
 def run_all_cases():
-    for case_path in sorted(Path("data/cases").glob("*.json")):
+    for case_path in sorted(Path("datasets/cases/processed").glob("*.json")):
         print(f"\n正在处理 {case_path.name}...")
         with open(case_path, "r", encoding="utf-8") as f:
             case_data = json.load(f)

@@ -1,0 +1,223 @@
+{
+  "case_id": "criminal_001a",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "uncertain",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F5",
+      "gold_status": "uncertain",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F6",
+      "gold_status": "uncertain",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "甲是否明知他人利用信息网络实施犯罪",
+      "importance": "core",
+      "issue_type": "mens_rea",
+      "related_fact_ids": [
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "gold_status": "open",
+      "rationale": "关键证据含义不明确且缺少印证。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "甲提供银行卡和验证码的客观帮助行为是否充分证明",
+      "importance": "secondary",
+      "issue_type": "actus_reus",
+      "related_fact_ids": [
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "gold_status": "partly_closed",
+      "rationale": "提供银行卡基本成立，验证码及控制程度仍不清楚。"
+    },
+    {
+      "issue_id": "I3",
+      "issue_text": "聊天摘要与同案人员陈述是否可靠",
+      "importance": "secondary",
+      "issue_type": "evidence_reliability",
+      "related_fact_ids": [
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E4"
+      ],
+      "gold_status": "open",
+      "rationale": "完整性、稳定性和外部印证均不足。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E1",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "weak",
+      "reason": "异常流水提示风险情形。",
+      "limitations": "不能单独证明甲知道资金与犯罪有关。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "mixed",
+      "strength": "partial",
+      "reason": "收款和验证码内容与参与认知有关。",
+      "limitations": "缺少明确犯罪语义与完整上下文。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E3",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "weak",
+      "reason": "甲提出了非犯罪性的替代解释。",
+      "limitations": "属于自利性陈述。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E4",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "partial",
+      "reason": "同案人员直接指称甲知情。",
+      "limitations": "需审查动机、稳定性和印证。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I1",
+      "missing_information": "完整聊天记录及双方身份确认",
+      "importance": "critical",
+      "resolvable_by": [
+        "电子数据提取报告",
+        "聊天原始载体"
+      ],
+      "impact_if_unresolved": "无法准确解释含糊用语。"
+    },
+    {
+      "gap_id": "G2",
+      "issue_id": "I1",
+      "missing_information": "甲是否收取报酬或分成",
+      "importance": "major",
+      "resolvable_by": [
+        "完整资金流向",
+        "报酬约定记录"
+      ],
+      "impact_if_unresolved": "影响对参与程度与主观认识的判断。"
+    },
+    {
+      "gap_id": "G3",
+      "issue_id": "I3",
+      "missing_information": "同案人员历次陈述及外部印证",
+      "importance": "critical",
+      "resolvable_by": [
+        "历次讯问笔录",
+        "其他电子数据或证人"
+      ],
+      "impact_if_unresolved": "直接知情指控的可信性不足。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "insufficient_for_final_conclusion",
+    "acceptable_positions": [
+      "可确认银行卡被提供，但主观明知仍应保持开放",
+      "现有证据支持继续调查，不足以稳健确认犯罪明知"
+    ],
+    "unacceptable_assertions": [
+      "仅凭异常流水即可认定犯罪明知",
+      "单一同案人员陈述无需印证即可排除合理怀疑"
+    ],
+    "confidence": 0.84,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "是否具有犯罪明知",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_001b",
+    "manipulated_variable": "B案增加明确违法用途聊天和报酬记录，主观明知争点应明显向公诉方移动。",
+    "expected_direction_of_change": "B案增加明确违法用途聊天和报酬记录，主观明知争点应明显向公诉方移动。",
+    "invariants": [
+      "银行卡交付事实",
+      "异常流水规模",
+      "参与人员关系",
+      "其他程序信息"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}

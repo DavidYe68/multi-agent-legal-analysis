@@ -1,0 +1,199 @@
+{
+  "case_id": "criminal_005a",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F5",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "庚收款时是否具有非法占有目的",
+      "importance": "core",
+      "issue_type": "mens_rea",
+      "related_fact_ids": [
+        "F2",
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "gold_status": "open",
+      "rationale": "项目真实性、经营投入和后续履行形成重要反证。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "庚是否通过虚假事实使辛陷入错误认识",
+      "importance": "secondary",
+      "issue_type": "actus_reus",
+      "related_fact_ids": [
+        "F2",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E5"
+      ],
+      "gold_status": "partly_closed",
+      "rationale": "收益表述可能夸大，但项目本身真实且存在风险提示。"
+    },
+    {
+      "issue_id": "I3",
+      "issue_text": "部分资金去向不明是否足以推断诈骗故意",
+      "importance": "secondary",
+      "issue_type": "evidence_reliability",
+      "related_fact_ids": [
+        "F3"
+      ],
+      "related_evidence_ids": [
+        "E3"
+      ],
+      "gold_status": "open",
+      "rationale": "需要区分经营管理不规范与非法占有。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "strong",
+      "reason": "项目和合同真实存在。",
+      "limitations": "项目真实不当然排除经营过程中产生非法占有目的。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E3",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "sufficient",
+      "reason": "多数资金用于项目经营。",
+      "limitations": "仍有部分资金去向需核实。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E4",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "partial",
+      "reason": "持续汇报和部分还款支持履行意图。",
+      "limitations": "后续行为不能完全替代收款时主观状态判断。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E5",
+      "issue_id": "I2",
+      "direction": "supports_prosecution",
+      "strength": "partial",
+      "reason": "较高收益表述可能影响投资判断。",
+      "limitations": "同时存在风险提示，不能直接等同虚构。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I1",
+      "missing_information": "剩余资金的完整去向和个人消费比例",
+      "importance": "critical",
+      "resolvable_by": [
+        "完整银行流水",
+        "会计资料"
+      ],
+      "impact_if_unresolved": "影响对经营使用与非法占有的区分。"
+    },
+    {
+      "gap_id": "G2",
+      "issue_id": "I2",
+      "missing_information": "双方对收益、风险和本金保障的完整沟通",
+      "importance": "major",
+      "resolvable_by": [
+        "完整聊天记录",
+        "合同原件"
+      ],
+      "impact_if_unresolved": "影响错误认识及欺骗内容判断。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "leans_defense",
+    "acceptable_positions": [
+      "现有材料更接近真实项目经营失败，尚不足以证明收款时具有非法占有目的",
+      "应继续核查剩余资金去向和收益承诺内容"
+    ],
+    "unacceptable_assertions": [
+      "只因未按期还款就当然认定诈骗",
+      "项目失败等同项目虚构"
+    ],
+    "confidence": 0.9,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "收款时是否具有非法占有目的",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_005b",
+    "manipulated_variable": "B案改为项目不存在、合同伪造且资金迅速用于个人消费，非法占有目的应明显向公诉方移动。",
+    "expected_direction_of_change": "B案改为项目不存在、合同伪造且资金迅速用于个人消费，非法占有目的应明显向公诉方移动。",
+    "invariants": [
+      "转账金额",
+      "双方关系",
+      "收益宣传形式",
+      "未按期返还结果"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}

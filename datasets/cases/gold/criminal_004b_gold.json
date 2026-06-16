@@ -1,0 +1,190 @@
+{
+  "case_id": "criminal_004b",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F5",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "戊是否违反了足以承担刑事责任的注意义务",
+      "importance": "core",
+      "issue_type": "actus_reus",
+      "related_fact_ids": [
+        "F1",
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E4",
+        "E5"
+      ],
+      "gold_status": "closed",
+      "rationale": "超速和迟延制动均有客观材料证明。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "戊的行为与死亡结果之间的规范性因果关系是否充分",
+      "importance": "secondary",
+      "issue_type": "causation",
+      "related_fact_ids": [
+        "F1",
+        "F2",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "gold_status": "closed",
+      "rationale": "鉴定证明遵守注意义务可较大概率避免事故。"
+    },
+    {
+      "issue_id": "I3",
+      "issue_text": "被害人变道是否影响责任程度",
+      "importance": "secondary",
+      "issue_type": "legal_classification",
+      "related_fact_ids": [
+        "F1"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E4"
+      ],
+      "gold_status": "partly_closed",
+      "rationale": "被害人行为可能影响责任分配，但不消除戊的严重交通违法。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E1",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "客观数据直接证明明显超速。",
+      "limitations": "设备和时间均已核验。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "视频显示视野清楚且制动明显迟延。",
+      "limitations": "画面连续完整。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E4",
+      "issue_id": "I2",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "鉴定建立违法行为与事故可避免性的联系。",
+      "limitations": "属于概率性技术判断，但依据充分。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E5",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "sufficient",
+      "reason": "责任认定与其他技术证据一致。",
+      "limitations": "不能单独使用，但可相互印证。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I3",
+      "missing_information": "被害人变道动作的精确时点和幅度",
+      "importance": "minor",
+      "resolvable_by": [
+        "视频测量",
+        "轨迹重建"
+      ],
+      "impact_if_unresolved": "影响责任比例和量刑评价，但不改变戊超速、迟延制动的基本判断。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "supports_prosecution",
+    "acceptable_positions": [
+      "现有证据较强支持戊严重违反注意义务并与死亡结果具有规范性因果关系",
+      "被害人变道可影响责任程度，但不足以否定戊的主要过失"
+    ],
+    "unacceptable_assertions": [
+      "因被害人也有过错就完全否定戊的刑事过失"
+    ],
+    "confidence": 0.95,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "是否违反注意义务并对死亡结果负主要责任",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_004a",
+    "manipulated_variable": "相较A案，超速数据、完整视频和可避免性鉴定使过失和因果争点基本关闭。",
+    "expected_direction_of_change": "相较A案，超速数据、完整视频和可避免性鉴定使过失和因果争点基本关闭。",
+    "invariants": [
+      "路口环境",
+      "死亡结果",
+      "车辆与电动车碰撞",
+      "事故认定结论"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "case_id": "criminal_003b",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "丙的行为与丁的轻伤结果之间是否存在刑法上的因果关系",
+      "importance": "core",
+      "issue_type": "causation",
+      "related_fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "gold_status": "closed",
+      "rationale": "行为过程和医学机制均得到完整、相互印证的证明。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "丙对伤害结果的主观认识程度",
+      "importance": "secondary",
+      "issue_type": "mens_rea",
+      "related_fact_ids": [
+        "F1",
+        "F4"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E4"
+      ],
+      "gold_status": "partly_closed",
+      "rationale": "至少对实施暴力并造成身体伤害具有认识，具体严重程度可继续讨论。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E1",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "完整视频直接显示行为、倒地和撞击。",
+      "limitations": "画面身份与时间已确认。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "补充鉴定建立动作与伤情的医学联系。",
+      "limitations": "鉴定方法和材料完整。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E3",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "sufficient",
+      "reason": "证人证言与视频一致。",
+      "limitations": "属于辅助印证。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E4",
+      "issue_id": "I2",
+      "direction": "supports_defense",
+      "strength": "weak",
+      "reason": "丙否认预见严重后果。",
+      "limitations": "不能否认其对实施暴力和一般伤害风险的认识。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I2",
+      "missing_information": "丙在冲突前后的具体言语和行为",
+      "importance": "minor",
+      "resolvable_by": [
+        "完整现场音频",
+        "其他证人"
+      ],
+      "impact_if_unresolved": "影响对主观恶性和责任程度的细化。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "supports_prosecution",
+    "acceptable_positions": [
+      "现有证据能够较强支持行为与轻伤结果的因果关系",
+      "旧伤不足以打断或替代本次行为的因果作用"
+    ],
+    "unacceptable_assertions": [
+      "只因存在旧伤就否定完整视频和补充鉴定"
+    ],
+    "confidence": 0.95,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "伤害行为与轻伤结果是否具有因果关系",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_003a",
+    "manipulated_variable": "相较A案，完整视频和补充鉴定使因果关系争点由开放转为关闭。",
+    "expected_direction_of_change": "相较A案，完整视频和补充鉴定使因果关系争点由开放转为关闭。",
+    "invariants": [
+      "争执时间地点",
+      "伤情等级",
+      "参与人员",
+      "被害人旧伤背景"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}

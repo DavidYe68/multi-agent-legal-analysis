@@ -1,0 +1,190 @@
+{
+  "case_id": "criminal_006b",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F5",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "关键供述的取得是否合法并具有可采性",
+      "importance": "core",
+      "issue_type": "evidence_admissibility",
+      "related_fact_ids": [
+        "F1",
+        "F2"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2"
+      ],
+      "gold_status": "closed",
+      "rationale": "完整录音录像能够排除主要非法取证疑点。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "供述内容是否有独立证据印证",
+      "importance": "secondary",
+      "issue_type": "evidence_reliability",
+      "related_fact_ids": [
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "gold_status": "closed",
+      "rationale": "赃物、指纹和现场细节均构成独立印证。"
+    },
+    {
+      "issue_id": "I3",
+      "issue_text": "供述与其他证据能否形成完整证明链",
+      "importance": "secondary",
+      "issue_type": "procedure",
+      "related_fact_ids": [
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "gold_status": "closed",
+      "rationale": "核心事实之间能够相互印证。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "完整录音录像显示合法、正常讯问。",
+      "limitations": "仍需确认文件连续性，现已确认。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E3",
+      "issue_id": "I2",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "依供述发现未公开赃物。",
+      "limitations": "搜查和保管链完整。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E4",
+      "issue_id": "I2",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "指纹将辛与赃物直接联系。",
+      "limitations": "鉴定程序完整。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E5",
+      "issue_id": "I2",
+      "direction": "supports_prosecution",
+      "strength": "sufficient",
+      "reason": "供述细节与客观现场一致。",
+      "limitations": "属于补强证据。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I1",
+      "missing_information": "录音录像原始文件哈希和保管记录",
+      "importance": "minor",
+      "resolvable_by": [
+        "电子文件校验记录"
+      ],
+      "impact_if_unresolved": "用于进一步确认完整性，但不影响当前基本判断。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "supports_prosecution",
+    "acceptable_positions": [
+      "供述取得程序基本合法且有充分独立证据印证",
+      "可将供述与物证、指纹和现场记录综合评价"
+    ],
+    "unacceptable_assertions": [
+      "仅因有供述就忽略对合法性和独立印证的审查"
+    ],
+    "confidence": 0.96,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "关键供述能否作为定案根据",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_006a",
+    "manipulated_variable": "相较A案，完整程序记录和独立物证印证使供述可采性和真实性争点基本关闭。",
+    "expected_direction_of_change": "相较A案，完整程序记录和独立物证印证使供述可采性和真实性争点基本关闭。",
+    "invariants": [
+      "供述核心内容",
+      "手机定位",
+      "案件基本事实",
+      "被告身份"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}

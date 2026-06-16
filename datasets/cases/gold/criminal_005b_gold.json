@@ -1,0 +1,188 @@
+{
+  "case_id": "criminal_005b",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F5",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "庚收款时是否具有非法占有目的",
+      "importance": "core",
+      "issue_type": "mens_rea",
+      "related_fact_ids": [
+        "F2",
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "gold_status": "closed",
+      "rationale": "收款前即虚构项目，收款后迅速个人消费并持续伪造进度。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "辛是否因虚假项目和固定收益承诺陷入错误认识",
+      "importance": "secondary",
+      "issue_type": "actus_reus",
+      "related_fact_ids": [
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E4"
+      ],
+      "gold_status": "closed",
+      "rationale": "虚假事实与转账决定之间具有直接联系。"
+    },
+    {
+      "issue_id": "I3",
+      "issue_text": "资金用途是否与项目经营有关",
+      "importance": "secondary",
+      "issue_type": "evidence_reliability",
+      "related_fact_ids": [
+        "F4"
+      ],
+      "related_evidence_ids": [
+        "E3"
+      ],
+      "gold_status": "closed",
+      "rationale": "客观流水显示主要用于个人用途。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "项目和合同在收款前即属虚构。",
+      "limitations": "查询和鉴定程序完整。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E3",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "资金迅速用于个人用途。",
+      "limitations": "需结合虚构行为判断，不能单独使用。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E4",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "strong",
+      "reason": "持续伪造进度显示维持欺骗状态。",
+      "limitations": "电子数据身份和完整性已确认。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E5",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "weak",
+      "reason": "庚称未来打算寻找项目。",
+      "limitations": "与收款前明确虚构事实相冲突。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I1",
+      "missing_information": "是否存在其他未披露的真实经营准备",
+      "importance": "minor",
+      "resolvable_by": [
+        "其他合同、场地或采购材料"
+      ],
+      "impact_if_unresolved": "即使存在，也难以解释已确认的伪造和个人消费。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "supports_prosecution",
+    "acceptable_positions": [
+      "现有证据较强支持庚收款时即具有非法占有目的",
+      "虚构项目、资金用途和持续欺骗形成完整证据链"
+    ],
+    "unacceptable_assertions": [
+      "把明确虚构项目简单解释为普通经营失败"
+    ],
+    "confidence": 0.96,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "收款时是否具有非法占有目的",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_005a",
+    "manipulated_variable": "相较A案，项目虚构和迅速个人消费使诈骗故意争点由开放转为关闭。",
+    "expected_direction_of_change": "相较A案，项目虚构和迅速个人消费使诈骗故意争点由开放转为关闭。",
+    "invariants": [
+      "转账金额",
+      "双方关系",
+      "收益宣传形式",
+      "未按期返还结果"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}

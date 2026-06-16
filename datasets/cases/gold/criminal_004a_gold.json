@@ -1,0 +1,203 @@
+{
+  "case_id": "criminal_004a",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F5",
+      "gold_status": "uncertain",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "戊是否违反了足以承担刑事责任的注意义务",
+      "importance": "core",
+      "issue_type": "actus_reus",
+      "related_fact_ids": [
+        "F1",
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E4",
+        "E5"
+      ],
+      "gold_status": "open",
+      "rationale": "责任认定存在，但关键客观驾驶数据缺失。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "戊的行为与死亡结果之间的规范性因果关系是否充分",
+      "importance": "secondary",
+      "issue_type": "causation",
+      "related_fact_ids": [
+        "F1",
+        "F2",
+        "F5"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "gold_status": "partly_closed",
+      "rationale": "碰撞致死成立，但双方行为对事故和后果的贡献仍需细化。"
+    },
+    {
+      "issue_id": "I3",
+      "issue_text": "事故认定书能否独立支撑刑事过失判断",
+      "importance": "secondary",
+      "issue_type": "evidence_reliability",
+      "related_fact_ids": [
+        "F3",
+        "F4"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2"
+      ],
+      "gold_status": "open",
+      "rationale": "需审查认定依据而非直接替代刑事证明。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E1",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "partial",
+      "reason": "主要责任认定支持戊存在交通违法。",
+      "limitations": "不能替代对速度、注意义务和可避免性的独立审查。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "mixed",
+      "strength": "weak",
+      "reason": "监控证明事故发生过程。",
+      "limitations": "关键路段被遮挡，无法判断驾驶状态。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E4",
+      "issue_id": "I2",
+      "direction": "supports_defense",
+      "strength": "weak",
+      "reason": "被害人变道可能增加事故风险。",
+      "limitations": "证人观察条件和陈述准确性未确认。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E5",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "weak",
+      "reason": "戊称已减速制动。",
+      "limitations": "属于自利性陈述，缺乏车辆数据印证。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I1",
+      "missing_information": "车辆事发前速度、制动时点和制动距离",
+      "importance": "critical",
+      "resolvable_by": [
+        "行车记录器",
+        "车辆事件数据",
+        "制动痕迹鉴定"
+      ],
+      "impact_if_unresolved": "无法判断戊是否违反必要注意义务。"
+    },
+    {
+      "gap_id": "G2",
+      "issue_id": "I2",
+      "missing_information": "事故可避免性和双方行为贡献分析",
+      "importance": "critical",
+      "resolvable_by": [
+        "交通技术鉴定",
+        "现场重建"
+      ],
+      "impact_if_unresolved": "无法细化规范性因果和责任程度。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "insufficient_for_final_conclusion",
+    "acceptable_positions": [
+      "死亡结果与碰撞有关，但刑事过失程度仍需客观技术材料支撑",
+      "事故认定书是重要证据但不能独立替代全部刑事证明"
+    ],
+    "unacceptable_assertions": [
+      "只要事故认定书认定主要责任就当然构成交通肇事罪"
+    ],
+    "confidence": 0.9,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "是否违反注意义务并对死亡结果负主要责任",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_004b",
+    "manipulated_variable": "B案加入超速、迟延制动和可避免性鉴定，过失争点应明显向公诉方移动。",
+    "expected_direction_of_change": "B案加入超速、迟延制动和可避免性鉴定，过失争点应明显向公诉方移动。",
+    "invariants": [
+      "路口环境",
+      "死亡结果",
+      "车辆与电动车碰撞",
+      "事故认定结论"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}

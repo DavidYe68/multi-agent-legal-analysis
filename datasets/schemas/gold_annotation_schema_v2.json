@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/gold_annotation_schema_v2.json",
+  "title": "Gold Annotation v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id", "annotation_version", "annotators", "gold_fact_status",
+    "gold_issues", "gold_evidence_issue_map", "gold_evidence_gaps",
+    "gold_safe_conclusion", "expected_deliberation", "pair_expectation",
+    "quality_control"
+  ],
+  "properties": {
+    "case_id": {"type": "string"},
+    "annotation_version": {"type": "string", "const": "2.0"},
+    "annotators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["annotator_id", "background", "role", "date"],
+        "properties": {
+          "annotator_id": {"type": "string"},
+          "background": {"type": "string"},
+          "role": {"type": "string", "enum": ["primary", "independent_reviewer", "adjudicator", "engineering_qc"]},
+          "date": {"type": "string"}
+        }
+      }
+    },
+    "gold_fact_status": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact_id", "gold_status", "rationale"],
+        "properties": {
+          "fact_id": {"type": "string", "pattern": "^F[0-9]+$"},
+          "gold_status": {"type": "string", "enum": ["established", "partly_established", "not_established", "uncertain"]},
+          "rationale": {"type": "string"}
+        }
+      }
+    },
+    "gold_issues": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["issue_id", "issue_text", "importance", "issue_type", "related_fact_ids", "related_evidence_ids", "gold_status", "rationale"],
+        "properties": {
+          "issue_id": {"type": "string", "pattern": "^I[0-9]+$"},
+          "issue_text": {"type": "string"},
+          "importance": {"type": "string", "enum": ["core", "secondary", "contextual"]},
+          "issue_type": {"type": "string", "enum": ["actus_reus", "mens_rea", "causation", "identity", "evidence_reliability", "evidence_admissibility", "procedure", "legal_classification", "other"]},
+          "related_fact_ids": {"type": "array", "items": {"type": "string", "pattern": "^F[0-9]+$"}, "uniqueItems": true},
+          "related_evidence_ids": {"type": "array", "items": {"type": "string", "pattern": "^E[0-9]+$"}, "uniqueItems": true},
+          "gold_status": {"type": "string", "enum": ["closed", "partly_closed", "open"]},
+          "rationale": {"type": "string"}
+        }
+      }
+    },
+    "gold_evidence_issue_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["map_id", "evidence_id", "issue_id", "direction", "strength", "reason", "limitations"],
+        "properties": {
+          "map_id": {"type": "string", "pattern": "^M[0-9]+$"},
+          "evidence_id": {"type": "string", "pattern": "^E[0-9]+$"},
+          "issue_id": {"type": "string", "pattern": "^I[0-9]+$"},
+          "direction": {"type": "string", "enum": ["supports_prosecution", "supports_defense", "mixed", "neutral"]},
+          "strength": {"type": "string", "enum": ["none", "weak", "partial", "sufficient", "strong"]},
+          "reason": {"type": "string"},
+          "limitations": {"type": "string"}
+        }
+      }
+    },
+    "gold_evidence_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gap_id", "issue_id", "missing_information", "importance", "resolvable_by", "impact_if_unresolved"],
+        "properties": {
+          "gap_id": {"type": "string", "pattern": "^G[0-9]+$"},
+          "issue_id": {"type": "string", "pattern": "^I[0-9]+$"},
+          "missing_information": {"type": "string"},
+          "importance": {"type": "string", "enum": ["critical", "major", "minor"]},
+          "resolvable_by": {"type": "array", "items": {"type": "string"}},
+          "impact_if_unresolved": {"type": "string"}
+        }
+      }
+    },
+    "gold_safe_conclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conclusion_range", "acceptable_positions", "unacceptable_assertions", "confidence", "rationale"],
+      "properties": {
+        "conclusion_range": {"type": "string", "enum": ["supports_prosecution", "leans_prosecution", "unclear", "leans_defense", "supports_defense", "insufficient_for_final_conclusion"]},
+        "acceptable_positions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "unacceptable_assertions": {"type": "array", "items": {"type": "string"}},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "rationale": {"type": "string"}
+      }
+    },
+    "expected_deliberation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reasonable_disagreement_points", "expected_role_differences", "position_change_not_required"],
+      "properties": {
+        "reasonable_disagreement_points": {"type": "array", "items": {"type": "string"}},
+        "expected_role_differences": {"type": "array", "items": {"type": "string"}},
+        "position_change_not_required": {"type": "boolean"}
+      }
+    },
+    "pair_expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["paired_case_id", "manipulated_variable", "expected_direction_of_change", "invariants"],
+      "properties": {
+        "paired_case_id": {"type": ["string", "null"]},
+        "manipulated_variable": {"type": "string"},
+        "expected_direction_of_change": {"type": "string"},
+        "invariants": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "quality_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gold_hidden_from_model", "source_checked", "ids_checked", "leakage_checked", "second_review_status", "notes"],
+      "properties": {
+        "gold_hidden_from_model": {"type": "boolean"},
+        "source_checked": {"type": "boolean"},
+        "ids_checked": {"type": "boolean"},
+        "leakage_checked": {"type": "boolean"},
+        "second_review_status": {"type": "string", "enum": ["not_selected", "pending", "completed", "resolved"]},
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}

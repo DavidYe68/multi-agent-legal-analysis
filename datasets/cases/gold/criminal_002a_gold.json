@@ -1,0 +1,169 @@
+{
+  "case_id": "criminal_002a",
+  "annotation_version": "2.0",
+  "annotators": [
+    {
+      "annotator_id": "A01",
+      "background": "法学与人工智能交叉背景学生（AI辅助初标后复核）",
+      "role": "primary",
+      "date": "2026-06-16"
+    }
+  ],
+  "gold_fact_status": [
+    {
+      "fact_id": "F1",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F2",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F3",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    },
+    {
+      "fact_id": "F4",
+      "gold_status": "established",
+      "rationale": "该状态依据结构化材料和证据可见程度作出；确认的是该命题的证明状态，而非某一方的评价。"
+    }
+  ],
+  "gold_issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "乙拿走手机时是否具有非法占有目的",
+      "importance": "core",
+      "issue_type": "mens_rea",
+      "related_fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "related_evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "gold_status": "open",
+      "rationale": "取走事实成立，但聊天和及时返还形成合理误拿解释。"
+    },
+    {
+      "issue_id": "I2",
+      "issue_text": "后续行为是否能够印证主观目的",
+      "importance": "secondary",
+      "issue_type": "evidence_reliability",
+      "related_fact_ids": [
+        "F3",
+        "F4"
+      ],
+      "related_evidence_ids": [
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "gold_status": "closed",
+      "rationale": "后续行为与误拿解释一致。"
+    }
+  ],
+  "gold_evidence_issue_map": [
+    {
+      "map_id": "M1",
+      "evidence_id": "E1",
+      "issue_id": "I1",
+      "direction": "supports_prosecution",
+      "strength": "partial",
+      "reason": "监控证明乙主动拿走手机。",
+      "limitations": "不能直接证明非法占有目的。"
+    },
+    {
+      "map_id": "M2",
+      "evidence_id": "E2",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "strong",
+      "reason": "即时聊天记录支持乙误以为手机属于朋友。",
+      "limitations": "需确认聊天真实性，现已确认。"
+    },
+    {
+      "map_id": "M3",
+      "evidence_id": "E3",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "strong",
+      "reason": "主动返还且发生在报警前。",
+      "limitations": "若存在外部压力仍需评价，但当前无此信息。"
+    },
+    {
+      "map_id": "M4",
+      "evidence_id": "E4",
+      "issue_id": "I1",
+      "direction": "supports_defense",
+      "strength": "partial",
+      "reason": "手机未被处分或破坏。",
+      "limitations": "未处分不当然排除非法占有目的。"
+    }
+  ],
+  "gold_evidence_gaps": [
+    {
+      "gap_id": "G1",
+      "issue_id": "I1",
+      "missing_information": "乙拿走手机前是否看见失主或店员提醒",
+      "importance": "minor",
+      "resolvable_by": [
+        "完整监控",
+        "店员证言"
+      ],
+      "impact_if_unresolved": "可能影响对误认是否合理的评价。"
+    }
+  ],
+  "gold_safe_conclusion": {
+    "conclusion_range": "leans_defense",
+    "acceptable_positions": [
+      "现有证据更支持误拿而非非法占有",
+      "客观取走成立，但主观目的不足以确定"
+    ],
+    "unacceptable_assertions": [
+      "只要未经允许拿走手机就当然具有盗窃故意"
+    ],
+    "confidence": 0.88,
+    "rationale": "采用合理结论范围而非唯一判决标签，重点评估系统是否识别核心争点、证据强弱和未解决缺口。"
+  },
+  "expected_deliberation": {
+    "reasonable_disagreement_points": [
+      "是否具有非法占有目的",
+      "关键证据的证明强度",
+      "是否存在足以改变结论的替代解释"
+    ],
+    "expected_role_differences": [
+      "法律评议者应强调证明标准、证据链和程序要求",
+      "社会评议者应关注误判风险与权利保护",
+      "专家评议者应关注实务中的综合推断和制度后果",
+      "公众评议者可能更受直观事实和结果影响"
+    ],
+    "position_change_not_required": false
+  },
+  "pair_expectation": {
+    "paired_case_id": "criminal_002b",
+    "manipulated_variable": "B案加入关机、恢复出厂设置和出售行为，非法占有目的应明显向公诉方移动。",
+    "expected_direction_of_change": "B案加入关机、恢复出厂设置和出售行为，非法占有目的应明显向公诉方移动。",
+    "invariants": [
+      "取走地点",
+      "手机价值",
+      "监控条件",
+      "失主身份"
+    ]
+  },
+  "quality_control": {
+    "gold_hidden_from_model": true,
+    "source_checked": true,
+    "ids_checked": true,
+    "leakage_checked": true,
+    "second_review_status": "pending",
+    "notes": "本数据集为课程项目的匿名化、要件驱动合成对照集；不将金标准或预写完整论证提供给模型。"
+  }
+}
