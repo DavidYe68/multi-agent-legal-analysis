@@ -3,11 +3,13 @@ from src.llm_client import call_llm
 from src.role_view import get_role_view
 
 class BaseAgent:
-    def __init__(self, name, input_fields, output_field):
+    def __init__(self, name, input_fields, output_field, schema_key=None):
         self.name = name
         self.prompt_file = f"prompts/{name}_prompt.txt"
         self.input_fields = input_fields
         self.output_field = output_field
+        self.schema_key = schema_key if schema_key else name
+
 
     def run(self, state, logger):
         context = get_role_view(state, self.name)
@@ -33,7 +35,7 @@ class BaseAgent:
         try:
             with open("schemas/agent_output_schemas.json", "r", encoding="utf-8") as f:
                 schemas = json.load(f)
-            required = schemas.get(self.name, [])
+            required = schemas.get(self.schema_key, [])
             missing = [field for field in required if field not in result]
             return missing
         except FileNotFoundError:
