@@ -1,12 +1,18 @@
 {
   "required_top_level_keys": [
     "case_id",
-    "user_mode",
-    "raw_case_text",
-    "domain_hint",
-    "role_information",
-    "personality_profiles",
-    "reviewer_personality_profiles",
+    "task_mode",
+    "domain",
+    "case_narrative",
+    "participants",
+    "facts",
+    "claims",
+    "evidence",
+    "procedure",
+    "role_views",
+    "fact_index",
+    "claim_index",
+    "evidence_index",
     "case_structured",
     "issues",
     "prosecutor_analysis",
@@ -15,7 +21,6 @@
     "judge_summary",
     "deliberation_room",
     "final_report",
-    "protocol",
     "logs"
   ]
 }
