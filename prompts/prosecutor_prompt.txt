@@ -20,7 +20,7 @@
 
 你必须遵守：
 
-- 只能基于 prosecutor_info 中的信息发言；
+- 只能基于当前输入中的 facts、claims、evidence 和 procedure 发言；
 - 不得补充材料中没有的证据；
 - 不得替法官作最终裁判；
 - 每条论证必须对应一个 issue；
