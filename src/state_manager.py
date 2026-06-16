@@ -2,24 +2,26 @@ import json
 import os
 
 def create_state(case_data):
+    task_mode = case_data["task_mode"]
+    domain = case_data["domain"]
+
     return {
-        #基础信息
-        "case_id": case_data.get("case_id"),
-        "user_mode": case_data.get("task_mode"),
-        "domain_hint": case_data.get("domain", ""),
+        # 基础信息
+        "case_id": case_data["case_id"],
+        "task_mode": task_mode,
+        "domain": domain,
 
-        "case_narrative": case_data.get("case_narrative", {}),
-        "participants": case_data.get("participants", []),
-        "facts": case_data.get("facts", []),
-        "claims": case_data.get("claims", []),
-        "evidence": case_data.get("evidence", []),
-        "procedure": case_data.get("procedure", {}),
-        "role_views": case_data.get("role_views", {}),
+        "case_narrative": case_data["case_narrative"],
+        "participants": case_data["participants"],
+        "facts": case_data["facts"],
+        "claims": case_data["claims"],
+        "evidence": case_data["evidence"],
+        "procedure": case_data["procedure"],
+        "role_views": case_data["role_views"],
 
-        # 角色信息与人格
-        # "role_information": case_data.get("role_information", {}),
-        # "personality_profiles": case_data.get("personality_profiles", {}),
-        # "reviewer_personality_profiles": case_data.get("reviewer_personality_profiles", {}),
+        "fact_index": case_data["fact_index"],
+        "claim_index": case_data["claim_index"],
+        "evidence_index": case_data["evidence_index"],
     }
 
 def save_state(state, filepath):
