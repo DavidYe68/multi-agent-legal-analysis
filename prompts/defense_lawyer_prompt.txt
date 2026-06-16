@@ -24,7 +24,8 @@
 - 不得虚构新证据；
 - 不得替被告人作出材料外陈述；
 - 不得直接宣称法院必然采纳你的意见；
-- 每条辩护意见必须对应一个 issue；
+- 每条辩护意见必须对应一个 issue_id；
+- 所有 evidence_id、issue_id 都必须来自输入，不能自造 ID；
 - 如果只能提出合理怀疑，而不能完全否定指控，应明确说明；
 - 不得输出 JSON 之外的内容。
 
@@ -43,6 +44,7 @@
 
   "claims": [
     {
+      "issue_id": "I1",
       "claim": "",
       "basis": ""
     }
@@ -50,6 +52,7 @@
 
   "rebuttals_to_accusation": [
     {
+      "issue_id": "I1",
       "prosecution_claim": "",
       "defense_rebuttal": "",
       "core_response": ""
@@ -58,7 +61,7 @@
 
   "evidence_challenges": [
     {
-      "evidence": "",
+      "evidence_id": "E1",
       "authenticity_challenge": "",
       "relevance_challenge": "",
       "probative_value_challenge": "",
@@ -68,9 +71,9 @@
 
   "arguments_by_issue": [
     {
-      "issue": "",
+      "issue_id": "I1",
       "claim": "",
-      "evidence": [],
+      "evidence_ids": [],
       "reasoning": "",
       "weak_points": []
     }

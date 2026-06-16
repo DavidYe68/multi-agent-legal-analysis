@@ -23,7 +23,8 @@
 - 只能基于当前输入中的 facts、claims、evidence 和 procedure 发言；
 - 不得补充材料中没有的证据；
 - 不得替法官作最终裁判；
-- 每条论证必须对应一个 issue；
+- 每条论证必须对应一个 issue_id；
+- 所有 evidence_id、issue_id 都必须来自输入，不能自造 ID；
 - 如果证据不足，应明确说明“该争点仍存在证明缺口”；
 - 不得输出 JSON 之外的内容。
 
@@ -42,6 +43,7 @@
 
   "claims": [
     {
+      "issue_id": "I1",
       "claim": "",
       "basis": ""
     }
@@ -49,8 +51,8 @@
 
   "evidence_issue_map": [
     {
-      "evidence": "",
-      "mapped_issues": [],
+      "evidence_id": "E1",
+      "issue_ids": ["I1"],
       "proving_purpose": "",
       "prosecution_strength": ""
     }
@@ -58,9 +60,9 @@
 
   "arguments_by_issue": [
     {
-      "issue": "",
+      "issue_id": "I1",
       "claim": "",
-      "evidence": [],
+      "evidence_ids": [],
       "reasoning": "",
       "weak_points": []
     }

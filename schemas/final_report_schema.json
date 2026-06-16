@@ -1,29 +1,57 @@
 {
-  "teaching": [
-    "mode_hint",
-    "case_summary",
-    "timeline_summary",
-    "core_issues",
-    "sub_issues",
-    "prosecution_view",
-    "defense_view",
-    "defendant_statement",
-    "judge_summary",
-    "deliberation_room",
-    "majority_minority",
-    "evidence_gaps",
-    "discussion_questions"
-  ],
-  "practice": [
-    "mode_hint",
-    "case_summary",
-    "core_issues",
-    "possible_arguments_for_prosecution",
-    "possible_arguments_for_defense",
-    "judge_summary",
-    "deliberation_result",
-    "evidence_gaps",
-    "risk_flags",
-    "next_step_suggestions"
-  ]
+  "teaching": {
+    "type": "object",
+    "required": [
+      "mode_hint",
+      "case_summary",
+      "core_issues",
+      "prosecutor_view",
+      "defense_view",
+      "judge_summary",
+      "reviewer_summary",
+      "evidence_gaps",
+      "open_questions"
+    ],
+    "properties": {
+      "mode_hint": {"type": "string"},
+      "case_summary": {"type": "string"},
+      "core_issues": {"type": "array"},
+      "prosecutor_view": {"type": "array"},
+      "defense_view": {"type": "array"},
+      "judge_summary": {"type": "array"},
+      "reviewer_summary": {"type": "object"},
+      "evidence_gaps": {"type": "array"},
+      "open_questions": {"type": "array"},
+      "risk_flags": {"type": "array"},
+      "next_step_suggestions": {"type": "array"}
+    }
+  },
+  "practice": {
+    "type": "object",
+    "required": [
+      "mode_hint",
+      "case_summary",
+      "core_issues",
+      "prosecutor_view",
+      "defense_view",
+      "judge_summary",
+      "reviewer_summary",
+      "evidence_gaps",
+      "risk_flags",
+      "next_step_suggestions"
+    ],
+    "properties": {
+      "mode_hint": {"type": "string"},
+      "case_summary": {"type": "string"},
+      "core_issues": {"type": "array"},
+      "prosecutor_view": {"type": "array"},
+      "defense_view": {"type": "array"},
+      "judge_summary": {"type": "array"},
+      "reviewer_summary": {"type": "object"},
+      "evidence_gaps": {"type": "array"},
+      "open_questions": {"type": "array"},
+      "risk_flags": {"type": "array"},
+      "next_step_suggestions": {"type": "array"}
+    }
+  }
 }

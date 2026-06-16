@@ -16,17 +16,33 @@
 - 不得忽略辩护意见
 - 不得在证据不足时作确定判断
 - 必须明确 unresolved_points 和 evidence_gaps
+- issue_response_table 必须引用输入中的 issue_id
+- 涉及证据时必须引用输入中的 evidence_id，不能自造 ID
 
 输出 JSON：
 {
-    "final_main_issues",
-    "issue_response_table",
-    "attacked_prosecution_evidence",
-    "resolved_points",
-    "unresolved_points",
-    "evidence_gaps",
-    "judge_observations",
-    "discussion_focus",
-    "uncertainty_reasons",
-    "preliminary_judgment_tendency"
+  "final_main_issues": [],
+  "issue_response_table": [
+    {
+      "issue_id": "I1",
+      "current_status": "open | partly_closed | closed",
+      "supporting_evidence_ids": [],
+      "opposing_evidence_ids": [],
+      "reason": "",
+      "remaining_gap": ""
+    }
+  ],
+  "attacked_prosecution_evidence": [],
+  "resolved_points": [],
+  "unresolved_points": [],
+  "evidence_gaps": [
+    {
+      "issue_id": "I1",
+      "gap": ""
+    }
+  ],
+  "judge_observations": [],
+  "discussion_focus": [],
+  "uncertainty_reasons": [],
+  "preliminary_judgment_tendency": ""
 }

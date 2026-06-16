@@ -30,6 +30,7 @@
    - open：仍存在关键证明缺口
    - partly_closed：已有一定支持，但证据链尚未完全闭合
    - closed：目前已形成相对完整的证明支持
+6. issue_proof_status 中必须使用输入 issues 里的 issue_id，不能自造 ID。
 
 请严格按以下 JSON 格式输出，不要输出任何解释性文字：
 
@@ -45,7 +46,7 @@
   "evidence_gap_focus": [],
   "issue_proof_status": [
     {
-      "issue": "",
+      "issue_id": "I1",
       "status": "open | partly_closed | closed",
       "reason": ""
     }

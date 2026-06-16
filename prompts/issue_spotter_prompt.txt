@@ -14,8 +14,25 @@
 
 输出 JSON：
 {
+  "issues": [
+    {
+      "issue_id": "I1",
+      "issue_text": "",
+      "issue_type": "",
+      "related_fact_ids": [],
+      "related_evidence_ids": [],
+      "importance": "core | secondary | contextual",
+      "rationale": ""
+    }
+  ],
   "main_issues": [],
   "sub_issues": [],
   "issue_candidates": [],
   "issue_notes": []
 }
+
+要求：
+- issue_id 从 I1 开始顺序编号。
+- related_fact_ids 只能使用输入中已经存在的 fact_id。
+- related_evidence_ids 只能使用输入中已经存在的 evidence_id。
+- main_issues 保留为争点文字列表，方便旧报告读取。

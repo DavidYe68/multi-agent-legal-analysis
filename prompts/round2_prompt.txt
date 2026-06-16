@@ -33,6 +33,7 @@
 8. 标出你现在更接近哪些 reviewer（new_allies）
 9. 标出你现在仍明显反对哪些 reviewer（new_opponents）
 10. 更新你对每个 issue 当前证明状态的判断（issue_status_updates）
+11. 所有回应和状态更新都必须使用输入 issues 里的 issue_id，不能自造 ID。
 
 约束：
 - 必须基于第一轮发言回应，不能自说自话
@@ -51,7 +52,7 @@
     {
       "target_agent": "",
       "relation": "agree | disagree | partially_agree",
-      "issue": "",
+      "issue_id": "I1",
       "target_point": "",
       "accepted_part": "",
       "rejected_part": "",
@@ -69,7 +70,7 @@
   "issue_status_after_response": "closed | partly_closed | open",
   "issue_status_updates": [
     {
-      "issue": "",
+      "issue_id": "I1",
       "before_status": "open | partly_closed | closed",
       "after_status": "open | partly_closed | closed",
       "change_reason": ""

@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from src.agents.base_agent import BaseAgent
 from src.llm_client import call_llm
 
@@ -16,6 +17,8 @@ class Round2ReviewerAgent(BaseAgent):
 
     def run(self, state, logger, my_round1_review, other_round1_reviews):
         context = {
+            "case_id": state.get("case_id", ""),
+            "issues": state.get("issues", {}),
             "judge_summary": state.get("judge_summary", {}),
             "my_round1_review": my_round1_review,
             "other_round1_reviews": other_round1_reviews,
@@ -25,17 +28,36 @@ class Round2ReviewerAgent(BaseAgent):
         with open(self.prompt_file, "r", encoding="utf-8") as f:
             prompt = f.read()
 
-        print(f"开始调用{self.name}...")
-        result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
-        print(f"[{self.name}] 完成")
+        start = datetime.now()
+        start_time = start.isoformat()
+        retry_count = 0
+        result = {}
 
-        missing = self.validate(result)
-        if missing:
-            print(f"{self.name}缺少{missing}输出字段，重试中...")
+        print(f"开始调用{self.name}...")
+        try:
             result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
 
-        print(f"[{self.name}] 完成")
+            error = self.validate(result, state)
+            if error:
+                retry_count = 1
+                print(f"{self.name} 输出校验失败: {error}，重试中...")
+                result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+                error = self.validate(result, state)
 
-        state[self.output_field] = result
-        logger.log(self.name, context, result)
-        return state
+            if error:
+                raise ValueError(f"{self.name} 输出校验失败: {error}")
+
+            print(f"[{self.name}] 完成")
+            state[self.output_field] = result
+
+            end = datetime.now()
+            logger.log(self.name, context, result,  round_id=2,  start_time=start_time, 
+                       end_time=end.isoformat(),  latency_sec=round((end - start).total_seconds(), 3),
+                        retry_count=retry_count, validation_passed=True, error="")
+            return state
+        except Exception as e:
+            end = datetime.now()
+            logger.log(self.name, context, result,  round_id=2, start_time=start_time, 
+                       end_time=end.isoformat(), latency_sec=round((end - start).total_seconds(), 3), 
+                       retry_count=retry_count, validation_passed=False, error=str(e))
+            raise

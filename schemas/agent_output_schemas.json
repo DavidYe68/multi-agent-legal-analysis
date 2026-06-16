@@ -1,107 +1,329 @@
 {
-  "clerk": [
-    "parties",
-    "timeline",
-    "key_facts",
-    "evidence_items",
-    "uncertain_facts",
-    "criminal_charge_hint"
-  ],
-  "issue_spotter": [
-    "main_issues",
-    "sub_issues",
-    "issue_candidates",
-    "issue_notes"
-  ],
-  "prosecutor": [
-    "accusation",
-    "prosecutor_opinion",
-    "claims",
-    "evidence_issue_map",
-    "arguments_by_issue",
-    "overall_weak_points",
-    "confidence"
-  ],
-  "defense_lawyer": [
-    "defense_opinion",
-    "claims",
-    "rebuttals_to_accusation",
-    "evidence_challenges",
-    "arguments_by_issue",
-    "alternative_explanations",
-    "overall_weak_points",
-    "confidence"
-  ],
-  "defendant": [
-    "identity_confirmation",
-    "attitude_to_accusation",
-    "personal_statement",
-    "response_style",
-    "uncertain_or_avoided_points"
-  ],
-  "judge": [
-    "final_main_issues",
-    "issue_response_table",
-    "attacked_prosecution_evidence",
-    "resolved_points",
-    "unresolved_points",
-    "evidence_gaps",
-    "judge_observations",
-    "discussion_focus",
-    "uncertainty_reasons",
-    "preliminary_judgment_tendency"
-  ],
-  "reviewer_round1": [
-    "agent_id",
-    "role",
-    "position",
-    "core_claim",
-    "supporting_reasons",
-    "main_concern",
-    "evidence_gap_focus",
-    "confidence"
-  ],
-  "reviewer_round2": [
-    "agent_id",
-    "role",
-    "respond_to",
-    "position_before",
-    "position_after",
-    "position_changed",
-    "change_reason",
-    "new_allies",
-    "new_opponents",
-    "remaining_disagreement",
-    "open_proof_gap",
-    "issue_status_after_response",
-    "confidence_after"
-  ],
-  "deliberation_room": [
-    "participants",
-    "rounds",
-    "vote_history",
-    "alliance_map",
-    "disagreement_map",
-    "state_changes",
-    "final_meeting_result"
-  ],
-  "foreperson": [
-    "majority_view",
-    "minority_view",
-    "vote_summary",
-    "consensus_points",
-    "disagreement_points",
-    "evidence_gap_summary",
-    "final_deliberation_note"
-  ],
-  "writer": [
-    "case_summary",
-    "core_issues",
-    "prosecutor_view",
-    "defense_view",
-    "judge_summary",
-    "deliberation_room",
-    "evidence_gaps",
-    "mode_hint"
-  ]
+  "clerk": {
+    "type": "object",
+    "required": ["parties", "timeline", "key_facts", "evidence_items", "uncertain_facts", "criminal_charge_hint"],
+    "properties": {
+      "parties": {"type": "array"},
+      "timeline": {"type": "array"},
+      "key_facts": {"type": "array"},
+      "evidence_items": {"type": "array"},
+      "uncertain_facts": {"type": "array"},
+      "criminal_charge_hint": {"type": "string"}
+    }
+  },
+  "issue_spotter": {
+    "type": "object",
+    "required": ["issues", "main_issues", "sub_issues", "issue_notes"],
+    "properties": {
+      "issues": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "issue_text", "related_fact_ids", "related_evidence_ids"],
+          "properties": {
+            "issue_id": {"type": "string", "pattern": "^I[0-9]+$"},
+            "issue_text": {"type": "string"},
+            "issue_type": {"type": "string"},
+            "related_fact_ids": {"type": "array", "items": {"type": "string"}},
+            "related_evidence_ids": {"type": "array", "items": {"type": "string"}},
+            "importance": {"type": "string"},
+            "rationale": {"type": "string"}
+          }
+        }
+      },
+      "main_issues": {"type": "array"},
+      "sub_issues": {"type": "array"},
+      "issue_candidates": {"type": "array"},
+      "issue_notes": {"type": "array"}
+    }
+  },
+  "prosecutor": {
+    "type": "object",
+    "required": ["accusation", "prosecutor_opinion", "claims", "evidence_issue_map", "arguments_by_issue", "overall_weak_points", "confidence"],
+    "properties": {
+      "accusation": {"type": "string"},
+      "prosecutor_opinion": {"type": "string"},
+      "claims": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "claim", "basis"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "claim": {"type": "string"},
+            "basis": {"type": "string"}
+          }
+        }
+      },
+      "evidence_issue_map": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["evidence_id", "issue_ids", "proving_purpose", "prosecution_strength"],
+          "properties": {
+            "evidence_id": {"type": "string"},
+            "issue_ids": {"type": "array", "items": {"type": "string"}},
+            "proving_purpose": {"type": "string"},
+            "prosecution_strength": {"type": "string"}
+          }
+        }
+      },
+      "arguments_by_issue": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "claim", "evidence_ids", "reasoning", "weak_points"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "claim": {"type": "string"},
+            "evidence_ids": {"type": "array", "items": {"type": "string"}},
+            "reasoning": {"type": "string"},
+            "weak_points": {"type": "array"}
+          }
+        }
+      },
+      "overall_weak_points": {"type": "array"},
+      "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+    }
+  },
+  "defense_lawyer": {
+    "type": "object",
+    "required": ["defense_opinion", "claims", "rebuttals_to_accusation", "evidence_challenges", "arguments_by_issue", "alternative_explanations", "overall_weak_points", "confidence"],
+    "properties": {
+      "defense_opinion": {"type": "string"},
+      "claims": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "claim", "basis"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "claim": {"type": "string"},
+            "basis": {"type": "string"}
+          }
+        }
+      },
+      "rebuttals_to_accusation": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "prosecution_claim", "defense_rebuttal", "core_response"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "prosecution_claim": {"type": "string"},
+            "defense_rebuttal": {"type": "string"},
+            "core_response": {"type": "string"}
+          }
+        }
+      },
+      "evidence_challenges": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["evidence_id", "authenticity_challenge", "relevance_challenge", "probative_value_challenge", "defense_conclusion"],
+          "properties": {
+            "evidence_id": {"type": "string"},
+            "authenticity_challenge": {"type": "string"},
+            "relevance_challenge": {"type": "string"},
+            "probative_value_challenge": {"type": "string"},
+            "defense_conclusion": {"type": "string"}
+          }
+        }
+      },
+      "arguments_by_issue": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "claim", "evidence_ids", "reasoning", "weak_points"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "claim": {"type": "string"},
+            "evidence_ids": {"type": "array", "items": {"type": "string"}},
+            "reasoning": {"type": "string"},
+            "weak_points": {"type": "array"}
+          }
+        }
+      },
+      "alternative_explanations": {"type": "array"},
+      "overall_weak_points": {"type": "array"},
+      "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+    }
+  },
+  "defendant": {
+    "type": "object",
+    "required": ["identity_confirmation", "attitude_to_accusation", "personal_statement", "response_style", "uncertain_or_avoided_points"],
+    "properties": {
+      "identity_confirmation": {"type": "string"},
+      "attitude_to_accusation": {"type": "string"},
+      "personal_statement": {"type": "string"},
+      "response_style": {"type": "string"},
+      "uncertain_or_avoided_points": {"type": "array"}
+    }
+  },
+  "judge": {
+    "type": "object",
+    "required": ["final_main_issues", "issue_response_table", "attacked_prosecution_evidence", "resolved_points", "unresolved_points", "evidence_gaps", "judge_observations", "discussion_focus", "uncertainty_reasons", "preliminary_judgment_tendency"],
+    "properties": {
+      "final_main_issues": {"type": "array"},
+      "issue_response_table": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "current_status", "supporting_evidence_ids", "opposing_evidence_ids", "reason", "remaining_gap"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "current_status": {"type": "string", "enum": ["open", "partly_closed", "closed"]},
+            "supporting_evidence_ids": {"type": "array", "items": {"type": "string"}},
+            "opposing_evidence_ids": {"type": "array", "items": {"type": "string"}},
+            "reason": {"type": "string"},
+            "remaining_gap": {"type": "string"}
+          }
+        }
+      },
+      "attacked_prosecution_evidence": {"type": "array"},
+      "resolved_points": {"type": "array"},
+      "unresolved_points": {"type": "array"},
+      "evidence_gaps": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "gap"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "gap": {"type": "string"}
+          }
+        }
+      },
+      "judge_observations": {"type": "array"},
+      "discussion_focus": {"type": "array"},
+      "uncertainty_reasons": {"type": "array"},
+      "preliminary_judgment_tendency": {"type": "string"}
+    }
+  },
+  "reviewer_round1": {
+    "type": "object",
+    "required": ["agent_id", "role", "position", "core_claim", "supporting_reasons", "main_concern", "evidence_gap_focus", "issue_proof_status", "confidence"],
+    "properties": {
+      "agent_id": {"type": "string"},
+      "role": {"type": "string", "enum": ["legal", "social", "expert", "public"]},
+      "round": {"type": "number"},
+      "speech_type": {"type": "string"},
+      "position": {"type": "string", "enum": ["guilty", "not_guilty", "partial", "unclear"]},
+      "core_claim": {"type": "string"},
+      "supporting_reasons": {"type": "array"},
+      "main_concern": {"type": "string"},
+      "evidence_gap_focus": {"type": "array"},
+      "issue_proof_status": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "status", "reason"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "status": {"type": "string", "enum": ["open", "partly_closed", "closed"]},
+            "reason": {"type": "string"}
+          }
+        }
+      },
+      "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+    }
+  },
+  "reviewer_round2": {
+    "type": "object",
+    "required": ["agent_id", "role", "respond_to", "position_before", "position_after", "position_changed", "change_reason", "new_allies", "new_opponents", "remaining_disagreement", "open_proof_gap", "issue_status_after_response", "issue_status_updates", "confidence_after"],
+    "properties": {
+      "agent_id": {"type": "string"},
+      "role": {"type": "string", "enum": ["legal", "social", "expert", "public"]},
+      "round": {"type": "number"},
+      "speech_type": {"type": "string"},
+      "respond_to": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["target_agent", "relation", "issue_id", "target_point", "accepted_part", "rejected_part", "response_reason"],
+          "properties": {
+            "target_agent": {"type": "string"},
+            "relation": {"type": "string", "enum": ["agree", "disagree", "partially_agree"]},
+            "issue_id": {"type": "string"},
+            "target_point": {"type": "string"},
+            "accepted_part": {"type": "string"},
+            "rejected_part": {"type": "string"},
+            "response_reason": {"type": "string"}
+          }
+        }
+      },
+      "position_before": {"type": "string", "enum": ["guilty", "not_guilty", "partial", "unclear"]},
+      "position_after": {"type": "string", "enum": ["guilty", "not_guilty", "partial", "unclear"]},
+      "position_changed": {"type": "boolean"},
+      "change_reason": {"type": "string"},
+      "new_allies": {"type": "array"},
+      "new_opponents": {"type": "array"},
+      "remaining_disagreement": {"type": "string"},
+      "open_proof_gap": {"type": "string"},
+      "issue_status_after_response": {"type": "string", "enum": ["open", "partly_closed", "closed"]},
+      "issue_status_updates": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["issue_id", "before_status", "after_status", "change_reason"],
+          "properties": {
+            "issue_id": {"type": "string"},
+            "before_status": {"type": "string", "enum": ["open", "partly_closed", "closed"]},
+            "after_status": {"type": "string", "enum": ["open", "partly_closed", "closed"]},
+            "change_reason": {"type": "string"}
+          }
+        }
+      },
+      "confidence_after": {"type": "number", "minimum": 0, "maximum": 1}
+    }
+  },
+  "foreperson": {
+    "type": "object",
+    "required": ["majority_view", "minority_view", "vote_summary", "consensus_points", "disagreement_points", "evidence_gap_summary", "final_deliberation_note"],
+    "properties": {
+      "majority_view": {"type": "string"},
+      "minority_view": {"type": "string"},
+      "vote_summary": {"type": "object"},
+      "consensus_points": {"type": "array"},
+      "disagreement_points": {"type": "array"},
+      "reserved_points": {"type": "array"},
+      "evidence_gap_summary": {"type": "array"},
+      "final_deliberation_note": {"type": "string"}
+    }
+  },
+  "writer_teaching": {
+    "type": "object",
+    "required": ["mode_hint", "case_summary", "core_issues", "prosecutor_view", "defense_view", "judge_summary", "reviewer_summary", "evidence_gaps", "open_questions"],
+    "properties": {
+      "mode_hint": {"type": "string"},
+      "case_summary": {"type": "string"},
+      "core_issues": {"type": "array"},
+      "prosecutor_view": {"type": "array"},
+      "defense_view": {"type": "array"},
+      "judge_summary": {"type": "array"},
+      "reviewer_summary": {"type": "object"},
+      "evidence_gaps": {"type": "array"},
+      "open_questions": {"type": "array"},
+      "risk_flags": {"type": "array"},
+      "next_step_suggestions": {"type": "array"}
+    }
+  },
+  "writer_practice": {
+    "type": "object",
+    "required": ["mode_hint", "case_summary", "core_issues", "prosecutor_view", "defense_view", "judge_summary", "reviewer_summary", "evidence_gaps", "risk_flags", "next_step_suggestions"],
+    "properties": {
+      "mode_hint": {"type": "string"},
+      "case_summary": {"type": "string"},
+      "core_issues": {"type": "array"},
+      "prosecutor_view": {"type": "array"},
+      "defense_view": {"type": "array"},
+      "judge_summary": {"type": "array"},
+      "reviewer_summary": {"type": "object"},
+      "evidence_gaps": {"type": "array"},
+      "open_questions": {"type": "array"},
+      "risk_flags": {"type": "array"},
+      "next_step_suggestions": {"type": "array"}
+    }
+  }
 }
