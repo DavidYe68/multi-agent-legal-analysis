@@ -5,14 +5,21 @@ def create_state(case_data):
     return {
         #基础信息
         "case_id": case_data.get("case_id"),
-        "user_mode": case_data.get("user_mode", "teaching"),
-        "raw_case_text": case_data.get("raw_case_text", ""),
-        "domain_hint": case_data.get("domain_hint", ""),
+        "user_mode": case_data.get("task_mode"),
+        "domain_hint": case_data.get("domain", ""),
 
-        #角色信息与人格
-        "role_information": case_data.get("role_information", {}),
-        "personality_profiles": case_data.get("personality_profiles", {}),
-        "reviewer_personality_profiles": case_data.get("reviewer_personality_profiles", {}),
+        "case_narrative": case_data.get("case_narrative", {}),
+        "participants": case_data.get("participants", []),
+        "facts": case_data.get("facts", []),
+        "claims": case_data.get("claims", []),
+        "evidence": case_data.get("evidence", []),
+        "procedure": case_data.get("procedure", {}),
+        "role_views": case_data.get("role_views", {}),
+
+        # 角色信息与人格
+        # "role_information": case_data.get("role_information", {}),
+        # "personality_profiles": case_data.get("personality_profiles", {}),
+        # "reviewer_personality_profiles": case_data.get("reviewer_personality_profiles", {}),
     }
 
 def save_state(state, filepath):

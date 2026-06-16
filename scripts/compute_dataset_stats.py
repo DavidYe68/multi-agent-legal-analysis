@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
-CASE_DIR = ROOT_DIR / "data" / "cases"
+CASE_DIR = ROOT_DIR / "datasets" / "cases" / "processed"
 OUTPUT_DIR = ROOT_DIR / "outputs"
 
 VALID_PERSONALITY_FIELDS = {
@@ -71,7 +71,7 @@ def main():
 
 
 def infer_case_type(case_data, case_path):
-    domain_hint = case_data.get("domain_hint", "")
+    domain_hint = case_data.get("domain", {}).get("case_category", case_path.stem)
     if domain_hint in CASE_TYPE_MAP:
         return CASE_TYPE_MAP[domain_hint]
     return domain_hint or case_path.stem

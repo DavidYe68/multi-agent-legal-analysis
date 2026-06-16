@@ -93,3 +93,27 @@
 - main.py里单分支的raw_case_text和user_mode两个参数已经用不到了，可见5.7第3条修改。删除
 
 # ----------------完成中期报告----------------
+
+# 六、 6.15
+- 新增src/baseline.py，并增加prompts/baseline.txt
+  - 完成函数，没有调用
+- 优化臃肿的pipeline.py
+  - 单独写庭审、评议round1、评议round2、联盟图、总结
+    - 庭审run_linear_trail()
+    - round1 run_round1()
+    - round2 run_round2()
+      - 修改src/agents/reviewer.py输出命名
+      - 修改联盟图同盟判断逻辑
+    - 联盟 build_deliberation_room
+      - 上一版“联盟”判断改为“受影响”，“联盟”由立场决定。同时修改prompt
+- 把reviewer拆成round1和round2
+  - 重试逻辑有点愚蠢
+- 更新cases，schemas，
+  - 新建一个datasets统一管理
+  - 删除人格参数，拆分raw_text
+    - 修改state_manager.py，调整参数
+    - 删除round2人格参数
+  - 重写role_views
+- schema修复升级
+  - 更新
+  -

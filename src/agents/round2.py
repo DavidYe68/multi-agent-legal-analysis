@@ -15,12 +15,12 @@ class Round2ReviewerAgent(BaseAgent):
         self.prompt_file = f"prompts/round2_prompt.txt"
 
     def run(self, state, logger, my_round1_review, other_round1_reviews):
-        personality = state.get("reviewer_personality_profiles", {}).get(f"{self.role}_reviewer", {})
+        # personality = state.get("reviewer_personality_profiles", {}).get(f"{self.role}_reviewer", {})
         context = {
             "judge_summary": state.get("judge_summary", {}),
             "my_round1_review": my_round1_review,
-            "other_round1_reviews": other_round1_reviews,
-            "reviewer_personality": personality
+            "other_round1_reviews": other_round1_reviews
+            #"reviewer_personality": personality
         }
 
         with open(self.prompt_file, "r", encoding="utf-8") as f:

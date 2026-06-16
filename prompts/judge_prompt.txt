@@ -19,13 +19,14 @@
 
 输出 JSON：
 {
-  "procedure_completed": [],
-  "procedure_missing": [],
-  "final_main_issues": [],
-  "resolved_points": [],
-  "unresolved_points": [],
-  "evidence_gaps": [],
-  "judge_observations": [],
-  "discussion_focus": [],
-  "preliminary_judgment_tendency": "guilty | not_guilty | partial | unclear"
+    "final_main_issues",
+    "issue_response_table",
+    "attacked_prosecution_evidence",
+    "resolved_points",
+    "unresolved_points",
+    "evidence_gaps",
+    "judge_observations",
+    "discussion_focus",
+    "uncertainty_reasons",
+    "preliminary_judgment_tendency"
 }
