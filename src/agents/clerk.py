@@ -4,6 +4,6 @@ class ClerkAgent(BaseAgent):
     def __init__(self):
         super().__init__(
             name="clerk",
-            input_fields=["raw_case_text"],
+            input_fields=["case_narrative", "facts", "claims", "evidence", "procedure"],
             output_field="case_structured"
         )
