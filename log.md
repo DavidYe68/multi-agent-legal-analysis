@@ -116,4 +116,15 @@
   - 重写role_views
 - schema修复升级
   - 更新
-  -
+
+# 七、6.16
+- 新增data_loader
+- 修复agents/小bug和prompts/小bug
+- 完善main.py参数设置
+- 更新state_manager
+- 重写role_view
+- schema升级 （codex 5.5）
+- 联盟图完善
+- 项目根目录增加main.py并修改run.sh
+- 增加 validate_dataset.py evaluate_outputs.py mock版，待更新，修改compute_dataset_stats.py (codex 5.5)
+- 更新 report_utils.py，要求内容翔实，表述简洁扼要，符合法学风格 （Claude opus 4.8）
