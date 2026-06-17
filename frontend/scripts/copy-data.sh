@@ -4,14 +4,13 @@
 #
 # 把项目根的案件数据拷贝到 frontend/public/data/ 下，供前端通过 fetch 读取。
 #
-#   datasets/cases/processed/*.json   →  public/data/cases/{caseId}.json
-#   outputs/{caseId}/state_final.json →  public/data/outputs/{caseId}.json
+#   datasets/cases/processed/*.json        →  public/data/cases/{caseId}.json
+#   outputs/full/{caseId}/state_final.json →  public/data/outputs/{caseId}.json
 #
 # 并生成 public/data/manifest.json（案件 id 清单 + 有产物的 id 清单），
 # 因为浏览器无法列目录，listCases() 需要一份显式清单。
 #
-# 注意：运行产物实际位于 outputs/{caseId}/state_final.json
-# （不是 outputs/full/...——项目里并没有 full/ 这一层目录）。
+# 注意：运行产物来自默认 full 实验，位于 outputs/full/{caseId}/state_final.json。
 #
 # 用法：bash frontend/scripts/copy-data.sh   或   (cd frontend && npm run copy-data)
 
@@ -22,7 +21,7 @@ FRONTEND_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 PROJECT_ROOT="$(cd "$FRONTEND_DIR/.." && pwd)"
 
 SRC_CASES="$PROJECT_ROOT/datasets/cases/processed"
-SRC_OUTPUTS="$PROJECT_ROOT/outputs"
+SRC_OUTPUTS="$PROJECT_ROOT/outputs/full"
 SRC_SPLITS="$PROJECT_ROOT/datasets/splits"
 DEST_DATA="$FRONTEND_DIR/public/data"
 DEST_CASES="$DEST_DATA/cases"
