@@ -131,4 +131,10 @@
 
 - 增加消融配置，修改pipeline.py role_view.py round2.py main.py，增加开关
 - Debug writer 输出校验失败：LLM 在 `writer.judge_summary` 等 schema 要求为数组的字段中偶发返回字符串，导致 `is not of type 'array'`。在 `BaseAgent` 增加输出后处理钩子和字段路径化校验错误提示，在 `WriterAgent` 对 writer 数组字段做最小类型归一化（字符串转单元素数组）；已通过 py_compile、模拟校验和 validate_dataset 验证。 （codex 5.5）
-- 增加记录llm api调用的用量与费用
+
+- debug消融问题 codex 5.5协助
+- debug schema问题，codex 5.5
+- debug 评估脚本逻辑 codex 5.5
+- 删除clerk
+
+- 增加前端 Claude Opus 4.8
