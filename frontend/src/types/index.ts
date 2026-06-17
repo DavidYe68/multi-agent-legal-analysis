@@ -647,6 +647,8 @@ export interface CaseSummary {
   neutral_summary: string;
   /** 是否已有运行产物（state_final.json）。 */
   has_output: boolean;
+  /** 是否有实务模式报告（final_reports.practice）。 */
+  has_practice: boolean;
   /** 数据集划分归属（开发集 / 测试集）；不在任何划分中时为 null。 */
   split: CaseSplit | null;
 }
@@ -661,6 +663,8 @@ export interface ManifestSplits {
 export interface DataManifest {
   cases: string[];
   outputs: string[];
+  /** 运行产物里真的含 practice 报告的案件；旧版 manifest 可能没有，故可选。 */
+  practice?: string[];
   /** 数据集划分；旧版 manifest 可能没有此字段，故可选。 */
   splits?: ManifestSplits;
 }

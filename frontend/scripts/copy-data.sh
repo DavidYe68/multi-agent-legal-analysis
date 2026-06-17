@@ -38,6 +38,7 @@ rm -f "$DEST_CASES"/*.json "$DEST_OUTPUTS"/*.json 2>/dev/null || true
 
 case_ids=()
 output_ids=()
+practice_ids=()
 
 for f in "$SRC_CASES"/*.json; do
   [ -e "$f" ] || continue
@@ -50,6 +51,10 @@ for f in "$SRC_CASES"/*.json; do
   if [ -f "$out" ]; then
     cp "$out" "$DEST_OUTPUTS/$base.json"
     output_ids+=("$base")
+    # 该案运行产物里真的有 practice 报告时，才算有实务模式。
+    if python3 -c "import json,sys;d=json.load(open('$out'));sys.exit(0 if 'practice' in (d.get('final_reports') or {}) else 1)" 2>/dev/null; then
+      practice_ids+=("$base")
+    fi
   fi
 done
 
@@ -85,6 +90,7 @@ read_split_array() {
   printf '{\n'
   printf '  "cases": %s,\n' "$(join_json_array "${case_ids[@]}")"
   printf '  "outputs": %s,\n' "$(join_json_array "${output_ids[@]}")"
+  printf '  "practice": %s,\n' "$(join_json_array "${practice_ids[@]}")"
   printf '  "splits": { "development": %s, "test": %s }\n' \
     "$(read_split_array development.json)" "$(read_split_array test.json)"
   printf '}\n'

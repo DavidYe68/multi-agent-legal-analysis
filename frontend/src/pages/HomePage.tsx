@@ -98,7 +98,7 @@ export default function HomePage() {
 
   /** 当前模式下的案件（其余筛选的基集，也是类型下拉的取值来源）。 */
   const modeCases = useMemo(
-    () => (cases ?? []).filter((c) => c.task_mode === mode),
+    () => (cases ?? []).filter((c) => mode === "teaching" || c.has_practice),
     [cases, mode],
   );
 

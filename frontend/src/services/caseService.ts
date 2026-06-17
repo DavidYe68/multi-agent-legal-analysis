@@ -53,6 +53,7 @@ function splitOf(manifest: DataManifest, caseId: string): CaseSplit | null {
 function toSummary(
   c: CaseInput,
   hasOutput: boolean,
+  hasPractice: boolean,
   split: CaseSplit | null,
 ): CaseSummary {
   return {
@@ -66,6 +67,7 @@ function toSummary(
     pair_variant: c.metadata.pair_variant,
     neutral_summary: c.case_narrative.neutral_summary,
     has_output: hasOutput,
+    has_practice: hasPractice,
     split,
   };
 }
@@ -76,9 +78,15 @@ function toSummary(
 export async function listCases(): Promise<CaseSummary[]> {
   const manifest = await getManifest();
   const outputs = new Set(manifest.outputs);
+  const practice = new Set(manifest.practice ?? []);
   const cases = await Promise.all(manifest.cases.map((id) => getCase(id)));
   return cases.map((c) =>
-    toSummary(c, outputs.has(c.case_id), splitOf(manifest, c.case_id)),
+    toSummary(
+      c,
+      outputs.has(c.case_id),
+      practice.has(c.case_id),
+      splitOf(manifest, c.case_id),
+    ),
   );
 }
 
