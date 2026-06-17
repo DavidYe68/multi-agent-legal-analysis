@@ -1,5 +1,8 @@
 import json
 import os
+from jsonschema import validate as jsonschema_validate, ValidationError
+
+STATE_SCHEMA_PATH = "schemas/state_schema.json"
 
 def create_state(case_data, config):
     task_mode = case_data["task_mode"]
@@ -34,3 +37,16 @@ def save_state(state, filepath):
 def load_state(filepath):
     with open(filepath, "r", encoding="utf-8") as f:
         return json.load(f)
+
+def validate_state_schema(state, schema_path=STATE_SCHEMA_PATH):
+    with open(schema_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+
+    try:
+        jsonschema_validate(instance=state, schema=schema)
+    except ValidationError as e:
+        path = ".".join(str(item) for item in e.absolute_path)
+        location = f" at {path}" if path else ""
+        raise ValueError(f"state schema validation failed{location}: {e.message}") from e
+
+    return True

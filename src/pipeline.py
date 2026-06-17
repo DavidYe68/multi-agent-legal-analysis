@@ -1,5 +1,5 @@
 
-from src.state_manager import create_state
+from src.state_manager import create_state, validate_state_schema
 from src.baseline import run_baseline
 from src.logger import Logger
 
@@ -19,7 +19,9 @@ REVIEWERS = ["legal", "social", "expert", "public"]
 
 def run_pipeline(case_data, config):
     if config["mode"] == "baseline":
-        return run_baseline(case_data, config)
+        state = run_baseline(case_data, config)
+        validate_state_schema(state)
+        return state
 
     state = create_state(case_data, config)
     logger = Logger(state.get("case_id", ""))
@@ -33,6 +35,7 @@ def run_pipeline(case_data, config):
         state = run_summary(state, logger)
         case_id = state.get("case_id")
         logger.save(f"multi_agent_logs/{config['name']}/{case_id}_log.json")
+        validate_state_schema(state)
         return state
 
     round1_reviews = run_round1(state, logger, config)
@@ -50,6 +53,7 @@ def run_pipeline(case_data, config):
 
     case_id = state.get("case_id")
     logger.save(f"multi_agent_logs/{config['name']}/{case_id}_log.json")
+    validate_state_schema(state)
     return state
 
 def run_linear_trial(state, logger):

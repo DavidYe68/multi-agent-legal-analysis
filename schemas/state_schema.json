@@ -1,5 +1,9 @@
 {
-  "required_top_level_keys": [
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/state_schema.json",
+  "title": "Final pipeline state",
+  "type": "object",
+  "required": [
     "case_id",
     "task_mode",
     "domain",
@@ -13,14 +17,127 @@
     "fact_index",
     "claim_index",
     "evidence_index",
-    "case_structured",
-    "issues",
-    "prosecutor_analysis",
-    "defense_analysis",
-    "defendant_statement",
-    "judge_summary",
-    "deliberation_room",
-    "final_report",
-    "logs"
+    "config",
+    "final_report"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "task_mode": {"type": "string", "minLength": 1},
+    "domain": {"type": "object"},
+    "case_narrative": {"type": "object"},
+    "participants": {"type": "array"},
+    "facts": {"type": "array"},
+    "claims": {"type": "array"},
+    "evidence": {"type": "array"},
+    "procedure": {"type": "object"},
+    "role_views": {"type": "object"},
+    "fact_index": {"type": "object"},
+    "claim_index": {"type": "object"},
+    "evidence_index": {"type": "object"},
+    "config": {
+      "type": "object",
+      "required": [
+        "mode",
+        "role_separation",
+        "enable_round2",
+        "adversarial_exchange",
+        "proof_state",
+        "name"
+      ],
+      "properties": {
+        "mode": {"type": "string", "enum": ["baseline", "linear", "full"]},
+        "role_separation": {"type": "boolean"},
+        "enable_round2": {"type": "boolean"},
+        "adversarial_exchange": {"type": "boolean"},
+        "proof_state": {"type": "boolean"},
+        "name": {"type": "string", "minLength": 1}
+      }
+    },
+    "case_structured": {"type": "object"},
+    "issues": {"type": "object"},
+    "prosecutor_analysis": {"type": "object"},
+    "defense_analysis": {"type": "object"},
+    "defendant_statement": {"type": "object"},
+    "judge_summary": {"type": "object"},
+    "reviewer_outputs": {"type": "array"},
+    "round2_outputs": {"type": "array"},
+    "current_round1_review": {"type": "object"},
+    "current_round2_review": {"type": "object"},
+    "deliberation_room": {"type": "object"},
+    "foreperson_summary": {"type": "object"},
+    "final_report": {"type": "object"},
+    "baseline_usage": {"type": "object"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["config"],
+        "properties": {
+          "config": {
+            "required": ["mode"],
+            "properties": {
+              "mode": {"const": "baseline"}
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["baseline_usage"]
+      }
+    },
+    {
+      "if": {
+        "required": ["config"],
+        "properties": {
+          "config": {
+            "required": ["mode"],
+            "properties": {
+              "mode": {"const": "linear"}
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "case_structured",
+          "issues",
+          "prosecutor_analysis",
+          "defense_analysis",
+          "defendant_statement",
+          "judge_summary",
+          "reviewer_outputs",
+          "round2_outputs",
+          "deliberation_room",
+          "foreperson_summary"
+        ]
+      }
+    },
+    {
+      "if": {
+        "required": ["config"],
+        "properties": {
+          "config": {
+            "required": ["mode"],
+            "properties": {
+              "mode": {"const": "full"}
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "case_structured",
+          "issues",
+          "prosecutor_analysis",
+          "defense_analysis",
+          "defendant_statement",
+          "judge_summary",
+          "reviewer_outputs",
+          "round2_outputs",
+          "deliberation_room",
+          "foreperson_summary"
+        ]
+      }
+    }
   ]
 }
