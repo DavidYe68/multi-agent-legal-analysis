@@ -1,5 +1,6 @@
 
 from src.state_manager import create_state
+from src.baseline import run_baseline
 from src.logger import Logger
 
 from src.agents.clerk import ClerkAgent
@@ -16,23 +17,39 @@ from src.agents.writer import WriterAgent
 
 REVIEWERS = ["legal", "social", "expert", "public"]
 
-def run_pipeline(case_data):
-    state = create_state(case_data)
+def run_pipeline(case_data, config):
+    if config["mode"] == "baseline":
+        return run_baseline(case_data, config)
+
+    state = create_state(case_data, config)
     logger = Logger(state.get("case_id", ""))
 
     state = run_linear_trial(state, logger)
 
+    if config["mode"] == "linear":
+        state["reviewer_outputs"] = []
+        state["round2_outputs"] = []
+        state["deliberation_room"] = {}
+        state = run_summary(state, logger)
+        case_id = state.get("case_id")
+        logger.save(f"multi_agent_logs/{config['name']}/{case_id}_log.json")
+        return state
+
     round1_reviews = run_round1(state, logger)
-    round2_reviews = run_round2(state, round1_reviews, logger)
+
+    if config["enable_round2"]:
+        round2_reviews = run_round2(state, round1_reviews, logger, config)
+    else:
+        round2_reviews = []
 
     state["reviewer_outputs"] = round1_reviews
     state["round2_outputs"] = round2_reviews
-    state["deliberation_room"] = build_deliberation_room(round1_reviews, round2_reviews, state.get("issues", {}))
+    state["deliberation_room"] = build_deliberation_room(round1_reviews, round2_reviews, state.get("issues", {}), config)
 
     state = run_summary(state, logger)
 
     case_id = state.get("case_id")
-    logger.save(f"multi_agent_logs/{case_id}_log.json")
+    logger.save(f"multi_agent_logs/{config['name']}/{case_id}_log.json")
     return state
 
 def run_linear_trial(state, logger):
@@ -57,7 +74,7 @@ def run_round1(state, logger):
     return round1_reviews
 
 
-def run_round2(state, round1_reviews, logger):
+def run_round2(state, round1_reviews, logger, config):
     round2_reviews = []
 
     for i, role in enumerate(REVIEWERS):
@@ -65,10 +82,11 @@ def run_round2(state, round1_reviews, logger):
         other_reviews = []
         reviewer = Round2ReviewerAgent(role)
 
-        for j, review in enumerate(round1_reviews):
-            if i != j:
-                other_reviews.append(review)
-    
+        if config["adversarial_exchange"]:
+            for j, review in enumerate(round1_reviews):
+                if i != j:
+                    other_reviews.append(review)
+
         state = reviewer.run(state, logger, my_round1_review=my_review, other_round1_reviews=other_reviews)
         round2_reviews.append(state["current_round2_review"])
 
@@ -252,9 +270,13 @@ def build_state_changes(round2_reviews):
     return state_changes
 
 
-def build_deliberation_room(round1_reviews, round2_reviews, issues):
+def build_deliberation_room(round1_reviews, round2_reviews, issues, config):
     alliance_map = build_alliance_map(round1_reviews, round2_reviews)
-    final_issue_status = build_final_issue_status(round1_reviews, round2_reviews, issues)
+
+    if config["proof_state"]:
+        final_issue_status = build_final_issue_status(round1_reviews, round2_reviews, issues)
+    else:
+        final_issue_status = []
 
     deliberation_room = {
         "participants": ["legal_reviewer", "social_reviewer", "expert_reviewer", "public_reviewer"],

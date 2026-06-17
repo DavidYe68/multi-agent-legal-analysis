@@ -1,7 +1,7 @@
 import json
 import os
 
-def create_state(case_data):
+def create_state(case_data, config):
     task_mode = case_data["task_mode"]
     domain = case_data["domain"]
 
@@ -22,6 +22,8 @@ def create_state(case_data):
         "fact_index": case_data["fact_index"],
         "claim_index": case_data["claim_index"],
         "evidence_index": case_data["evidence_index"],
+
+        "config": config,
     }
 
 def save_state(state, filepath):

@@ -2,8 +2,8 @@ import json
 from src.llm_client import call_llm
 from src.state_manager import create_state
 
-def run_baseline(case_data):
-    state = create_state(case_data)
+def run_baseline(case_data, config):
+    state = create_state(case_data, config)
     
     with open("prompts/baseline.txt", "r", encoding="utf-8") as f:
         prompt = f.read()

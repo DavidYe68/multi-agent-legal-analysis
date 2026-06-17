@@ -13,12 +13,17 @@ def get_role_view(state, role):
 
     rule = state["role_views"][role_name]
 
-    facts = pick_by_ids(state["fact_index"], rule["fact_ids"])
-    claims = pick_by_ids(state["claim_index"], rule["claim_ids"])
-    evidence = pick_by_ids(state["evidence_index"], rule["evidence_ids"])
-
-    procedure = {}
-    if rule["procedure_access"]:
+    if state["config"]["role_separation"]:
+        facts = pick_by_ids(state["fact_index"], rule["fact_ids"])
+        claims = pick_by_ids(state["claim_index"], rule["claim_ids"])
+        evidence = pick_by_ids(state["evidence_index"], rule["evidence_ids"])
+        procedure = {}
+        if rule["procedure_access"]:
+            procedure = state["procedure"]
+    else:
+        facts = list(state["fact_index"].values())
+        claims = list(state["claim_index"].values())
+        evidence = list(state["evidence_index"].values())
         procedure = state["procedure"]
 
     case_structured = {
