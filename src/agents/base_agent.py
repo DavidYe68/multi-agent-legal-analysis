@@ -17,6 +17,7 @@ class BaseAgent:
         context = get_role_view(state, self.name)
         with open(self.prompt_file, "r", encoding="utf-8") as f:
             prompt = f.read()
+        prompt = prompt + getattr(self, "prompt_extra", "")
 
         start = datetime.now()
         start_time = start.isoformat()

@@ -229,6 +229,23 @@
       "confidence": {"type": "number", "minimum": 0, "maximum": 1}
     }
   },
+  "reviewer_round1_no_proof": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent_id", "role", "position", "core_claim", "supporting_reasons", "main_concern", "evidence_gap_focus", "confidence"],
+    "properties": {
+      "agent_id": {"type": "string"},
+      "role": {"type": "string", "enum": ["legal", "social", "expert", "public"]},
+      "round": {"type": "number"},
+      "speech_type": {"type": "string"},
+      "position": {"type": "string", "enum": ["guilty", "not_guilty", "partial", "unclear"]},
+      "core_claim": {"type": "string"},
+      "supporting_reasons": {"type": "array"},
+      "main_concern": {"type": "string"},
+      "evidence_gap_focus": {"type": "array"},
+      "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+    }
+  },
   "reviewer_round2": {
     "type": "object",
     "required": ["agent_id", "role", "respond_to", "position_before", "position_after", "position_changed", "change_reason", "new_allies", "new_opponents", "remaining_disagreement", "open_proof_gap", "issue_status_after_response", "issue_status_updates", "confidence_after"],
@@ -275,6 +292,41 @@
           }
         }
       },
+      "confidence_after": {"type": "number", "minimum": 0, "maximum": 1}
+    }
+  },
+  "reviewer_round2_no_proof": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent_id", "role", "respond_to", "position_before", "position_after", "position_changed", "change_reason", "new_allies", "new_opponents", "remaining_disagreement", "confidence_after"],
+    "properties": {
+      "agent_id": {"type": "string"},
+      "role": {"type": "string", "enum": ["legal", "social", "expert", "public"]},
+      "round": {"type": "number"},
+      "speech_type": {"type": "string"},
+      "respond_to": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["target_agent", "relation", "issue_id", "target_point", "accepted_part", "rejected_part", "response_reason"],
+          "properties": {
+            "target_agent": {"type": "string"},
+            "relation": {"type": "string", "enum": ["agree", "disagree", "partially_agree"]},
+            "issue_id": {"type": "string"},
+            "target_point": {"type": "string"},
+            "accepted_part": {"type": "string"},
+            "rejected_part": {"type": "string"},
+            "response_reason": {"type": "string"}
+          }
+        }
+      },
+      "position_before": {"type": "string", "enum": ["guilty", "not_guilty", "partial", "unclear"]},
+      "position_after": {"type": "string", "enum": ["guilty", "not_guilty", "partial", "unclear"]},
+      "position_changed": {"type": "boolean"},
+      "change_reason": {"type": "string"},
+      "new_allies": {"type": "array"},
+      "new_opponents": {"type": "array"},
+      "remaining_disagreement": {"type": "string"},
       "confidence_after": {"type": "number", "minimum": 0, "maximum": 1}
     }
   },

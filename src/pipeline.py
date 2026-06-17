@@ -35,7 +35,7 @@ def run_pipeline(case_data, config):
         logger.save(f"multi_agent_logs/{config['name']}/{case_id}_log.json")
         return state
 
-    round1_reviews = run_round1(state, logger)
+    round1_reviews = run_round1(state, logger, config)
 
     if config["enable_round2"]:
         round2_reviews = run_round2(state, round1_reviews, logger, config)
@@ -65,10 +65,10 @@ def run_linear_trial(state, logger):
         state = agent.run(state, logger)
     return state
 
-def run_round1(state, logger):
+def run_round1(state, logger, config):
     round1_reviews = []
     for role in REVIEWERS:
-        reviewer = Round1ReviewerAgent(role)
+        reviewer = Round1ReviewerAgent(role, proof_state=config["proof_state"])
         state = reviewer.run(state, logger)
         round1_reviews.append(state["current_round1_review"])
     return round1_reviews
@@ -80,7 +80,11 @@ def run_round2(state, round1_reviews, logger, config):
     for i, role in enumerate(REVIEWERS):
         my_review = round1_reviews[i]
         other_reviews = []
-        reviewer = Round2ReviewerAgent(role)
+        reviewer = Round2ReviewerAgent(
+            role,
+            proof_state=config["proof_state"],
+            adversarial_exchange=config["adversarial_exchange"]
+        )
 
         if config["adversarial_exchange"]:
             for j, review in enumerate(round1_reviews):
@@ -245,7 +249,7 @@ def build_disagreement_map(round2_reviews):
             })
     return disagreement_map
 
-def build_state_changes(round2_reviews):
+def build_state_changes(round2_reviews, proof_state=True):
     state_changes = []
     for review in round2_reviews:
         if review.get("position_changed"):
@@ -257,29 +261,37 @@ def build_state_changes(round2_reviews):
                 "reason": review.get("change_reason", "")
             })
 
-        for item in review.get("issue_status_updates", []):
-            if item.get("before_status") != item.get("after_status"):
-                state_changes.append({
-                    "agent_id": review.get("agent_id", ""),
-                    "change_type": "issue_status",
-                    "issue_id": item.get("issue_id", ""),
-                    "before": item.get("before_status", ""),
-                    "after": item.get("after_status", ""),
-                    "reason": item.get("change_reason", "")
-                })
+        if proof_state:
+            for item in review.get("issue_status_updates", []):
+                if item.get("before_status") != item.get("after_status"):
+                    state_changes.append({
+                        "agent_id": review.get("agent_id", ""),
+                        "change_type": "issue_status",
+                        "issue_id": item.get("issue_id", ""),
+                        "before": item.get("before_status", ""),
+                        "after": item.get("after_status", ""),
+                        "reason": item.get("change_reason", "")
+                    })
     return state_changes
 
 
 def build_deliberation_room(round1_reviews, round2_reviews, issues, config):
-    if config["enable_round2"]:
+    if config["enable_round2"] and config["adversarial_exchange"]:
         alliance_map = build_alliance_map(round1_reviews, round2_reviews)
     else:
         alliance_map = {}
 
     if config["proof_state"]:
         final_issue_status = build_final_issue_status(round1_reviews, round2_reviews, issues)
+        issue_status_timeline = build_issue_status_timeline(round1_reviews, round2_reviews)
     else:
         final_issue_status = []
+        issue_status_timeline = []
+
+    if config["adversarial_exchange"]:
+        disagreement_map = build_disagreement_map(round2_reviews)
+    else:
+        disagreement_map = []
 
     deliberation_room = {
         "participants": ["legal_reviewer", "social_reviewer", "expert_reviewer", "public_reviewer"],
@@ -297,9 +309,9 @@ def build_deliberation_room(round1_reviews, round2_reviews, issues, config):
         ],
         "vote_history": build_vote_history(round1_reviews, round2_reviews),
         "alliance_map": alliance_map,
-        "disagreement_map": build_disagreement_map(round2_reviews),
-        "state_changes": build_state_changes(round2_reviews),
-        "issue_status_timeline": build_issue_status_timeline(round1_reviews, round2_reviews),
+        "disagreement_map": disagreement_map,
+        "state_changes": build_state_changes(round2_reviews, proof_state=config["proof_state"]),
+        "issue_status_timeline": issue_status_timeline,
         "final_meeting_result": {
             "final_issue_status": final_issue_status
         }
