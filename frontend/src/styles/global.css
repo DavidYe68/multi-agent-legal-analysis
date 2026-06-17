@@ -1,0 +1,147 @@
+/* ============================================================================
+ * 设计系统 · 全局样式 (Global Styles)
+ * 多智能体法律推理系统
+ *
+ * 加载顺序很重要：远程字体与本地令牌的 @import 必须排在 @tailwind 指令之前，
+ * 否则 PostCSS / 浏览器会忽略它们。
+ * ========================================================================== */
+
+/* ---- 字体：Google Fonts -----------------------------------------------------
+ * Noto Serif SC (400, 700) · Noto Sans SC (400, 500, 700) · Inter (400, 500)
+ * display=swap：先用系统字体渲染，避免文字闪烁空白。
+ * -------------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;700&display=swap");
+
+/* ---- 设计令牌：唯一真源 ---------------------------------------------------- */
+@import "./tokens.css";
+
+/* ---- Tailwind 三层指令 ------------------------------------------------------ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+ * 基础层 (base)
+ * ========================================================================== */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    /* 最外层背景：深海军蓝。内容由各面板承载。 */
+    background-color: var(--bg-shell);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    /* 中文排版需要更大行高，全局统一 1.7。 */
+    line-height: var(--leading-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+  }
+
+  /* 标题使用衬线字体，呼应司法文书／学术研究的气质。 */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* 等宽字体用于引用条文编号、证据编号、代码等。 */
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--font-mono);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* 克制的文本选区：黄铜色低透明度，不刺眼。 */
+  ::selection {
+    background-color: rgba(139, 115, 85, 0.22);
+    color: var(--text-primary);
+  }
+
+  /* 在深色 shell 上的文本（如顶栏标题）使用浅色。 */
+  .on-dark {
+    color: var(--text-on-dark);
+  }
+}
+
+/* ============================================================================
+ * 组件层 (components)
+ * ========================================================================== */
+@layer components {
+  /* 所有内容面板的统一基底：象牙白背景 + 暖灰边框，无阴影。
+   * 需要细微抬升时由具体组件手动加 box-shadow（仅限 --shadow-panel 这一档）。 */
+  .panel {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+  }
+
+  /* 次级面板：浅羊皮纸。 */
+  .panel-alt {
+    background-color: var(--bg-surface-alt);
+  }
+
+  /* 弹窗 / 抽屉：纯白抬升面。 */
+  .panel-elevated {
+    background-color: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+  }
+
+  /* 黄铜色强调边框，仅用于 Judge（法官）相关面板。 */
+  .panel-judge {
+    border-color: var(--border-emphasis);
+  }
+
+  /* StatusDot 的「运行中」呼吸动画。
+   * 注意：opacity 0.4 → 1 → 0.4，1.5s 一个完整循环，ease-in-out。
+   * 刻意不使用 Tailwind 的 animate-pulse / animate-spin / animate-bounce
+   * ——那是「AI 味」的标志。 */
+  .status-dot-pulse {
+    animation: status-dot-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+/* StatusDot 呼吸动画关键帧。 */
+@keyframes status-dot-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 尊重用户的「减少动态效果」偏好：关闭呼吸动画，停在完全不透明。 */
+@media (prefers-reduced-motion: reduce) {
+  .status-dot-pulse {
+    animation: none;
+    opacity: 1;
+  }
+}

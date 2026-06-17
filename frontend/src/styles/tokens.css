@@ -1,0 +1,87 @@
+/* ============================================================================
+ * 设计系统 · 设计令牌 (Design Tokens)
+ * 多智能体法律推理系统
+ *
+ * 视觉调性：中国司法文书 + 学术研究系统 + 克制的庭审空间感。
+ * 不是赛博朋克，不是 SaaS 后台，不是聊天机器人。
+ *
+ * 这里是所有设计令牌的唯一真源 (single source of truth)。
+ * 组件与 Tailwind 配置都从这里取值，不要在别处硬编码颜色/尺寸。
+ * ========================================================================== */
+
+:root {
+  /* ---- 色彩 · 背景 ---------------------------------------------------------- */
+  --bg-shell: #1b2838;        /* 深海军蓝，最外层背景 */
+  --bg-surface: #faf6f0;      /* 象牙白，内容面板 */
+  --bg-surface-alt: #f0ebe3;  /* 浅羊皮纸，次级面板 */
+  --bg-elevated: #ffffff;     /* 弹窗、抽屉 */
+
+  /* ---- 色彩 · 边框 ---------------------------------------------------------- */
+  --border-default: #d6cfc5;  /* 暖灰边框 */
+  --border-emphasis: #8b7355; /* 黄铜色强调边框，仅用于 Judge */
+
+  /* ---- 色彩 · 文本 ---------------------------------------------------------- */
+  --text-primary: #1a1a1a;
+  --text-secondary: #5c5c5c;
+  --text-caption: #8c8c8c;
+  --text-on-dark: #e8e4de;
+
+  /* ---- 色彩 · 角色（仅用于小面积标识，不铺满）-------------------------------- */
+  --role-prosecutor: #8b2d3a;       /* 公诉方 · 暗红 */
+  --role-defense: #2b4c7e;          /* 辩护方 · 靛蓝 */
+  --role-defendant: #7a6f63;        /* 被告人 · 灰褐 */
+  --role-judge: #8b7355;            /* 法官 · 黄铜 */
+  --role-legal-reviewer: #3d5a4c;   /* 法律评议 · 墨绿 */
+  --role-social-reviewer: #4a7c7e;  /* 社会评议 · 青绿 */
+  --role-expert-reviewer: #6b5b7b;  /* 专家评议 · 紫灰 */
+  --role-public-reviewer: #9b7b3c;  /* 公众评议 · 琥珀 */
+  --role-foreperson: #7a6522;       /* 首席评议 · 深金 */
+  --role-writer: #5f6b7a;           /* 报告撰写 · 灰蓝 */
+
+  /* ---- 色彩 · 关系（用于连线和状态标签）------------------------------------- */
+  --relation-agree: #4a7c6f;     /* 沉稳绿，不要亮绿 */
+  --relation-partial: #9b8545;   /* 琥珀 */
+  --relation-disagree: #8b4049;  /* 暗红 */
+
+  /* ---- 色彩 · 状态 ---------------------------------------------------------- */
+  --status-pending: #8c8c8c;
+  --status-running: #5a7a9b;
+  --status-done: #4a6b5a;
+  --status-error: #8b4049;
+
+  /* ---- 间距（4px 基数）------------------------------------------------------ */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* ---- 圆角（不要用 8px 以上的圆角。这不是消费级 App。）---------------------- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  /* ---- 字体 ----------------------------------------------------------------- */
+  --font-display: "Noto Serif SC", "Source Han Serif SC", serif;
+  --font-body: "Noto Sans SC", "Source Han Sans SC", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-label: "Inter", "Noto Sans SC", sans-serif;
+
+  /* ---- 字号层级 ------------------------------------------------------------- */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 36px;
+
+  /* ---- 行高（中文排版统一使用 1.7）------------------------------------------ */
+  --leading-base: 1.7;
+
+  /* ---- 效果 · 补充令牌 ------------------------------------------------------ */
+  /* 全局禁止 box-shadow。下面这一档是唯一允许的阴影，且仅供特定组件手动引用。 */
+  --shadow-panel: 0 1px 3px rgba(0, 0, 0, 0.08);
+}

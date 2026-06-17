@@ -1,0 +1,5 @@
+{
+  "cases": ["criminal_001a", "criminal_001b", "criminal_002a", "criminal_002b", "criminal_003a", "criminal_003b", "criminal_004a", "criminal_004b", "criminal_005a", "criminal_005b", "criminal_006a", "criminal_006b"],
+  "outputs": ["criminal_001a", "criminal_001b", "criminal_002a", "criminal_002b", "criminal_003a", "criminal_003b", "criminal_004a", "criminal_004b", "criminal_005a", "criminal_005b", "criminal_006a", "criminal_006b"],
+  "splits": { "development": ["criminal_001a","criminal_001b","criminal_002a","criminal_002b","criminal_003a","criminal_003b","criminal_004a","criminal_004b"], "test": ["criminal_005a","criminal_005b","criminal_006a","criminal_006b"] }
+}

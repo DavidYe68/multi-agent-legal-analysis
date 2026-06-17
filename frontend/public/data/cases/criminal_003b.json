@@ -1,0 +1,438 @@
+{
+  "case_id": "criminal_003b",
+  "version": "2.0",
+  "language": "zh-CN",
+  "task_mode": "teaching",
+  "domain": {
+    "jurisdiction": "中国",
+    "case_category": "故意伤害",
+    "primary_issue_type": "causation",
+    "secondary_issue_types": [
+      "证据可靠性",
+      "不确定性校准"
+    ]
+  },
+  "title": "推搡受伤与因果关系（完整视频和医学意见）",
+  "source": {
+    "source_id": "PAIR03",
+    "source_type": "synthetic",
+    "citation": "基于原有教学案例、刑法构成要件与证据规则形成的控制变量合成案例",
+    "url": "",
+    "retrieval_date": "2026-06-16",
+    "original_case_number": "",
+    "adaptation_type": "minimal_pair_construction",
+    "adaptation_notes": "保留同组案件的大部分事实，仅改变一个具有法律意义的关键变量，用于测试模型敏感性；不对应具体自然人或单一真实案件。",
+    "anonymized": true
+  },
+  "case_narrative": {
+    "neutral_summary": "丙与丁争执，完整监控显示丙击打丁面部并将其推倒，丁以受伤部位直接撞击台阶。补充鉴定结合视频、影像资料和旧病历，认为本次新鲜损伤与该撞击机制高度吻合，旧伤不足以解释本次轻伤结果。",
+    "timeline": [
+      {
+        "event_id": "T1",
+        "order": 1,
+        "time_label": "阶段1",
+        "content": "丙击打丁并将其推倒。；丁倒地时受伤部位直接撞击台阶。；丁构成轻伤二级。",
+        "fact_ids": [
+          "F1",
+          "F2",
+          "F3"
+        ]
+      },
+      {
+        "event_id": "T2",
+        "order": 2,
+        "time_label": "阶段2",
+        "content": "补充鉴定认为本次行为足以造成伤情并排除旧伤作为主要原因。",
+        "fact_ids": [
+          "F4"
+        ]
+      }
+    ]
+  },
+  "participants": [
+    {
+      "participant_id": "P1",
+      "role": "defendant",
+      "anonymized_name": "被告人",
+      "attributes": {
+        "说明": "已匿名化"
+      }
+    },
+    {
+      "participant_id": "P2",
+      "role": "victim",
+      "anonymized_name": "被害人",
+      "attributes": {
+        "说明": "已匿名化"
+      }
+    }
+  ],
+  "facts": [
+    {
+      "fact_id": "F1",
+      "content": "丙击打丁并将其推倒。",
+      "status": "undisputed",
+      "asserted_by": [
+        "prosecution",
+        "defense",
+        "defendant"
+      ],
+      "evidence_ids": [
+        "E1"
+      ],
+      "notes": "已将事实与各方评价分离。"
+    },
+    {
+      "fact_id": "F2",
+      "content": "丁倒地时受伤部位直接撞击台阶。",
+      "status": "undisputed",
+      "asserted_by": [
+        "prosecution",
+        "defense",
+        "defendant"
+      ],
+      "evidence_ids": [
+        "E1"
+      ],
+      "notes": "已将事实与各方评价分离。"
+    },
+    {
+      "fact_id": "F3",
+      "content": "丁构成轻伤二级。",
+      "status": "undisputed",
+      "asserted_by": [
+        "prosecution",
+        "defense",
+        "defendant"
+      ],
+      "evidence_ids": [
+        "E2"
+      ],
+      "notes": "已将事实与各方评价分离。"
+    },
+    {
+      "fact_id": "F4",
+      "content": "补充鉴定认为本次行为足以造成伤情并排除旧伤作为主要原因。",
+      "status": "undisputed",
+      "asserted_by": [
+        "prosecution",
+        "defense",
+        "defendant"
+      ],
+      "evidence_ids": [
+        "E2"
+      ],
+      "notes": "已将事实与各方评价分离。"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "C1",
+      "actor_role": "prosecution",
+      "content": "完整视频、证言和补充鉴定共同证明丙的行为造成轻伤结果。",
+      "supporting_evidence_ids": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "claim_status": "asserted"
+    },
+    {
+      "claim_id": "C2",
+      "actor_role": "defense",
+      "content": "丙对严重结果的预见程度仍可作为责任程度讨论。",
+      "supporting_evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "claim_status": "asserted"
+    },
+    {
+      "claim_id": "C3",
+      "actor_role": "defendant",
+      "content": "丙承认推倒丁，但称没有想到会造成轻伤。",
+      "supporting_evidence_ids": [
+        "E3"
+      ],
+      "claim_status": "asserted"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "evidence_type": "audio_visual",
+      "content": "完整监控清楚记录击打、推倒和撞击过程。",
+      "source_actor": "现场管理方",
+      "collection_context": "课程项目结构化材料",
+      "authenticity_status": "confirmed",
+      "availability": "full",
+      "notes": "关键动作连续可见。"
+    },
+    {
+      "evidence_id": "E2",
+      "evidence_type": "expert_opinion",
+      "content": "补充鉴定结合视频和病历，认为伤情与本次撞击高度吻合，旧伤不是主要原因。",
+      "source_actor": "鉴定机构",
+      "collection_context": "课程项目结构化材料",
+      "authenticity_status": "confirmed",
+      "availability": "full",
+      "notes": "分析了具体致伤机制。"
+    },
+    {
+      "evidence_id": "E3",
+      "evidence_type": "witness_testimony",
+      "content": "两名证人对击打和推倒过程陈述一致。",
+      "source_actor": "证人",
+      "collection_context": "课程项目结构化材料",
+      "authenticity_status": "confirmed",
+      "availability": "full",
+      "notes": "与视频相互印证。"
+    },
+    {
+      "evidence_id": "E4",
+      "evidence_type": "defendant_statement",
+      "content": "丙承认推倒但称没有预见严重后果。",
+      "source_actor": "被告人",
+      "collection_context": "课程项目结构化材料",
+      "authenticity_status": "confirmed",
+      "availability": "full",
+      "notes": "不否认主要行为。"
+    }
+  ],
+  "procedure": {
+    "current_stage": "case_analysis",
+    "completed_actions": [
+      "完成材料整理",
+      "完成事实—证据—主张分离"
+    ],
+    "missing_or_disputed_actions": [],
+    "evidence_examination": [
+      {
+        "evidence_id": "E1",
+        "status": "examined",
+        "notes": "关键动作连续可见。"
+      },
+      {
+        "evidence_id": "E2",
+        "status": "examined",
+        "notes": "分析了具体致伤机制。"
+      },
+      {
+        "evidence_id": "E3",
+        "status": "examined",
+        "notes": "与视频相互印证。"
+      },
+      {
+        "evidence_id": "E4",
+        "status": "examined",
+        "notes": "不否认主要行为。"
+      }
+    ]
+  },
+  "role_views": {
+    "clerk": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "procedure_access": true,
+      "notes": "负责保留事实来源与争议状态。"
+    },
+    "issue_spotter": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "procedure_access": true,
+      "notes": "只识别争点，不读取金标准。"
+    },
+    "prosecutor": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C1",
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "procedure_access": true,
+      "notes": "读取证据而非预写完整答案。"
+    },
+    "defense_lawyer": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C2",
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "procedure_access": true,
+      "notes": "读取证据而非预写完整答案。"
+    },
+    "defendant": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "procedure_access": false,
+      "notes": "限制为与本人陈述直接相关的材料。"
+    },
+    "judge": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "procedure_access": true,
+      "notes": "可查看双方结构化论证和全部证据。"
+    },
+    "reviewers": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "procedure_access": true,
+      "notes": "可查看双方论证和法官争点表。"
+    },
+    "foreperson": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "procedure_access": true,
+      "notes": "汇总两轮评议，不读取金标准。"
+    },
+    "writer": {
+      "fact_ids": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "claim_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "evidence_ids": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "procedure_access": true,
+      "notes": "读取上游结构化输出，不读取金标准。"
+    }
+  },
+  "metadata": {
+    "difficulty": "hard",
+    "paired_case_id": "criminal_003a",
+    "pair_variant": "B",
+    "target_capabilities": [
+      "争点识别",
+      "证据映射",
+      "证据缺口发现",
+      "不确定性保持",
+      "最小对照敏感性"
+    ],
+    "created_by": [
+      "项目组",
+      "AI辅助初标",
+      "法学背景成员复核"
+    ],
+    "review_status": "legal_reviewed"
+  }
+}
