@@ -4,8 +4,8 @@ BASE_URL = "https://api.deepseek.com"
 MODEL = "deepseek-v4-flash" # "deepseek-v4-pro"
 
 TEMPERATURE = 0     #thinking mode温度设置不生效
-MAX_TOKENS = 4096
-MAX_RETRIES = 2
+MAX_TOKENS = 8192
+MAX_RETRIES = 5
 
 #价格按每百万token统计。可查https://api-docs.deepseek.com/zh-cn/quick_start/pricing/
 if MODEL == "deepseek-v4-flash":

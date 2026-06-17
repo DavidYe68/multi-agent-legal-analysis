@@ -30,11 +30,18 @@ def save_outputs(state, case_id, exp_name):
     print(f"报告: {md_path}")
 
 def run_cases(cases, config):
+    failed = []
     for case_data in cases:
         case_id = case_data["case_id"]
         print(f"\n正在处理 {case_id}...")
-        state = run_pipeline(case_data, config)
-        save_outputs(state, case_id, config["name"])
+        try:
+            state = run_pipeline(case_data, config)
+            save_outputs(state, case_id, config["name"])
+        except Exception as e:
+            print(f"{case_id} 失败：{e}")
+            failed.append(case_id)
+    if failed:
+        print(f"\n失败案件（可单独重跑）：{failed}")
 
 def run_all_cases(config):
     run_cases(load_all_cases(), config)
