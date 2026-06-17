@@ -3,7 +3,7 @@ from src.state_manager import create_state, validate_state_schema
 from src.baseline import run_baseline
 from src.logger import Logger
 
-from src.agents.clerk import ClerkAgent
+# from src.agents.clerk import ClerkAgent
 from src.agents.issue_spotter import IssueSpotterAgent
 from src.agents.prosecutor import ProsecutorAgent
 from src.agents.defense_lawyer import DefenseLawyerAgent
@@ -58,7 +58,7 @@ def run_pipeline(case_data, config):
 
 def run_linear_trial(state, logger):
     linear_agents = [
-        ClerkAgent(),
+        # ClerkAgent(),
         IssueSpotterAgent(),
         ProsecutorAgent(),
         DefenseLawyerAgent(),
