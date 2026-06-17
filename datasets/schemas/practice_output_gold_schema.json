@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ICAD Practice Mode Evaluation Gold",
+  "type": "object",
+  "required": [
+    "case_id",
+    "mode",
+    "target_scenario",
+    "expected_risk_flags",
+    "expected_next_steps",
+    "conclusion_boundaries",
+    "must_not_claim",
+    "evaluation_notes"
+  ],
+  "properties": {
+    "case_id": {"type": "string"},
+    "mode": {"const": "practice"},
+    "target_scenario": {"type": "string"},
+    "expected_risk_flags": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["risk_id", "category", "severity", "issue_id", "description", "evidence_ids"],
+        "properties": {
+          "risk_id": {"type": "string"},
+          "category": {"type": "string"},
+          "severity": {"enum": ["critical", "major", "moderate", "minor"]},
+          "issue_id": {"type": "string"},
+          "description": {"type": "string"},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "expected_next_steps": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["step_id", "priority", "action", "resolves_gap_ids"],
+        "properties": {
+          "step_id": {"type": "string"},
+          "priority": {"enum": ["P0", "P1", "P2"]},
+          "action": {"type": "string"},
+          "resolves_gap_ids": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "conclusion_boundaries": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "must_not_claim": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "evaluation_notes": {"type": "string"}
+  }
+}

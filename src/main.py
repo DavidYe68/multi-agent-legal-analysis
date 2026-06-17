@@ -18,6 +18,14 @@ def save_outputs(state, case_id, exp_name):
     with open(md_path, "w", encoding="utf-8") as f:
         f.write(render_markdown_report(state))
 
+    for mode, report in state.get("final_reports", {}).items():
+        mode_state = dict(state)
+        mode_state["task_mode"] = mode
+        mode_state["final_report"] = report
+        mode_path = f"outputs/{exp_name}/{case_id}/final_report_{mode}.md"
+        with open(mode_path, "w", encoding="utf-8") as f:
+            f.write(render_markdown_report(mode_state))
+
     print(f"JSON: {json_path}")
     print(f"报告: {md_path}")
 

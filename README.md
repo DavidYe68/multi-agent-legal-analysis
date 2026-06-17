@@ -42,6 +42,28 @@ Writer
 - `state_final.json`：完整机器可读状态，包含所有 Agent 的结构化输出。
 - `final_report.md`：给人看的 Markdown 报告。
 
+## 教学 / 实务双模式
+
+同一批事实、证据、争点、评议结果只跑一次，Writer 会根据 `task_mode` 组织成两种不同的报告。模式只是输出层的变量，不复制案件，也不改变上游推理：
+
+- `teaching`：展示分析过程、争点结构、控辩对照、多视角评议和课堂讨论问题。
+- `practice`：面向案件办理前期，提炼核心风险、关键证据缺口、不确定性、下一步调查建议和结论边界。
+
+默认 12 个案件只生成 `teaching`。`datasets/splits/practice_validation.json` 里的验证案件（criminal_001a / 001b / 003a / 006a）会同时生成两份，分别写到：
+
+```text
+outputs/{exp_name}/{case_id}/final_report_teaching.md
+outputs/{exp_name}/{case_id}/final_report_practice.md
+```
+
+`state_final.json` 里的 `final_reports` 字段按模式存放这两份报告。前端报告页可以在教学 / 实务之间切换，读取的是各自真实的 Writer 输出；若某个模式没有运行，会提示“该模式尚未运行”，不会拿另一模式的内容代替。
+
+实务模式有专用的隐藏评价标准，只供评估脚本在运行结束后使用：
+
+```bash
+python scripts/evaluate_practice_outputs.py --exp full
+```
+
 ## 数据集结构
 
 当前数据集放在 `datasets/` 下，分成三块：

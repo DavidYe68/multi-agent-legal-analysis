@@ -626,6 +626,8 @@ export interface CaseOutput {
   deliberation_room: DeliberationRoom;
   foreperson_summary: ForepersonSummary;
   final_report: FinalReport;
+  /** 双模式报告（state.final_reports），按 task_mode 索引；验证集案件含 teaching + practice。 */
+  final_reports?: Partial<Record<TaskMode, FinalReport>>;
 }
 
 /* ===========================================================================

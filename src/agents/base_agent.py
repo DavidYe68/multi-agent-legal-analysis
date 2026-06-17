@@ -15,7 +15,8 @@ class BaseAgent:
 
     def run(self, state, logger):
         context = get_role_view(state, self.name)
-        with open(self.prompt_file, "r", encoding="utf-8") as f:
+        prompt_file = self.resolve_prompt_file(state)
+        with open(prompt_file, "r", encoding="utf-8") as f:
             prompt = f.read()
         prompt = prompt + getattr(self, "prompt_extra", "")
 
@@ -75,6 +76,9 @@ class BaseAgent:
                 usage=usage
             )
             raise
+
+    def resolve_prompt_file(self, state):
+        return self.prompt_file
     
     def get_round_id(self):
         if "round1" in self.name:

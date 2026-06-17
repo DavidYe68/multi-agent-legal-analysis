@@ -1,0 +1,66 @@
+{
+  "case_id": "criminal_006a",
+  "mode": "practice",
+  "target_scenario": "对关键供述存在非法取证风险且缺乏独立印证的案件进行证据可采性和定案风险分析。",
+  "expected_risk_flags": [
+    {
+      "risk_id": "R1",
+      "category": "供述合法性风险",
+      "severity": "critical",
+      "issue_id": "I1",
+      "description": "连续十二小时讯问、缺少完整同步录音录像、次日翻供和新鲜瘀伤共同构成需要优先调查的非法取证风险信号。",
+      "evidence_ids": ["E1", "E2", "E3", "E4"]
+    },
+    {
+      "risk_id": "R2",
+      "category": "供述缺少独立印证",
+      "severity": "critical",
+      "issue_id": "I2",
+      "description": "手机定位只能证明辛到过现场附近，不能独立印证供述中的核心作案细节。",
+      "evidence_ids": ["E1", "E5"]
+    },
+    {
+      "risk_id": "R3",
+      "category": "排除供述后证据不足",
+      "severity": "critical",
+      "issue_id": "I3",
+      "description": "若关键供述被排除或显著降低证明力，剩余证据不足以支持核心事实认定。",
+      "evidence_ids": ["E5"]
+    }
+  ],
+  "expected_next_steps": [
+    {
+      "step_id": "S1",
+      "priority": "P0",
+      "action": "完整调取讯问录音录像、讯问安排、值班记录和讯问人员说明，核查连续讯问及录音缺失原因。",
+      "resolves_gap_ids": ["G1"]
+    },
+    {
+      "step_id": "S2",
+      "priority": "P0",
+      "action": "调查新鲜瘀伤的形成时间和原因，结合体检、看守、押解和讯问记录审查是否存在威胁或不当取证。",
+      "resolves_gap_ids": ["G1"]
+    },
+    {
+      "step_id": "S3",
+      "priority": "P0",
+      "action": "寻找能够独立印证核心作案细节的物证、现场证人、视频或其他电子数据。",
+      "resolves_gap_ids": ["G2"]
+    },
+    {
+      "step_id": "S4",
+      "priority": "P1",
+      "action": "分别评估供述被排除、暂不排除但降低权重两种情形下的剩余证据充分性。",
+      "resolves_gap_ids": ["G1", "G2"]
+    }
+  ],
+  "conclusion_boundaries": [
+    "在合法性调查完成前，不应把该供述作为稳定定案基础。",
+    "即使暂不排除供述，也应显著降低其权重并要求独立证据印证。"
+  ],
+  "must_not_claim": [
+    "供述内容具体就当然合法可信。",
+    "手机定位可以完全印证供述中的作案事实。"
+  ],
+  "evaluation_notes": "实务输出必须明确区分可采性、真实性和排除供述后的剩余证据充分性三个层次。"
+}

@@ -224,7 +224,7 @@ function reportToMarkdown(
   mode: TaskMode,
   out: CaseOutput,
 ): string {
-  const r = out.final_report;
+  const r = out.final_reports?.[mode] ?? out.final_report;
   const judge = out.judge_summary;
   const fore = out.foreperson_summary;
   const lines: string[] = [];
@@ -470,7 +470,9 @@ export default function ReportPage() {
     );
   }
 
-  const report = caseOutput.final_report;
+  const report =
+    caseOutput.final_reports?.[mode] ??
+    (caseOutput.final_report?.mode_hint === mode ? caseOutput.final_report : null);
   const judge = caseOutput.judge_summary;
   const fore = caseOutput.foreperson_summary;
   const timeline = caseOutput.case_narrative?.timeline ?? caseInput.case_narrative.timeline;
@@ -546,6 +548,12 @@ export default function ReportPage() {
           </p>
         </header>
 
+        {!report ? (
+          <Section title={mode === "teaching" ? "教学报告" : "实务报告"}>
+            <Empty note="该模式尚未运行，不能用另一模式的内容代替。" />
+          </Section>
+        ) : (
+        <>
         {/* 案件摘要（两种模式共有） */}
         <Section title="案件摘要">
           {report.case_summary ? <Prose>{report.case_summary}</Prose> : <Empty />}
@@ -731,6 +739,8 @@ export default function ReportPage() {
               )}
             </Section>
           </>
+        )}
+        </>
         )}
       </article>
 

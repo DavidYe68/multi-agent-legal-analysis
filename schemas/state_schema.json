@@ -66,6 +66,13 @@
     "deliberation_room": {"type": "object"},
     "foreperson_summary": {"type": "object"},
     "final_report": {"type": "object"},
+    "final_reports": {
+      "type": "object",
+      "properties": {
+        "teaching": {"type": "object"},
+        "practice": {"type": "object"}
+      }
+    },
     "baseline_usage": {"type": "object"}
   },
   "allOf": [

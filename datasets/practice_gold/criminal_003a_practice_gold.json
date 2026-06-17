@@ -1,0 +1,59 @@
+{
+  "case_id": "criminal_003a",
+  "mode": "practice",
+  "target_scenario": "对伤害结果已经存在但致伤过程缺失的案件进行因果关系风险梳理和补证规划。",
+  "expected_risk_flags": [
+    {
+      "risk_id": "R1",
+      "category": "因果链未闭合",
+      "severity": "critical",
+      "issue_id": "I1",
+      "description": "轻伤结果已经确认，但现有鉴定没有分析具体动作、旧伤和伤害结果之间的因果关系。",
+      "evidence_ids": ["E2", "E4"]
+    },
+    {
+      "risk_id": "R2",
+      "category": "关键过程证据缺失",
+      "severity": "critical",
+      "issue_id": "I2",
+      "description": "监控缺失倒地前后的关键十秒，无法稳定确认是否存在击打及具体倒地方式。",
+      "evidence_ids": ["E1"]
+    },
+    {
+      "risk_id": "R3",
+      "category": "证人证言矛盾",
+      "severity": "major",
+      "issue_id": "I2",
+      "description": "证人对推搡、击打及动作细节的陈述不一致，不能单独弥补视频缺口。",
+      "evidence_ids": ["E3"]
+    }
+  ],
+  "expected_next_steps": [
+    {
+      "step_id": "S1",
+      "priority": "P0",
+      "action": "申请补充鉴定或医学专家说明，针对本案动作、倒地方式、旧伤和轻伤结果之间的因果关系作出专门分析。",
+      "resolves_gap_ids": ["G1"]
+    },
+    {
+      "step_id": "S2",
+      "priority": "P0",
+      "action": "继续调取关键十秒的完整监控、周边摄像头、现场照片或其他能够还原倒地过程的材料。",
+      "resolves_gap_ids": ["G2"]
+    },
+    {
+      "step_id": "S3",
+      "priority": "P1",
+      "action": "分别核对证人的观察位置、视线条件、陈述时间和前后差异，评估证言可靠性。",
+      "resolves_gap_ids": ["G2"]
+    }
+  ],
+  "conclusion_boundaries": [
+    "可以确认发生冲突和轻伤结果，但不能据此当然认定丙的行为造成该伤情。",
+    "在补充医学因果意见和关键过程证据前，因果争点应保持开放。"
+  ],
+  "must_not_claim": [
+    "鉴定为轻伤二级就当然证明伤情由丙造成。"
+  ],
+  "evaluation_notes": "实务输出应把补充鉴定和关键过程证据列为最高优先级，而不是仅提示一般性调查。"
+}

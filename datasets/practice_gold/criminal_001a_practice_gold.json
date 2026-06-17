@@ -1,0 +1,74 @@
+{
+  "case_id": "criminal_001a",
+  "mode": "practice",
+  "target_scenario": "对银行卡出借行为进行前期风险梳理，识别现有证据能证明什么、不能证明什么，以及下一步需要补充哪些材料。",
+  "expected_risk_flags": [
+    {
+      "risk_id": "R1",
+      "category": "主观明知证明不足",
+      "severity": "critical",
+      "issue_id": "I1",
+      "description": "异常流水、含糊聊天和单一同案人员陈述尚不足以稳定证明甲知道资金来源于网络犯罪。",
+      "evidence_ids": ["E1", "E2", "E4"]
+    },
+    {
+      "risk_id": "R2",
+      "category": "电子数据完整性不足",
+      "severity": "critical",
+      "issue_id": "I3",
+      "description": "现有材料仅有聊天摘要，缺少原始载体、完整上下文和身份确认，含糊用语可能被过度解释。",
+      "evidence_ids": ["E2"]
+    },
+    {
+      "risk_id": "R3",
+      "category": "同案人员陈述缺少印证",
+      "severity": "major",
+      "issue_id": "I3",
+      "description": "直接指向甲知情的同案人员陈述缺少历次陈述对比和外部证据印证，证明力不稳定。",
+      "evidence_ids": ["E4"]
+    },
+    {
+      "risk_id": "R4",
+      "category": "获利事实不明",
+      "severity": "major",
+      "issue_id": "I1",
+      "description": "是否存在报酬、分成或其他利益回报尚未查清，影响对参与程度和主观认识的判断。",
+      "evidence_ids": ["E5"]
+    }
+  ],
+  "expected_next_steps": [
+    {
+      "step_id": "S1",
+      "priority": "P0",
+      "action": "调取聊天原始载体、完整聊天记录和电子数据提取报告，核验双方身份、上下文和含糊用语的真实含义。",
+      "resolves_gap_ids": ["G1"]
+    },
+    {
+      "step_id": "S2",
+      "priority": "P0",
+      "action": "核查甲的完整资金流向、报酬约定、分成记录及与涉案人员之间的其他资金往来。",
+      "resolves_gap_ids": ["G2"]
+    },
+    {
+      "step_id": "S3",
+      "priority": "P0",
+      "action": "调取同案人员历次讯问笔录并寻找其他电子数据、证人或客观记录进行交叉印证。",
+      "resolves_gap_ids": ["G3"]
+    },
+    {
+      "step_id": "S4",
+      "priority": "P1",
+      "action": "核实验证码提供次数、时间和账户控制程度，区分一次性帮助与持续性配合。",
+      "resolves_gap_ids": ["G1", "G2"]
+    }
+  ],
+  "conclusion_boundaries": [
+    "可以确认甲提供了银行卡，但主观明知仍应保持开放。",
+    "现有材料适合支持继续调查，不适合直接作出确定的有罪判断。"
+  ],
+  "must_not_claim": [
+    "仅凭异常流水即可认定甲具有犯罪明知。",
+    "单一同案人员陈述无需印证即可排除合理怀疑。"
+  ],
+  "evaluation_notes": "实务输出应优先呈现证据风险、补证顺序和结论边界，而不是复述课堂讨论问题。"
+}

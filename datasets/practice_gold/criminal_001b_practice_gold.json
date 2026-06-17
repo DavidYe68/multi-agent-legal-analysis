@@ -1,0 +1,60 @@
+{
+  "case_id": "criminal_001b",
+  "mode": "practice",
+  "target_scenario": "在电子数据和报酬记录较完整的情况下，对主观明知、客观帮助行为和剩余争议进行实务风险判断。",
+  "expected_risk_flags": [
+    {
+      "risk_id": "R1",
+      "category": "主观明知风险较高",
+      "severity": "critical",
+      "issue_id": "I1",
+      "description": "完整聊天、持续提供验证码和五千元报酬记录能够相互印证，对甲不利。",
+      "evidence_ids": ["E2", "E4", "E5"]
+    },
+    {
+      "risk_id": "R2",
+      "category": "电子数据取证程序仍需核验",
+      "severity": "moderate",
+      "issue_id": "I3",
+      "description": "即使聊天内容明确，仍需核验提取程序、账号主体、完整上下文和数据完整性。",
+      "evidence_ids": ["E2"]
+    },
+    {
+      "risk_id": "R3",
+      "category": "对上游犯罪认识程度仍有细节争议",
+      "severity": "minor",
+      "issue_id": "I1",
+      "description": "甲对具体犯罪类型和全部资金来源的认识程度仍可进一步调查，但不影响现有材料对违法用途认知的基本支持。",
+      "evidence_ids": ["E2", "E3"]
+    }
+  ],
+  "expected_next_steps": [
+    {
+      "step_id": "S1",
+      "priority": "P0",
+      "action": "核验聊天记录的原始载体、提取笔录、账号主体和完整上下文，确保电子数据真实性、完整性和关联性。",
+      "resolves_gap_ids": ["G1"]
+    },
+    {
+      "step_id": "S2",
+      "priority": "P1",
+      "action": "进一步核实甲对上游活动性质、资金来源和持续配合次数的具体认识程度。",
+      "resolves_gap_ids": ["G1"]
+    },
+    {
+      "step_id": "S3",
+      "priority": "P1",
+      "action": "核对五千元转账的付款人、时间、备注和与聊天约定的对应关系，形成完整证据链。",
+      "resolves_gap_ids": ["G1"]
+    }
+  ],
+  "conclusion_boundaries": [
+    "现有材料较强支持甲具有犯罪明知并实施客观帮助行为。",
+    "最终结论仍应以电子数据取证合法性和上下文完整性核验为前提。"
+  ],
+  "must_not_claim": [
+    "只凭收取五千元即可当然认定全部犯罪构成要件。",
+    "因甲口头否认就应忽视完整电子数据及相互印证关系。"
+  ],
+  "evaluation_notes": "实务输出应体现风险等级已经由弱证据案显著上升，同时保留电子数据程序核验这一结论前提。"
+}

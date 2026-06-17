@@ -19,6 +19,10 @@ class WriterAgent(BaseAgent):
             output_field="final_report"
         )
 
+    def resolve_prompt_file(self, state):
+        task_mode = state.get("task_mode", "teaching")
+        return f"prompts/writer_{task_mode}_prompt.txt"
+
     def postprocess_result(self, result):
         if not isinstance(result, dict):
             return result
