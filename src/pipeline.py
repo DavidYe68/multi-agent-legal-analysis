@@ -271,7 +271,10 @@ def build_state_changes(round2_reviews):
 
 
 def build_deliberation_room(round1_reviews, round2_reviews, issues, config):
-    alliance_map = build_alliance_map(round1_reviews, round2_reviews)
+    if config["enable_round2"]:
+        alliance_map = build_alliance_map(round1_reviews, round2_reviews)
+    else:
+        alliance_map = {}
 
     if config["proof_state"]:
         final_issue_status = build_final_issue_status(round1_reviews, round2_reviews, issues)
