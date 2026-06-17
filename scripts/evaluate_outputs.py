@@ -68,6 +68,11 @@ def safe_rate(numerator, denominator):
         return 0
     return round(numerator / denominator, 3)
 
+def safe_f1(precision, recall):
+    if precision + recall == 0:
+        return 0
+    return round(2 * precision * recall / (precision + recall), 3)
+
 def evaluate_case(case_id, outputs_dir):
     state_path = f"{outputs_dir}/{case_id}/state_final.json"
     gold_path = f"{GOLD_DIR}/{case_id}_gold.json"
@@ -98,7 +103,7 @@ def evaluate_case(case_id, outputs_dir):
     for item in state.get("issues", {}).get("issues", []):
         pred_issue_ids.add(item.get("issue_id"))
 
-    issue_coverage = safe_rate(len(pred_issue_ids & gold_issue_ids), len(gold_issue_ids))
+    issue_id_recall = safe_rate(len(pred_issue_ids & gold_issue_ids), len(gold_issue_ids))
 
     cited_evidence_ids = set(collect_values(model_output, "evidence_id"))
     cited_evidence_ids.update(collect_values(model_output, "evidence_ids"))
@@ -115,7 +120,10 @@ def evaluate_case(case_id, outputs_dir):
         for issue_id in item.get("issue_ids", []):
             pred_pairs.add((evidence_id, issue_id))
 
-    evidence_issue_map_rate = safe_rate(len(pred_pairs & gold_pairs), len(gold_pairs))
+    matched_pair_count = len(pred_pairs & gold_pairs)
+    gold_pair_recall = safe_rate(matched_pair_count, len(gold_pairs))
+    pred_pair_precision = safe_rate(matched_pair_count, len(pred_pairs))
+    pair_f1 = safe_f1(pred_pair_precision, gold_pair_recall)
 
     gold_gap_issue_ids = set()
     for item in gold.get("gold_evidence_gaps", []):
@@ -151,17 +159,19 @@ def evaluate_case(case_id, outputs_dir):
         if text and text in report_text:
             unsafe_hits.append(text)
 
-    safe_conclusion_ok = len(unsafe_hits) == 0
+    unsafe_exact_string_not_found = len(unsafe_hits) == 0
 
     return {
         "case_id": case_id,
         "ok": True,
-        "issue_coverage": issue_coverage,
+        "issue_id_recall": issue_id_recall,
         "evidence_valid_rate": evidence_valid_rate,
-        "evidence_issue_map_rate": evidence_issue_map_rate,
+        "gold_pair_recall": gold_pair_recall,
+        "pred_pair_precision": pred_pair_precision,
+        "pair_f1": pair_f1,
         "gap_coverage": gap_coverage,
         "final_status_accuracy": final_status_accuracy,
-        "safe_conclusion_ok": safe_conclusion_ok,
+        "unsafe_exact_string_not_found": unsafe_exact_string_not_found,
         "unsafe_hits": unsafe_hits,
         "final_status_map": final_status_map,
         "paired_case_id": gold.get("pair_expectation", {}).get("paired_case_id")
@@ -204,6 +214,9 @@ def build_pair_results(case_results):
 
         first = by_id[pair_key[0]]
         second = by_id[pair_key[1]]
+        if not first.get("ok") or not second.get("ok"):
+            continue
+
         first_score = average_status_score(first)
         second_score = average_status_score(second)
 
@@ -211,7 +224,7 @@ def build_pair_results(case_results):
             "pair": list(pair_key),
             "first_average_status_score": round(first_score, 3),
             "second_average_status_score": round(second_score, 3),
-            "has_direction_change": first_score != second_score
+            "has_status_score_change": first_score != second_score
         })
 
     return pair_results
@@ -219,9 +232,11 @@ def build_pair_results(case_results):
 def build_overall(case_results, pair_results):
     ok_results = [item for item in case_results if item.get("ok")]
     fields = [
-        "issue_coverage",
+        "issue_id_recall",
         "evidence_valid_rate",
-        "evidence_issue_map_rate",
+        "gold_pair_recall",
+        "pred_pair_precision",
+        "pair_f1",
         "gap_coverage",
         "final_status_accuracy"
     ]
@@ -230,7 +245,7 @@ def build_overall(case_results, pair_results):
         "case_count": len(case_results),
         "ok_case_count": len(ok_results),
         "pair_count": len(pair_results),
-        "pair_direction_change_count": sum(1 for item in pair_results if item.get("has_direction_change"))
+        "pair_status_score_change_count": sum(1 for item in pair_results if item.get("has_status_score_change"))
     }
 
     for field in fields:
@@ -238,10 +253,10 @@ def build_overall(case_results, pair_results):
         overall[field] = safe_rate(total, len(ok_results))
 
     if ok_results:
-        safe_count = sum(1 for item in ok_results if item.get("safe_conclusion_ok"))
-        overall["safe_conclusion_rate"] = safe_rate(safe_count, len(ok_results))
+        safe_count = sum(1 for item in ok_results if item.get("unsafe_exact_string_not_found"))
+        overall["unsafe_exact_string_not_found_rate"] = safe_rate(safe_count, len(ok_results))
     else:
-        overall["safe_conclusion_rate"] = 0
+        overall["unsafe_exact_string_not_found_rate"] = 0
 
     return overall
 
@@ -262,21 +277,23 @@ def write_markdown(report, path):
         "",
         "## Cases",
         "",
-        "| Case ID | OK | Issue Coverage | Evidence Valid | Evidence-Issue Map | Gap Coverage | Final Status | Safe Conclusion |",
-        "|---|---|---:|---:|---:|---:|---:|---|"
+        "| Case ID | OK | Issue ID Recall | Evidence Valid | Gold Pair Recall | Pred Pair Precision | Pair F1 | Gap Coverage | Final Status | Unsafe Exact String Not Found |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---|"
     ])
 
     for item in report.get("case_results", []):
         lines.append(
-            "| {case_id} | {ok} | {issue} | {evidence} | {mapping} | {gap} | {status} | {safe} |".format(
+            "| {case_id} | {ok} | {issue} | {evidence} | {gold_pair} | {pred_pair} | {pair_f1} | {gap} | {status} | {safe} |".format(
                 case_id=item.get("case_id", ""),
                 ok=item.get("ok", False),
-                issue=item.get("issue_coverage", ""),
+                issue=item.get("issue_id_recall", ""),
                 evidence=item.get("evidence_valid_rate", ""),
-                mapping=item.get("evidence_issue_map_rate", ""),
+                gold_pair=item.get("gold_pair_recall", ""),
+                pred_pair=item.get("pred_pair_precision", ""),
+                pair_f1=item.get("pair_f1", ""),
                 gap=item.get("gap_coverage", ""),
                 status=item.get("final_status_accuracy", ""),
-                safe=item.get("safe_conclusion_ok", "")
+                safe=item.get("unsafe_exact_string_not_found", "")
             )
         )
 
@@ -284,7 +301,7 @@ def write_markdown(report, path):
         "",
         "## A/B Pairs",
         "",
-        "| Pair | First Score | Second Score | Has Direction Change |",
+        "| Pair | First Score | Second Score | Has Status Score Change |",
         "|---|---:|---:|---|"
     ])
 
@@ -294,7 +311,7 @@ def write_markdown(report, path):
                 pair=", ".join(item.get("pair", [])),
                 first=item.get("first_average_status_score", ""),
                 second=item.get("second_average_status_score", ""),
-                changed=item.get("has_direction_change", "")
+                changed=item.get("has_status_score_change", "")
             )
         )
 
