@@ -1,7 +1,7 @@
 from openai import OpenAI
 import json
 import time
-from config.settings import  BASE_URL, MODEL, TEMPERATURE, MAX_TOKENS, MAX_RETRIES
+from config.settings import  BASE_URL, MODEL, TEMPERATURE, MAX_TOKENS, MAX_RETRIES, INPUT_CACHE_HIT_PRICE, INPUT_PRICE, OUTPUT_PRICE
 
 import os
 from dotenv import load_dotenv
@@ -25,6 +25,11 @@ def clean_response(text):
 
     return text.strip()
 
+def estimate_cost(cache_hit_tokens, cache_miss_tokens, completion_tokens):
+    input_cost = cache_hit_tokens / 1000000 * INPUT_CACHE_HIT_PRICE + cache_miss_tokens / 1000000 * INPUT_PRICE
+    output_cost = completion_tokens / 1000000 * OUTPUT_PRICE
+    return round(input_cost + output_cost, 6)
+
 def call_llm(system_prompt, user_message):
     messages = [
         {"role": "system", "content": system_prompt},
@@ -44,7 +49,20 @@ def call_llm(system_prompt, user_message):
             raw_text = response.choices[0].message.content
             clean_text = clean_response(raw_text)
             result = json.loads(clean_text)
-            return result
+
+            cache_hit_tokens = getattr(response.usage, "prompt_cache_hit_tokens", 0)
+            cache_miss_tokens = response.usage.prompt_tokens - cache_hit_tokens
+            usage = {
+                "model": MODEL,
+                "temperature": TEMPERATURE,
+                "prompt_tokens": response.usage.prompt_tokens,
+                "completion_tokens": response.usage.completion_tokens,
+                "total_tokens": response.usage.total_tokens,
+                "cache_hit_tokens": cache_hit_tokens,
+                "cache_miss_tokens": cache_miss_tokens,
+                "estimated_cost": estimate_cost(cache_hit_tokens, cache_miss_tokens, response.usage.completion_tokens),
+            }
+            return result, usage
         
         # AIGC 报错补丁
         except json.JSONDecodeError as e:

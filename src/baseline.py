@@ -19,8 +19,9 @@ def run_baseline(case_data, config):
     }, ensure_ascii=False)
 
     print("开始调用Baseline LLM")
-    report = call_llm(prompt, baseline_input)
+    report, usage = call_llm(prompt, baseline_input)
     print("完成")
 
     state["final_report"] = report
+    state["baseline_usage"] = usage
     return state

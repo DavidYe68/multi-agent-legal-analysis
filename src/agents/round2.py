@@ -32,16 +32,17 @@ class Round2ReviewerAgent(BaseAgent):
         start_time = start.isoformat()
         retry_count = 0
         result = {}
+        usage = {}
 
         print(f"开始调用{self.name}...")
         try:
-            result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+            result, usage = call_llm(prompt, json.dumps(context, ensure_ascii=False))
 
             error = self.validate(result, state)
             if error:
                 retry_count = 1
                 print(f"{self.name} 输出校验失败: {error}，重试中...")
-                result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+                result, usage = call_llm(prompt, json.dumps(context, ensure_ascii=False))
                 error = self.validate(result, state)
 
             if error:
@@ -51,13 +52,13 @@ class Round2ReviewerAgent(BaseAgent):
             state[self.output_field] = result
 
             end = datetime.now()
-            logger.log(self.name, context, result,  round_id=2,  start_time=start_time, 
+            logger.log(self.name, context, result,  round_id=2,  start_time=start_time,
                        end_time=end.isoformat(),  latency_sec=round((end - start).total_seconds(), 3),
-                        retry_count=retry_count, validation_passed=True, error="")
+                        retry_count=retry_count, validation_passed=True, error="", usage=usage)
             return state
         except Exception as e:
             end = datetime.now()
-            logger.log(self.name, context, result,  round_id=2, start_time=start_time, 
-                       end_time=end.isoformat(), latency_sec=round((end - start).total_seconds(), 3), 
-                       retry_count=retry_count, validation_passed=False, error=str(e))
+            logger.log(self.name, context, result,  round_id=2, start_time=start_time,
+                       end_time=end.isoformat(), latency_sec=round((end - start).total_seconds(), 3),
+                       retry_count=retry_count, validation_passed=False, error=str(e), usage=usage)
             raise

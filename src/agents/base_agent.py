@@ -22,17 +22,18 @@ class BaseAgent:
         start_time = start.isoformat()
         retry_count = 0
         result = {}
+        usage = {}
 
         print(f"[{self.name}] 开始调用 LLM...")
         try:
-            result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+            result, usage = call_llm(prompt, json.dumps(context, ensure_ascii=False))
             result = self.postprocess_result(result)
 
             error = self.validate(result, state)
             if error:
                 retry_count = 1
                 print(f"[{self.name}] 输出校验失败: {error}，重试中...")
-                result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+                result, usage = call_llm(prompt, json.dumps(context, ensure_ascii=False))
                 result = self.postprocess_result(result)
                 error = self.validate(result, state)
 
@@ -53,7 +54,8 @@ class BaseAgent:
                 latency_sec=round((end - start).total_seconds(), 3),
                 retry_count=retry_count,
                 validation_passed=True,
-                error=""
+                error="",
+                usage=usage
             )
             return state
         except Exception as e:
@@ -68,7 +70,8 @@ class BaseAgent:
                 latency_sec=round((end - start).total_seconds(), 3),
                 retry_count=retry_count,
                 validation_passed=False,
-                error=str(e)
+                error=str(e),
+                usage=usage
             )
             raise
     
