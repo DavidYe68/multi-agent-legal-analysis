@@ -26,12 +26,14 @@ class BaseAgent:
         print(f"[{self.name}] 开始调用 LLM...")
         try:
             result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+            result = self.postprocess_result(result)
 
             error = self.validate(result, state)
             if error:
                 retry_count = 1
                 print(f"[{self.name}] 输出校验失败: {error}，重试中...")
                 result = call_llm(prompt, json.dumps(context, ensure_ascii=False))
+                result = self.postprocess_result(result)
                 error = self.validate(result, state)
 
             if error:
@@ -77,6 +79,9 @@ class BaseAgent:
             return 2
         return ""
 
+    def postprocess_result(self, result):
+        return result
+
     def validate(self, result, state):
         try:
             with open("schemas/agent_output_schemas.json", "r", encoding="utf-8") as f:
@@ -94,6 +99,9 @@ class BaseAgent:
         except FileNotFoundError:
             return ""
         except ValidationError as e:
+            path = ".".join(str(item) for item in e.absolute_path)
+            if path:
+                return f"{path}: {e.message}"
             return e.message
 
     def validate_ids(self, result, state):
