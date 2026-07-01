@@ -142,3 +142,9 @@
 - 修复practice
 - 修复批量运行容错，单案失败不再中断整批
 - 修复前端数据读取路径
+
+# 八、6.30（claude opus 4.8）
+- 完善baseline设计
+- 删除评估脚本中的机械匹配，并重写修改README
+- 新增 src/modes.py，把practice双模式的判断从pipeline里抽出来单独管
+- requirements.txt明确版本
