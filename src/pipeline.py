@@ -1,7 +1,6 @@
-import json
-
 from src.state_manager import create_state, validate_state_schema
 from src.baseline import run_baseline
+from src.modes import modes_for_case, build_reports_for_modes
 from src.logger import Logger
 
 # from src.agents.clerk import ClerkAgent
@@ -17,9 +16,6 @@ from src.agents.writer import WriterAgent
 
 
 REVIEWERS = ["legal", "social", "expert", "public"]
-
-with open("datasets/splits/practice_validation.json", "r", encoding="utf-8") as f:
-    PRACTICE_CASES = set(json.load(f))
 
 def run_pipeline(case_data, config):
     if config["mode"] == "baseline":
@@ -330,22 +326,16 @@ def run_summary(state, logger):
     state = ForepersonAgent().run(state, logger)
 
     default_mode = state.get("task_mode", "teaching")
-    modes = [default_mode]
-    if state.get("case_id") in PRACTICE_CASES:
-        modes = ["teaching", "practice"]
+    modes = modes_for_case(state.get("case_id"), default_mode)
 
-    final_reports = {}
-    for mode in modes:
+    def produce_report(mode):
         state["task_mode"] = mode
-        try:
-            state = WriterAgent().run(state, logger)
-            final_reports[mode] = state["final_report"]
-        except Exception as e:
-            if mode == default_mode:
-                raise
-            print(f"[writer] {mode} 模式生成失败，跳过：{e}")
+        WriterAgent().run(state, logger)
+        return state["final_report"]
+
+    final_reports, default_report = build_reports_for_modes(modes, default_mode, produce_report)
 
     state["task_mode"] = default_mode
     state["final_reports"] = final_reports
-    state["final_report"] = final_reports[default_mode]
+    state["final_report"] = default_report
     return state
