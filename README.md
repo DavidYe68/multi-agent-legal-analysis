@@ -269,13 +269,12 @@ multi_agent_logs/{exp_name}/{case_id}_log.json
 
 评估分两块：结构与安全由脚本自动检查，法律语义由人工对齐评定。
 
-自动检查（`scripts/evaluate_outputs.py` / `scripts/evaluate_practice_outputs.py`）覆盖：
+跑实验前，先用 `scripts/validate_dataset.py` 检查数据集本身：case、gold 是否符合 schema；案件内部的 fact_id、evidence_id、issue_id 引用是否有效、有没有重复；processed 和 gold 是否一一对应；split 划分是否合法。
 
-- 数据格式是否合法、输出文件是否存在；
-- evidence_id、fact_id、issue_id 等引用是否有效；
-- gold 有没有误进模型输入；
-- 报告里有没有踩到禁用结论这条安全红线；
-- A/B 对照案件之间，最终证明状态有没有相应变化。
+跑完实验后，用两个脚本检查模型输出：
+
+- `scripts/evaluate_outputs.py`：案件有没有正常跑出结果（输出文件、gold 文件在不在）；模型报告引用的证据编号（evidence_id）里有多少是真实存在的、有没有编造（evidence_valid_rate）；最终报告有没有原样说出 gold 标注的「禁用结论」（安全红线）。
+- `scripts/evaluate_practice_outputs.py`：实务模式报告有没有说出 gold 里「绝对不能下」的结论（overclaim）；有没有给出风险点和下一步建议。
 
 法律语义评定以人工对齐表为口径，忽略 `I1`、`I2` 这类编号，只按法律含义逐条判定：
 
